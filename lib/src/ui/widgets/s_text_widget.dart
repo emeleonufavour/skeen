@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myskin_flutterbytes/gen/fonts.gen.dart';
 
 //A mutation of the traditional Text widget provided by Flutter. This mutation is suited
 //to accomodate the style of Text used throughout this application.
@@ -33,7 +34,7 @@ class TextWidget extends StatelessWidget {
       text,
       style: TextStyle(
         overflow: overflow,
-        fontFamily: fontFamily ?? 'Poppins',
+        fontFamily: fontFamily ?? FontFamily.poppins,
         fontSize: fontsize?.sp ?? 12.sp,
         fontWeight: fontWeight ?? FontWeight.w400,
         color: color ?? Colors.black,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:myskin_flutterbytes/ui/style/ui_constants.dart';
-import 'package:myskin_flutterbytes/utilities/responsive_dimension.dart';
+import 'package:myskin_flutterbytes/src/ui/style/ui_constants.dart';
+import 'package:myskin_flutterbytes/src/utilities/responsive_dimension.dart';
 
 import 's_text_widget.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myskin_flutterbytes/app/app_theme.dart';
+import 'package:myskin_flutterbytes/ui/style/app_theme.dart';
 
 import 'ui/home/home_page.dart';
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) => MaterialApp(
           title: 'My Skin',
           theme: AppTheme.lightTheme,
-          home: MyHomePage(),
+          home: const MyHomePage(),
         ),
       ),
     );

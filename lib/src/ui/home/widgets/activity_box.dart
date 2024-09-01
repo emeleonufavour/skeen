@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myskin_flutterbytes/utilities/extensions.dart';
+import 'package:myskin_flutterbytes/utilities/extensions/sized_box.dart';
 
 import '../../style/ui_constants.dart';
 import '../../widgets/s_text_widget.dart';
 
 class ActivityBox extends StatelessWidget {
-  String iconPath;
-  ActivityBox({required this.iconPath, super.key});
+  final String iconPath;
+  const ActivityBox({required this.iconPath, super.key});
 
   @override
   Widget build(BuildContext context) {
