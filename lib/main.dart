@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myskin_flutterbytes/ui/style/app_theme.dart';
-
-import 'ui/home/home_page.dart';
+import 'src/ui/home/home_page.dart';
+import 'src/ui/style/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
