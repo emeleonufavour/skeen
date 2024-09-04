@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myskin_flutterbytes/utilities/extensions.dart';
-
-import 's_text_widget.dart';
+import 'package:myskin_flutterbytes/src/ui/home/home.dart';
 
 class SRichText extends StatelessWidget {
   final String firstText;

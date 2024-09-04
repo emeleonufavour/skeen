@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         designSize: const Size(375, 812),
         builder: (context, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'My Skin',
           theme: AppTheme.lightTheme,
           home: const MyHomePage(),

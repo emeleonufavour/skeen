@@ -1,3 +1,5 @@
+import 'package:myskin_flutterbytes/src/ui/home/widgets/bottom_nav_bar.dart';
+
 import 'home.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -104,11 +106,13 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         onPressed: () {},
         child: SvgPicture.asset(Assets.svg.scanIcon),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

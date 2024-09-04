@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:myskin_flutterbytes/ui/style/ui_constants.dart';
+import '../home/home.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(

@@ -29,11 +29,23 @@ class $AssetsImagesGen {
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
+  /// File path: assets/svg/ChartPieSlice.svg
+  String get chartPieSlice => 'assets/svg/ChartPieSlice.svg';
+
+  /// File path: assets/svg/ChatCircleDots.svg
+  String get chatCircleDots => 'assets/svg/ChatCircleDots.svg';
+
   /// File path: assets/svg/bell.svg
   String get bell => 'assets/svg/bell.svg';
 
   /// File path: assets/svg/flower.svg
   String get flower => 'assets/svg/flower.svg';
+
+  /// File path: assets/svg/gear.svg
+  String get gear => 'assets/svg/gear.svg';
+
+  /// File path: assets/svg/house.svg
+  String get house => 'assets/svg/house.svg';
 
   /// File path: assets/svg/lotus.svg
   String get lotus => 'assets/svg/lotus.svg';
@@ -42,7 +54,16 @@ class $AssetsSvgGen {
   String get scanIcon => 'assets/svg/scan_icon.svg';
 
   /// List of all assets
-  List<String> get values => [bell, flower, lotus, scanIcon];
+  List<String> get values => [
+        chartPieSlice,
+        chatCircleDots,
+        bell,
+        flower,
+        gear,
+        house,
+        lotus,
+        scanIcon
+      ];
 }
 
 class Assets {
