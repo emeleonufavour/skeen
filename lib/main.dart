@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'src/ui/chat_bot/chat_bot_view.dart';
 import 'src/ui/home/home_page.dart';
+import 'src/ui/report/report_view.dart';
 import 'src/ui/style/app_theme.dart';
 
 void main() {
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'My Skin',
           theme: AppTheme.lightTheme,
-          home: const MyHomePage(),
+          home: const ChatBotView(),
         ),
       ),
     );

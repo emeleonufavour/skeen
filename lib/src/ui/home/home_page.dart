@@ -106,7 +106,7 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {},

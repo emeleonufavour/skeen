@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:myskin_flutterbytes/src/ui/home/home.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -12,78 +13,63 @@ class BottomNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           // Home icon
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Column(
-              children: [
-                SvgPicture.asset(
-                  Assets.svg.house,
-                  height: 18.75.h,
-                ),
-                TextWidget(
-                  text: "Home",
-                  fontsize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff999999),
-                )
-              ],
-            ),
-          ),
+          _BottomNavBarItem(label: "Home", iconPath: Assets.svg.house),
           // Report
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, right: 30),
-            child: Column(
-              children: [
-                SvgPicture.asset(
-                  Assets.svg.chartPieSlice,
-                  height: 18.75.h,
-                ),
-                TextWidget(
-                  text: "Chart",
-                  fontsize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff999999),
-                )
-              ],
-            ),
+          _BottomNavBarItem(
+            label: "Reports",
+            iconPath: Assets.svg.chartPieSlice,
+            // right: 20.w,
           ),
+          10.w.sW,
           // Chatbox
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, left: 30),
-            child: Column(
-              children: [
-                SvgPicture.asset(
-                  Assets.svg.chatCircleDots,
-                  height: 18.75.h,
-                ),
-                TextWidget(
-                  text: "Chatbox",
-                  fontsize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff999999),
-                )
-              ],
-            ),
+          _BottomNavBarItem(
+            label: "Chatbot",
+            iconPath: Assets.svg.chatCircleDots,
+            // left: 50.w,
           ),
           // Settings
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Column(
-              children: [
-                SvgPicture.asset(
-                  Assets.svg.gear,
-                  height: 18.75.h,
-                ),
-                TextWidget(
-                  text: "Settings",
-                  fontsize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff999999),
-                )
-              ],
-            ),
-          ),
+          _BottomNavBarItem(label: "Settings", iconPath: Assets.svg.gear)
         ],
+      ),
+    );
+  }
+}
+
+class _BottomNavBarItem extends StatelessWidget {
+  final String label;
+  final String iconPath;
+  final double left;
+  final double right;
+  const _BottomNavBarItem({
+    super.key,
+    required this.label,
+    required this.iconPath,
+    this.left = 0,
+    this.right = 0,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.lightImpact();
+      },
+      child: Padding(
+        padding: EdgeInsets.only(top: 8.0, left: left, right: right),
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              height: 18.75.h,
+            ),
+            TextWidget(
+              text: label,
+              fontsize: 12.sp,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xff999999),
+            )
+          ],
+        ),
       ),
     );
   }

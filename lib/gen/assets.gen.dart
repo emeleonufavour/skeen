@@ -35,6 +35,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ChatCircleDots.svg
   String get chatCircleDots => 'assets/svg/ChatCircleDots.svg';
 
+  /// File path: assets/svg/arrow_clock.svg
+  String get arrowClock => 'assets/svg/arrow_clock.svg';
+
   /// File path: assets/svg/bell.svg
   String get bell => 'assets/svg/bell.svg';
 
@@ -50,19 +53,28 @@ class $AssetsSvgGen {
   /// File path: assets/svg/lotus.svg
   String get lotus => 'assets/svg/lotus.svg';
 
+  /// File path: assets/svg/scan_font.svg
+  String get scanFont => 'assets/svg/scan_font.svg';
+
   /// File path: assets/svg/scan_icon.svg
   String get scanIcon => 'assets/svg/scan_icon.svg';
+
+  /// File path: assets/svg/send_icon.svg
+  String get sendIcon => 'assets/svg/send_icon.svg';
 
   /// List of all assets
   List<String> get values => [
         chartPieSlice,
         chatCircleDots,
+        arrowClock,
         bell,
         flower,
         gear,
         house,
         lotus,
-        scanIcon
+        scanFont,
+        scanIcon,
+        sendIcon
       ];
 }
 

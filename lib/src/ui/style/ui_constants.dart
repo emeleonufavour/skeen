@@ -13,4 +13,6 @@ class UIConstants {
   static Color primaryColor = const Color(0xffB36370);
   static Color backgroundColor = const Color(0xffFAFAFF);
   static Color borderColor = const Color(0xffF1F1F1);
+  static Color grey = const Color(0xff999999);
+  static Color lightGrey = const Color(0xffF1F1F1);
 }
