@@ -1,3 +1,2 @@
-class App {
-  void initialize() {}
-}
+export 'skeen.dart';
+export 'locator.dart';
