@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/report/views/report_view.dart';
 
 class SkeenApp extends StatefulWidget {
   const SkeenApp({super.key});
@@ -24,6 +25,7 @@ class _SkeenAppState extends State<SkeenApp> {
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
         initialRoute: NavBarView.route,
+        // initialRoute: ReportView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: navigatorKey,

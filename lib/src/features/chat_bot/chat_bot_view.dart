@@ -1,3 +1,5 @@
+import 'package:flutter_svg/svg.dart';
+import 'package:myskin_flutterbytes/src/features/chat_bot/components/chat_app_bar.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/widget/chat_text_field.dart';
 
 import '../../cores/cores.dart';
@@ -12,23 +14,21 @@ class ChatBotView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      // appBar: SAppBar(
-      //   title: "Welcome",
-      //   actions: [
-      //     Padding(
-      //       padding: EdgeInsets.only(right: 15.w),
-      //       child: Container(
-      //           padding: EdgeInsets.all(12.h),
-      //           decoration: BoxDecoration(
-      //               border:
-      //                   Border.all(color: UIConstants.grey.withOpacity(0.2)),
-      //               shape: BoxShape.circle),
-      //           child: SvgPicture.asset(Assets.svg.arrowClock)),
-      //     ),
-      //   ],
-      // ),
+    return BaseScaffold(
+      appBar: ChatAppBar(
+        title: "Welcome",
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 15.w),
+            child: Container(
+                padding: EdgeInsets.all(kfsVeryTiny.h),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Palette.lightGrey),
+                    shape: BoxShape.circle),
+                child: SvgPicture.asset(Assets.arrowClock)),
+          ),
+        ],
+      ),
       body: Column(children: [
         Align(
           alignment: Alignment.centerLeft,
@@ -43,13 +43,14 @@ class ChatBotView extends StatelessWidget {
               introText,
               fontSize: kfsVeryTiny,
               fontWeight: w400,
-              decorationColor: Colors.white,
+              textColor: Palette.white,
             ),
           ),
         ),
         ListView().expand(),
         const ChatTextField(),
       ]),
+      useSingleScroll: false,
     );
   }
 }

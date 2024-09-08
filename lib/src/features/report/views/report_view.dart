@@ -28,12 +28,12 @@ class ReportView extends StatelessWidget {
                 children: [
                   const TextWidget(
                     "No skin test yet. Touch the \" ",
-                    decorationColor: Colors.grey,
+                    textColor: Palette.grey,
                   ),
                   SvgPicture.asset(Assets.scanFont),
                   const TextWidget(
                     " \" button",
-                    decorationColor: Colors.grey,
+                    textColor: Palette.grey,
                   ),
                 ],
               )

@@ -1,7 +1,9 @@
-import '../../cores/cores.dart';
+import '../../../cores/cores.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({super.key});
+
+  static const String route = "chat_history";
 
   @override
   Widget build(BuildContext context) {

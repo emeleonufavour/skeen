@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class ChatTextField extends StatelessWidget {
@@ -10,11 +8,12 @@ class ChatTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(
-          CupertinoIcons.camera_fill,
-          size: 35,
-          color: Colors.grey,
-        ),
+        Container(
+            padding: const EdgeInsets.all(kfsTiny),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: Palette.lightGrey)),
+            child: SvgPicture.asset(Assets.scanBarcode)),
         Expanded(
           child: TextFormField(
             style: TextStyle(
@@ -33,17 +32,15 @@ class ChatTextField extends StatelessWidget {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(
-                    width: 2,
-                    style: BorderStyle.solid,
-                    // color: UIConstants.lightGrey
-                  )),
+                      width: 2,
+                      style: BorderStyle.solid,
+                      color: Palette.lightGrey)),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(
-                    width: 2,
-                    style: BorderStyle.solid,
-                    // color: UIConstants.lightGrey
-                  )),
+                      width: 2,
+                      style: BorderStyle.solid,
+                      color: Palette.lightGrey)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(
@@ -54,14 +51,13 @@ class ChatTextField extends StatelessWidget {
             ),
           ),
         ),
-        7.w.horizontalSpace,
         Container(
           padding: EdgeInsets.all(10.h),
           decoration: BoxDecoration(
               color: Theme.of(context).primaryColor, shape: BoxShape.circle),
           child: SvgPicture.asset(Assets.sendIcon),
         )
-      ],
-    ).padding(horizontal: 15, vertical: 25);
+      ].separate(7.w.horizontalSpace),
+    ).padding(horizontal: 1, vertical: 25);
   }
 }

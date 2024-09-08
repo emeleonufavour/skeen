@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/history/views/history_view.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
 
 class RouteGenerator {
@@ -18,6 +19,9 @@ class RouteGenerator {
         return pageRoute(const SkinCareGoalView());
       case ChatBotView.route:
         return pageRoute(const ChatBotView());
+      case HistoryView.route:
+        return pageRoute(const HistoryView());
+
       default:
         return errorRoute();
     }

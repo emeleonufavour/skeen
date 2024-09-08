@@ -12,6 +12,8 @@ class Assets {
   static String report = _svgAsset('reports');
   static String sendIcon = _svgAsset('send_icon');
   static String scanFont = _svgAsset('scan_font');
+  static String arrowClock = _svgAsset('arrow_clock');
+  static String scanBarcode = _svgAsset('scan_barcode');
 
   static String faceCream = _pngAsset('face_cream');
   static String veggies = _pngAsset('veggies');
