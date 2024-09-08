@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:intl/intl.dart' show DateFormat;
@@ -91,18 +90,18 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
                 },
                 // daysTextStyle: TextStyle(color: ),
                 iconColor: Theme.of(context).primaryColor,
-                headerTextStyle: const TextStyle(
-                    color: Colors.black, fontFamily: FontFamily.poppins),
-                selectedDayTextStyle: const TextStyle(
-                    color: Colors.white, fontFamily: FontFamily.poppins),
-                weekendTextStyle: const TextStyle(
-                    color: Colors.black, fontFamily: FontFamily.poppins),
-                todayTextStyle: const TextStyle(
-                    color: Colors.white, fontFamily: FontFamily.poppins),
-                weekdayTextStyle: TextStyle(
-                    color: Colors.grey, fontFamily: FontFamily.poppins),
+                headerTextStyle:
+                    TextStyle(color: Colors.black, fontFamily: Assets.poppins),
+                selectedDayTextStyle:
+                    TextStyle(color: Colors.white, fontFamily: Assets.poppins),
+                weekendTextStyle:
+                    TextStyle(color: Colors.black, fontFamily: Assets.poppins),
+                todayTextStyle:
+                    TextStyle(color: Colors.white, fontFamily: Assets.poppins),
+                weekdayTextStyle:
+                    TextStyle(color: Colors.grey, fontFamily: Assets.poppins),
                 thisMonthDayBorderColor: Colors.transparent,
-                todayButtonColor: Palette,
+                // todayButtonColor: Palette,
                 selectedDayButtonColor: Theme.of(context).primaryColor,
                 selectedDayBorderColor: Theme.of(context).primaryColor,
                 selectedDateTime: _selectedDate ?? DateTime.now(),

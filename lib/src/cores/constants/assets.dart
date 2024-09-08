@@ -14,4 +14,6 @@ class Assets {
   static String faceCream = _pngAsset('face_cream');
   static String veggies = _pngAsset('veggies');
   static String woman = _pngAsset('woman');
+
+  static String poppins = "Poppins";
 }
