@@ -2,15 +2,15 @@ import '../../../cores/cores.dart';
 
 class SDropDown extends StatelessWidget {
   final String? label;
-  String hintText;
+  final String hintText;
   final ValueChanged<String?> onChanged;
-  bool? tapped;
-  String? text;
-  List<String> dropDownList;
+  final bool? tapped;
+  final String? text;
+  final List<String> dropDownList;
   final ValueChanged<bool?> onTapped;
-  double dropDownHeight;
+  final double dropDownHeight;
 
-  SDropDown(
+  const SDropDown(
       {this.label,
       required this.dropDownList,
       required this.hintText,
@@ -32,24 +32,23 @@ class SDropDown extends StatelessWidget {
               ? TextWidget(
                   decorationColor: const Color(0xff101828),
                   label!,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14.sp,
+                  fontWeight: w500,
+                  fontSize: kfsTiny.sp,
                 )
               : const SizedBox.shrink(),
-          7.h.verticalSpace,
-          SmoothCustomDropdown(
+          CustomDropdown(
               hintText: hintText,
               dropDownList: dropDownList,
               dropDownHeight: dropDownHeight,
               onChanged: onChanged,
               onTapped: onTapped)
-        ],
+        ].separate(7.h.verticalSpace),
       ),
     );
   }
 }
 
-class SmoothCustomDropdown extends StatefulWidget {
+class CustomDropdown extends StatefulWidget {
   final String hintText;
   final List<String> dropDownList;
   final double dropDownHeight;
@@ -58,7 +57,7 @@ class SmoothCustomDropdown extends StatefulWidget {
   final bool? tapped;
   final String? initialValue;
 
-  const SmoothCustomDropdown({
+  const CustomDropdown({
     super.key,
     required this.hintText,
     required this.dropDownList,
@@ -70,10 +69,10 @@ class SmoothCustomDropdown extends StatefulWidget {
   });
 
   @override
-  _SmoothCustomDropdownState createState() => _SmoothCustomDropdownState();
+  _CustomDropdownState createState() => _CustomDropdownState();
 }
 
-class _SmoothCustomDropdownState extends State<SmoothCustomDropdown> {
+class _CustomDropdownState extends State<CustomDropdown> {
   bool _isDropDown = false;
   String? _selectedText;
 
@@ -87,7 +86,7 @@ class _SmoothCustomDropdownState extends State<SmoothCustomDropdown> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       width: double.maxFinite,
-      duration: const Duration(milliseconds: 300),
+      duration: duration,
       height: _isDropDown ? widget.dropDownHeight + 58.h : 58.h,
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xffF1F1F1), width: 2),
@@ -130,10 +129,8 @@ class _SmoothCustomDropdownState extends State<SmoothCustomDropdown> {
             },
           ),
           if (_isDropDown)
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14.w),
-              child: Divider(height: 1.h, color: Colors.grey.withOpacity(0.5)),
-            ),
+            Divider(height: 1.h, color: Colors.grey.withOpacity(0.5))
+                .padding(horizontal: kfsTiny.w),
           AnimatedCrossFade(
             firstChild: const SizedBox(),
             secondChild: SizedBox(
@@ -146,7 +143,7 @@ class _SmoothCustomDropdownState extends State<SmoothCustomDropdown> {
                     (index) {
                       if (index.isOdd) {
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                          padding: EdgeInsets.symmetric(horizontal: kfsTiny.w),
                           child: Divider(
                             color: Colors.grey.withOpacity(0.2),
                             thickness: 1,
@@ -168,12 +165,12 @@ class _SmoothCustomDropdownState extends State<SmoothCustomDropdown> {
                         child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 12),
+                              horizontal: kfsMedium, vertical: kfsVeryTiny),
                           child: TextWidget(
                             item,
                             decorationColor: const Color(0xff0D0D0D),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12.sp,
+                            fontWeight: w500,
+                            fontSize: kfsVeryTiny.sp,
                           ),
                         ),
                       );
@@ -185,7 +182,7 @@ class _SmoothCustomDropdownState extends State<SmoothCustomDropdown> {
             crossFadeState: _isDropDown
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
-            duration: const Duration(milliseconds: 300),
+            duration: duration,
           ),
         ],
       ),

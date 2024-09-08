@@ -8,6 +8,8 @@ String introText =
 class ChatBotView extends StatelessWidget {
   const ChatBotView({super.key});
 
+  static String route = "chat_bot";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

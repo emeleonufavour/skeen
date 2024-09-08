@@ -1,9 +1,11 @@
 import 'package:flutter_svg/svg.dart';
 
-import '../../cores/cores.dart';
+import '../../../cores/cores.dart';
 
 class ReportView extends StatelessWidget {
   const ReportView({super.key});
+
+  static String route = "report";
 
   @override
   Widget build(BuildContext context) {

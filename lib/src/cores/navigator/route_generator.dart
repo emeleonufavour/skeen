@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,6 +13,8 @@ class RouteGenerator {
     switch (settings.name) {
       case NavBarView.route:
         return pageRoute(const NavBarView());
+      case SkinCareGoalView.route:
+        return pageRoute(const SkinCareGoalView());
       default:
         return errorRoute();
     }
