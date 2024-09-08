@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/chat_bot_view.dart';
+import 'package:myskin_flutterbytes/src/features/chat_bot/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/report/views/report_view.dart';
 

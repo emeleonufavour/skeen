@@ -1,5 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/chat_bot/views/product_camera.dart';
 
 class ChatTextField extends StatelessWidget {
   const ChatTextField({super.key});
@@ -8,12 +9,15 @@ class ChatTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-            padding: const EdgeInsets.all(kfsTiny),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(width: 1, color: Palette.lightGrey)),
-            child: SvgPicture.asset(Assets.scanBarcode)),
+        GestureDetector(
+          onTap: () => goTo(CameraScreen.route),
+          child: Container(
+              padding: const EdgeInsets.all(kfsTiny),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1, color: Palette.lightGrey)),
+              child: SvgPicture.asset(Assets.scanBarcode)),
+        ),
         Expanded(
           child: TextFormField(
             style: TextStyle(
