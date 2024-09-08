@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../../cores/cores.dart';
 
 class SDropDown extends StatelessWidget {
@@ -61,7 +59,7 @@ class SmoothCustomDropdown extends StatefulWidget {
   final String? initialValue;
 
   const SmoothCustomDropdown({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.dropDownList,
     required this.dropDownHeight,
@@ -69,7 +67,7 @@ class SmoothCustomDropdown extends StatefulWidget {
     required this.onTapped,
     this.tapped,
     this.initialValue,
-  }) : super(key: key);
+  });
 
   @override
   _SmoothCustomDropdownState createState() => _SmoothCustomDropdownState();

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../cores/cores.dart';
 
 class HistoryView extends StatelessWidget {
@@ -10,42 +8,39 @@ class HistoryView extends StatelessWidget {
     return Scaffold(
       // appBar: const SAppBar(title: "History"),
       appBar: AppBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 10.h),
-            child: TextWidget(
-              "Today",
-              decorationColor: Color(0xff999999),
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-            ),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 10.h),
+          child: TextWidget(
+            "Today",
+            decorationColor: const Color(0xff999999),
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
           ),
-          const _HistoryItem(text: "Verifying Product Claims"),
-          10.h.verticalSpace,
-          const _HistoryItem(text: "Welcome"),
-          Padding(
-            padding: EdgeInsets.only(bottom: 10.h),
-            child: TextWidget(
-              "Yesterday",
-              decorationColor: const Color(0xff999999),
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-            ),
+        ),
+        const _HistoryItem(text: "Verifying Product Claims"),
+        10.h.verticalSpace,
+        const _HistoryItem(text: "Welcome"),
+        Padding(
+          padding: EdgeInsets.only(bottom: 10.h),
+          child: TextWidget(
+            "Yesterday",
+            decorationColor: const Color(0xff999999),
+            fontSize: kfsTiny.sp,
+            fontWeight: w600,
           ),
-          const _HistoryItem(text: "Verifying Product Claims"),
-          10.h.verticalSpace,
-          const _HistoryItem(text: "Finding the Perfect Routine"),
-        ]),
-      ),
+        ),
+        const _HistoryItem(text: "Verifying Product Claims"),
+        10.h.verticalSpace,
+        const _HistoryItem(text: "Finding the Perfect Routine"),
+      ]).padding(horizontal: 16.w, vertical: 0),
     );
   }
 }
 
 class _HistoryItem extends StatelessWidget {
   final String text;
-  const _HistoryItem({required this.text, super.key});
+  const _HistoryItem({required this.text});
 
   @override
   Widget build(BuildContext context) {

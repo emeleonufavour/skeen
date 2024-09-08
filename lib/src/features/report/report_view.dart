@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../cores/cores.dart';
@@ -18,27 +17,25 @@ class ReportView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: TextWidget(
                   "Skin test reports",
-                  fontWeight: FontWeight.w600,
+                  fontWeight: w600,
                   fontSize: 16.sp,
                 ),
               ),
-              250.h.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextWidget(
+                  const TextWidget(
                     "No skin test yet. Touch the \" ",
                     decorationColor: Colors.grey,
                   ),
-                  // SvgPicture.asset(Assets.svg.scanFont),
-                  // Assets.scanIcon.sv,
-                  TextWidget(
+                  SvgPicture.asset(Assets.scanFont),
+                  const TextWidget(
                     " \" button",
                     decorationColor: Colors.grey,
                   ),
                 ],
               )
-            ],
+            ].separate(250.h.verticalSpace),
           ),
         ),
       ),

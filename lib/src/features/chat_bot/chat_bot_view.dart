@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/text_field.dart';
+import 'package:myskin_flutterbytes/src/features/chat_bot/widget/chat_text_field.dart';
 
 import '../../cores/cores.dart';
 
@@ -40,13 +39,13 @@ class ChatBotView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16)),
             child: TextWidget(
               introText,
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
+              fontSize: kfsVeryTiny,
+              fontWeight: w400,
               decorationColor: Colors.white,
             ),
           ),
         ),
-        Expanded(child: ListView()),
+        ListView().expand(),
         const ChatTextField(),
       ]),
     );

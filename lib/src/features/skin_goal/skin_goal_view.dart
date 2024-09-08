@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/widget/s_dropdown.dart';
 
@@ -24,20 +23,19 @@ class SkinCareGoalView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                15.h.verticalSpace,
                 TextWidget(
                   "Setting your skincare goal",
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                ),
-                20.h.verticalSpace,
+                ).padding(top: 15.h, bottom: 20.h),
+
                 // Add your dynamic widgets here
-                TextWidget(
+                const TextWidget(
                   "Category",
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-                10.h.verticalSpace,
+                  fontSize: kfsTiny,
+                  fontWeight: w500,
+                ).padding(bottom: 10.h),
+
                 // Skin categories
                 Row(
                   children: [
@@ -47,23 +45,22 @@ class SkinCareGoalView extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(20)),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(
                             Icons.check,
-                            size: 12.h,
+                            size: kfsVeryTiny,
                             color: Colors.white,
                           ),
                           TextWidget(
                             "Skin health",
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
+                            fontSize: kfsVeryTiny,
+                            fontWeight: w400,
                             decorationColor: Colors.white,
                           )
                         ],
                       ),
                     ),
-                    10.w.horizontalSpace,
                     // Skin routine
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -71,7 +68,7 @@ class SkinCareGoalView extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: const Color(0xff99999999).withOpacity(0.6),
+                            color: const Color(0xff999999).withOpacity(0.6),
                           )),
                       child: Row(
                         children: [
@@ -80,20 +77,20 @@ class SkinCareGoalView extends StatelessWidget {
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
                             decorationColor:
-                                Color(0xff99999999).withOpacity(0.6),
+                                const Color(0xff999999).withOpacity(0.6),
                           )
                         ],
                       ),
                     ),
-                  ],
+                  ].separate(10.w.horizontalSpace),
                 ),
-                15.h.verticalSpace,
+
                 TextWidget(
                   "Goals",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
-                ),
-                10.h.verticalSpace,
+                ).padding(top: 15.h, bottom: 10.h),
+
                 // Goals
                 const Wrap(
                   children: [
@@ -105,37 +102,40 @@ class SkinCareGoalView extends StatelessWidget {
                     _GoalItem(goal: "Redness Reduction"),
                     _GoalItem(goal: "Detoxification"),
                   ],
-                ),
-                10.h.verticalSpace,
+                ).padding(bottom: 10.h),
+
                 TextWidget(
                   "Custom",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12.sp,
+                  fontWeight: w600,
+                  fontSize: kfsVeryTiny,
                   decorationColor: Theme.of(context).primaryColor,
-                ),
-                10.h.verticalSpace,
+                ).padding(bottom: 10.h),
+
                 SDropDown(
-                    dropDownList: const ["Daily", "Weekly", "Monthly"],
-                    hintText: "Frequency",
-                    dropDownHeight: 130.h,
-                    onChanged: (v) {},
-                    onTapped: (v) {}),
-                10.h.verticalSpace,
+                        dropDownList: const ["Daily", "Weekly", "Monthly"],
+                        hintText: "Frequency",
+                        dropDownHeight: 130.h,
+                        onChanged: (v) {},
+                        onTapped: (v) {})
+                    .padding(bottom: 10.h),
+
                 CalendarDropdown(
-                    hintText: "Start date",
-                    dropDownHeight: 350.h,
-                    onDateSelected: (v) {}),
-                10.h.verticalSpace,
+                        hintText: "Start date",
+                        dropDownHeight: 350.h,
+                        onDateSelected: (v) {})
+                    .padding(bottom: 10.h),
+
                 SDropDown(
-                    dropDownList: const ["Daily", "Weekly", "Monthly"],
-                    hintText: "Reminder",
-                    dropDownHeight: 130.h,
-                    onChanged: (v) {},
-                    onTapped: (v) {}),
-                20.h.verticalSpace,
+                        dropDownList: const ["Daily", "Weekly", "Monthly"],
+                        hintText: "Reminder",
+                        dropDownHeight: 130.h,
+                        onChanged: (v) {},
+                        onTapped: (v) {})
+                    .padding(bottom: 20.h),
+
                 Button(
                   text: "Save",
-                  onTap: () => Navigator.of(context).pop(),
+                  onTap: () => goBack(),
                 )
               ],
             ),
@@ -150,14 +150,14 @@ class SkinCareGoalView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       // appBar: SAppBar(title: "Skincare goal"),
-      body: Column(
+      body: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
             child: TextWidget(
               "You are yet to set a goal click the + button",
-              fontSize: 14.sp,
+              fontSize: kfsTiny,
               fontWeight: FontWeight.w500,
               decorationColor: const Color(0xff999999),
             ),
@@ -166,7 +166,7 @@ class SkinCareGoalView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showBottomSheet(context),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -174,7 +174,7 @@ class SkinCareGoalView extends StatelessWidget {
 
 class _GoalItem extends StatelessWidget {
   final String goal;
-  const _GoalItem({required this.goal, super.key});
+  const _GoalItem({required this.goal});
 
   @override
   Widget build(BuildContext context) {

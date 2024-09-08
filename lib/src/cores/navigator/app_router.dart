@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -11,7 +15,9 @@ Future<dynamic> goTo(String routeName, {Object? arguments}) {
 
 Future<dynamic> go(Widget page) {
   return navigatorKey.currentState!.push(
-    MaterialPageRoute(builder: (context) => page),
+    (!kIsWeb && Platform.isAndroid)
+        ? MaterialPageRoute(builder: (context) => page)
+        : CupertinoPageRoute(builder: (context) => page),
   );
 }
 
