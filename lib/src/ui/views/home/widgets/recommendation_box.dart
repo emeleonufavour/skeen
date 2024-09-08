@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myskin_flutterbytes/src/ui/style/ui_constants.dart';
 import 'package:myskin_flutterbytes/src/utilities/extensions/sized_box.dart';
-import '../../widgets/s_text_widget.dart';
+import '../../../widgets/s_text_widget.dart';
 
 class RecommendationBox extends StatelessWidget {
   final Color tagColor;

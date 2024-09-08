@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myskin_flutterbytes/gen/assets.gen.dart';
 
-import '../../style/ui_constants.dart';
-import '../../widgets/s_text_widget.dart';
+import '../../../style/ui_constants.dart';
+import '../../../widgets/s_text_widget.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});

@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:myskin_flutterbytes/src/ui/chat_bot/text_field.dart';
-import 'package:myskin_flutterbytes/src/ui/home/home.dart';
+import 'package:myskin_flutterbytes/src/ui/views/chat_bot/text_field.dart';
+import 'package:myskin_flutterbytes/src/ui/views/home/home.dart';
+import 'package:myskin_flutterbytes/src/ui/widgets/s_app_bar.dart';
 
 String introText =
     "Welcome! 👋 I'm here to help with all your skincare needs. You can ask me about your skin test results, get personalized product recommendations, or even scan the barcode of your skincare products to learn more about them. How can I assist you today?";
@@ -11,25 +11,8 @@ class ChatBotView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: EdgeInsets.only(left: 15.w),
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: UIConstants.grey.withOpacity(0.2)),
-                shape: BoxShape.circle),
-            child: const Icon(
-              CupertinoIcons.back,
-              color: Colors.black,
-            ),
-          ),
-        ),
-        title: TextWidget(
-          text: "Welcome",
-          fontWeight: FontWeight.w500,
-          fontsize: 14.sp,
-        ),
-        centerTitle: true,
+      appBar: SAppBar(
+        title: "Welcome",
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 15.w),

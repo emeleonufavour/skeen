@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'src/ui/chat_bot/chat_bot_view.dart';
-import 'src/ui/home/home_page.dart';
-import 'src/ui/report/report_view.dart';
+import 'src/ui/views/chat_bot/chat_bot_view.dart';
+import 'src/ui/views/history/history_view.dart';
+import 'src/ui/views/home/home_page.dart';
+import 'src/ui/views/report/report_view.dart';
 import 'src/ui/style/app_theme.dart';
+import 'src/ui/views/skin_goal/skin_goal_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,9 +30,9 @@ class MyApp extends StatelessWidget {
         designSize: const Size(375, 812),
         builder: (context, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'My Skin',
+          title: 'Skeen',
           theme: AppTheme.lightTheme,
-          home: const ChatBotView(),
+          home: const SkinCareGoalView(),
         ),
       ),
     );

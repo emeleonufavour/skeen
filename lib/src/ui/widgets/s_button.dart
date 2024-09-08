@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:myskin_flutterbytes/src/ui/style/ui_constants.dart';
 import 'package:myskin_flutterbytes/src/utilities/responsive_dimension.dart';
 
 import 's_text_widget.dart';
@@ -70,7 +69,9 @@ class _SButtonState extends State<SButton> with SingleTickerProviderStateMixin {
         HapticFeedback.lightImpact();
         Future.delayed(const Duration(milliseconds: 200), () {
           _controller.reverse();
-          widget.fct!();
+          if (widget.fct != null) {
+            widget.fct!();
+          }
         });
       },
       child: ScaleTransition(

@@ -1,4 +1,4 @@
-import 'package:myskin_flutterbytes/src/ui/home/widgets/bottom_nav_bar.dart';
+import 'package:myskin_flutterbytes/src/ui/views/home/widgets/bottom_nav_bar.dart';
 
 import 'home.dart';
 

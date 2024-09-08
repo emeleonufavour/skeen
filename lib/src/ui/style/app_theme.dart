@@ -1,4 +1,4 @@
-import '../home/home.dart';
+import '../views/home/home.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
@@ -9,5 +9,10 @@ class AppTheme {
       appBarTheme: AppBarTheme(
           backgroundColor: UIConstants.backgroundColor, elevation: 0.0),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: UIConstants.primaryColor));
+          backgroundColor: UIConstants.primaryColor),
+      checkboxTheme: CheckboxThemeData(
+          checkColor: WidgetStateProperty.all(UIConstants.primaryColor),
+          side: BorderSide(color: UIConstants.primaryColor),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))));
 }

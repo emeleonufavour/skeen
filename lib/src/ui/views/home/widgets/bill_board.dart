@@ -1,4 +1,4 @@
-import 'package:myskin_flutterbytes/src/ui/home/home.dart';
+import 'package:myskin_flutterbytes/src/ui/views/home/home.dart';
 
 class HomeBillBoard extends StatelessWidget {
   const HomeBillBoard({super.key});
