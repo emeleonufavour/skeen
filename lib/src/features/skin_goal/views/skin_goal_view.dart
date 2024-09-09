@@ -18,7 +18,7 @@ class SkinCareGoalView extends StatelessWidget {
               "You are yet to set a goal click the + button",
               fontSize: kfsTiny,
               fontWeight: w500,
-              decorationColor: Color(0xff999999),
+              textColor: Color(0xff999999),
             ),
           )
         ],
