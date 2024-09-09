@@ -1,7 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/notifier/skin_goal_notifier.dart';
-
-import '../../../cores/cores.dart';
 import '../skin_goal.dart';
 
 class SetSkinGoalView extends ConsumerWidget {

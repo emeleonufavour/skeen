@@ -1,8 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/notifier/skin_goal_notifier.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/views/set_goal_reminder.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/views/set_skin_goal.dart';
-import '../../../cores/cores.dart';
+import '../skin_goal.dart';
 
 class SkinGoalBottomSheet extends ConsumerWidget {
   final PageController _pageController = PageController();

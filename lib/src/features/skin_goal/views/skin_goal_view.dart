@@ -1,5 +1,3 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import '../../../cores/shared/app_bar.dart';
 import '../skin_goal.dart';
 
 class SkinCareGoalView extends StatelessWidget {
