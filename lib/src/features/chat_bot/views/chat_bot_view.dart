@@ -1,8 +1,8 @@
 import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/components/chat_app_bar.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/widget/chat_text_field.dart';
 
 import '../../../cores/cores.dart';
+import '../../../cores/shared/app_bar.dart';
 
 String introText =
     "Welcome! 👋 I'm here to help with all your skincare needs. You can ask me about your skin test results, get personalized product recommendations, or even scan the barcode of your skincare products to learn more about them. How can I assist you today?";
@@ -15,7 +15,7 @@ class ChatBotView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: ChatAppBar(
+      appBar: CustomAppBar(
         title: "Welcome",
         actions: [
           Padding(

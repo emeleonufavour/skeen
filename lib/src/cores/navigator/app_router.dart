@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -37,5 +37,11 @@ Future<dynamic> clearPath(String routeName, {Object? arguments}) {
 }
 
 void goBack([Object? result]) {
-  return navigatorKey.currentState!.pop(result);
+  final NavigatorState? navigator = navigatorKey.currentState;
+  if (navigator != null && navigator.canPop()) {
+    return navigator.pop(result);
+  } else {
+    AppLogger.logWarning(
+        "YOU ARE ATTEMPTING TO POP A SCREEN THAT HAS NO SCREEN BEFORE IT!");
+  }
 }

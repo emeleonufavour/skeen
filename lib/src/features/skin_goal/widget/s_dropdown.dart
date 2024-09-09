@@ -30,7 +30,7 @@ class SDropDown extends StatelessWidget {
         children: [
           label != null
               ? TextWidget(
-                  decorationColor: const Color(0xff101828),
+                  textColor: const Color(0xff101828),
                   label!,
                   fontWeight: w500,
                   fontSize: kfsTiny.sp,
@@ -98,7 +98,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
             title: TextWidget(
               widget.hintText,
               fontWeight: FontWeight.w500,
-              decorationColor: Colors.black,
+              textColor: Colors.black,
               fontSize: 12.sp,
             ),
             trailing: Row(
@@ -108,7 +108,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                   TextWidget(
                     _selectedText!,
                     fontWeight: FontWeight.w500,
-                    decorationColor: const Color(0xff999999),
+                    textColor: const Color(0xff999999),
                     fontSize: 12.sp,
                   ),
                 AnimatedRotation(
@@ -168,7 +168,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                               horizontal: kfsMedium, vertical: kfsVeryTiny),
                           child: TextWidget(
                             item,
-                            decorationColor: const Color(0xff0D0D0D),
+                            textColor: const Color(0xff0D0D0D),
                             fontWeight: w500,
                             fontSize: kfsVeryTiny.sp,
                           ),

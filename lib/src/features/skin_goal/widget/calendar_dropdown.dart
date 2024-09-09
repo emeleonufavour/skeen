@@ -51,7 +51,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
               title: TextWidget(
                 widget.hintText,
                 fontWeight: FontWeight.w500,
-                decorationColor: Colors.black,
+                textColor: Colors.black,
                 fontSize: 12,
               ),
               trailing: Row(
@@ -60,7 +60,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
                   if (_selectedDate != null)
                     TextWidget(
                       DateFormat('MMM d').format(_selectedDate!),
-                      decorationColor: const Color(0xff999999),
+                      textColor: const Color(0xff999999),
                       fontWeight: FontWeight.w500,
                       fontSize: 12.sp,
                     ),
