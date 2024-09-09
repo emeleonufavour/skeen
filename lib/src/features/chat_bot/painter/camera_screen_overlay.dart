@@ -4,33 +4,36 @@ class BarcodeScannerOverlay extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black54
+      ..color = Colors.black.withOpacity(0.3)
       ..style = PaintingStyle.fill;
 
-    final rectPaint = Paint()
+    final borderPaint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4.0;
 
-    // final screenWidth = screenWidth;
-    // final screenHeight = size.height;
-    final scanAreaSize = screenWidth * 0.7;
-    final scanAreaLeft = (screenWidth - scanAreaSize) / 2;
-    final scanAreaTop = (screenHeight - scanAreaSize) / 2;
+    final scanAreaWidth = screenWidth * 0.7;
+    final scanAreaHeight = screenHeight * 0.4;
+    final scanAreaLeft = (screenWidth - scanAreaWidth) / 2;
+    final scanAreaTop = (screenHeight - scanAreaHeight) / 2;
 
-    // Draw the semi-transparent overlay
+    // Grey background
     canvas.drawRect(Rect.fromLTWH(0, 0, screenWidth, screenHeight), paint);
 
-    // Draw the transparent scan area
-    canvas.drawRect(
-      Rect.fromLTWH(scanAreaLeft, scanAreaTop, scanAreaSize, scanAreaSize),
+    // transparent area
+    final scanRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(scanAreaLeft, scanAreaTop, scanAreaWidth, scanAreaHeight),
+      const Radius.circular(20),
+    );
+
+    canvas.drawRRect(
+      scanRect,
       Paint()..blendMode = BlendMode.clear,
     );
 
-    // Draw the white border around the scan area
-    canvas.drawRect(
-      Rect.fromLTWH(scanAreaLeft, scanAreaTop, scanAreaSize, scanAreaSize),
-      rectPaint,
+    canvas.drawRRect(
+      scanRect,
+      borderPaint,
     );
   }
 

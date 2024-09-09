@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/report/views/report_view.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
 
 class SkeenApp extends StatefulWidget {
   const SkeenApp({super.key});
@@ -24,7 +25,7 @@ class _SkeenAppState extends State<SkeenApp> {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: NavBarView.route,
+        initialRoute: SkinCareGoalView.route,
         // initialRoute: ReportView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,

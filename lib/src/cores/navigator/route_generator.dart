@@ -22,8 +22,8 @@ class RouteGenerator {
         return pageRoute(const ChatBotView());
       case HistoryView.route:
         return pageRoute(const HistoryView());
-      case CameraScreen.route:
-        return pageRoute(CameraScreen());
+      case BarcodeScannerScreen.route:
+        return pageRoute(BarcodeScannerScreen());
 
       default:
         return errorRoute();

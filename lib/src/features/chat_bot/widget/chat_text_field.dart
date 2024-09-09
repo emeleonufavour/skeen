@@ -10,7 +10,7 @@ class ChatTextField extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () => goTo(CameraScreen.route),
+          onTap: () => goTo(BarcodeScannerScreen.route),
           child: Container(
               padding: const EdgeInsets.all(kfsTiny),
               decoration: BoxDecoration(

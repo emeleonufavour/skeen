@@ -30,36 +30,36 @@ class CameraPreviewWidget extends ConsumerWidget {
   }
 }
 
-class CameraScreen extends ConsumerWidget {
-  static const String route = 'camera_screen';
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-              onPressed: () => goBack(), icon: const Icon(Icons.arrow_back)),
-          title: TextWidget('Camera App')),
-      body: Column(
-        children: [
-          Expanded(child: CameraPreviewWidget()),
-          ElevatedButton(
-            onPressed: () async {
-              final controller =
-                  await ref.read(cameraControllerProvider.future);
-              final image = await controller.takePicture();
+// class CameraScreen extends ConsumerWidget {
+//   static const String route = 'camera_screen';
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return Scaffold(
+//       appBar: AppBar(
+//           leading: IconButton(
+//               onPressed: () => goBack(), icon: const Icon(Icons.arrow_back)),
+//           title: TextWidget('Camera App')),
+//       body: Column(
+//         children: [
+//           Expanded(child: CameraPreviewWidget()),
+//           ElevatedButton(
+//             onPressed: () async {
+//               final controller =
+//                   await ref.read(cameraControllerProvider.future);
+//               final image = await controller.takePicture();
 
-              log('Picture saved to: ${image.path}');
-            },
-            child: TextWidget('Take Picture'),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//               log('Picture saved to: ${image.path}');
+//             },
+//             child: TextWidget('Take Picture'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-// Barcode scanner screen
 class BarcodeScannerScreen extends ConsumerStatefulWidget {
+  static const String route = 'barcode_scanner';
   @override
   _BarcodeScannerScreenState createState() => _BarcodeScannerScreenState();
 }
@@ -93,11 +93,23 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: _isScanning
-                        ? null
-                        : () => _scanBarcode(controller, barcodeScanner),
-                    child: Text(_isScanning ? 'Scanning...' : 'Scan Barcode'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: _isScanning
+                            ? null
+                            : () => _scanBarcode(controller, barcodeScanner),
+                        child: Text(
+                            _isScanning ? 'Scanning...' : 'Scan with Camera'),
+                      ),
+                      ElevatedButton(
+                        onPressed: _isScanning
+                            ? null
+                            : () => _pickAndScanImage(barcodeScanner),
+                        child: Text('Pick from Gallery'),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -118,19 +130,45 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
 
     try {
       final image = await controller.takePicture();
-      final inputImage = InputImage.fromFilePath(image.path);
-      final barcodes = await scanner.processImage(inputImage);
-
-      if (barcodes.isNotEmpty) {
-        ref.read(barcodeValueProvider.notifier).state = barcodes.first.rawValue;
-      } else {
-        ref.read(barcodeValueProvider.notifier).state = 'No barcode found';
-      }
+      await _processImage(image.path, scanner);
     } catch (e) {
-      log('Error scanning barcode: $e');
+      print('Error scanning barcode: $e');
       ref.read(barcodeValueProvider.notifier).state = 'Error scanning barcode';
     } finally {
       setState(() => _isScanning = false);
+    }
+  }
+
+  Future<void> _pickAndScanImage(BarcodeScanner scanner) async {
+    if (_isScanning) return;
+
+    setState(() => _isScanning = true);
+
+    try {
+      final picker = ref.read(imagePickerProvider);
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        await _processImage(pickedFile.path, scanner);
+      } else {
+        ref.read(barcodeValueProvider.notifier).state = 'No image selected';
+      }
+    } catch (e) {
+      print('Error picking or scanning image: $e');
+      ref.read(barcodeValueProvider.notifier).state = 'Error processing image';
+    } finally {
+      setState(() => _isScanning = false);
+    }
+  }
+
+  Future<void> _processImage(String imagePath, BarcodeScanner scanner) async {
+    final inputImage = InputImage.fromFilePath(imagePath);
+    final barcodes = await scanner.processImage(inputImage);
+
+    if (barcodes.isNotEmpty) {
+      ref.read(barcodeValueProvider.notifier).state = barcodes.first.rawValue;
+    } else {
+      ref.read(barcodeValueProvider.notifier).state = 'No barcode found';
     }
   }
 
