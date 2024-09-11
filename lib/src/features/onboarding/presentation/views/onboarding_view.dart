@@ -25,37 +25,43 @@ List<OnboardingContentModel> _onboardingContent = [
 
 class OnboardingView extends ConsumerWidget {
   OnboardingView({super.key});
+  static const String route = 'onboarding';
   final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentPage = ref.watch(onboardingProvider);
     return Scaffold(
-      body: Column(
-        children: [
-          PageView(
-            controller: pageController,
-            onPageChanged: (index) {
-              ref.read(onboardingProvider.notifier).setPage(index);
-            },
-            children: List.generate(_onboardingContent.length, (index) {
-              return _OnboardingView(model: _onboardingContent[index]);
-            }),
-          ),
-          Button(
-            onTap: () {
-              pageController.nextPage(
-                  duration: duration, curve: Curves.easeInOut);
-            },
-            child: TextWidget(
-              currentPage == 2 ? "Get started" : "Next",
-              fontWeight: w500,
-              fontSize: kfsTiny.sp,
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: screenHeight * .7,
+              child: PageView(
+                controller: pageController,
+                onPageChanged: (index) {
+                  ref.read(onboardingProvider.notifier).setPage(index);
+                },
+                children: List.generate(_onboardingContent.length, (index) {
+                  return _OnboardingView(model: _onboardingContent[index]);
+                }),
+              ),
             ),
-          ),
-          const RichTextWidget(
-              text: "Already has an account?", text2: "Sign in")
-        ],
+            Button(
+              onTap: () {
+                pageController.nextPage(
+                    duration: duration, curve: Curves.easeInOut);
+              },
+              text: currentPage == 2 ? "Get started" : "Next",
+            ).padding(horizontal: 18.w),
+            18.h.verticalSpace,
+            RichTextWidget(
+              text: "Already has an account? ",
+              text2: "Sign in",
+              textColor2: Theme.of(context).primaryColor,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -76,6 +82,7 @@ class _OnboardingView extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SvgPicture.asset(model.svgPath),
             TextWidget(
@@ -83,13 +90,14 @@ class _OnboardingView extends StatelessWidget {
               fontWeight: w700,
               fontSize: 20.sp,
               textColor: Theme.of(context).primaryColor,
-            ),
+            ).padding(top: 20.h),
             TextWidget(
               model.content,
               fontWeight: w400,
               fontSize: kfsTiny.sp,
+              textAlign: TextAlign.center,
             ),
-          ],
+          ].separate(10.h.verticalSpace),
         ),
       ),
     );

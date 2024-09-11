@@ -10,6 +10,7 @@ import 'package:myskin_flutterbytes/src/features/chat_bot/views/chat_bot_view.da
 import 'package:myskin_flutterbytes/src/features/chat_bot/views/product_camera.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/history/views/history_view.dart';
+import 'package:myskin_flutterbytes/src/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
 
 class RouteGenerator {
@@ -33,6 +34,8 @@ class RouteGenerator {
         return pageRoute(SigninView());
       case ForgotPasswordView.route:
         return pageRoute(ForgotPasswordView());
+      case OnboardingView.route:
+        return pageRoute(OnboardingView());
       default:
         return errorRoute();
     }
