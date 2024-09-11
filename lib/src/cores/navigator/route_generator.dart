@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/auth/views/forgot_password.dart';
+import 'package:myskin_flutterbytes/src/features/auth/views/signin_view.dart';
+import 'package:myskin_flutterbytes/src/features/auth/views/signup_view.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/views/product_camera.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
@@ -24,7 +27,12 @@ class RouteGenerator {
         return pageRoute(const HistoryView());
       case BarcodeScannerScreen.route:
         return pageRoute(BarcodeScannerScreen());
-
+      case SignUpView.route:
+        return pageRoute(SignUpView());
+      case SigninView.route:
+        return pageRoute(SigninView());
+      case ForgotPasswordView.route:
+        return pageRoute(ForgotPasswordView());
       default:
         return errorRoute();
     }

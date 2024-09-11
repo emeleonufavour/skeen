@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/auth/views/forgot_password.dart';
+import 'package:myskin_flutterbytes/src/features/auth/views/signin_view.dart';
+import 'package:myskin_flutterbytes/src/features/auth/views/signup_view.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/report/views/report_view.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
@@ -25,7 +28,7 @@ class _SkeenAppState extends State<SkeenApp> {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: SkinCareGoalView.route,
+        initialRoute: ForgotPasswordView.route,
         // initialRoute: ReportView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,

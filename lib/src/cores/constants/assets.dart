@@ -14,10 +14,18 @@ class Assets {
   static String scanFont = _svgAsset('scan_font');
   static String arrowClock = _svgAsset('arrow_clock');
   static String scanBarcode = _svgAsset('scan_barcode');
+  static String onboarding1 = _svgAsset("onb_1");
+  static String onboarding2 = _svgAsset("onb_2");
+  static String onboarding3 = _svgAsset("onb_3");
+  static String google = _svgAsset("google");
 
   static String faceCream = _pngAsset('face_cream');
   static String veggies = _pngAsset('veggies');
   static String woman = _pngAsset('woman');
+  static String level1 = _pngAsset("level_one");
+  static String level2 = _pngAsset("level_two");
+  static String level3 = _pngAsset("level_three");
+  static String level4 = _pngAsset("level_four");
 
   static String poppins = "Poppins";
 }
