@@ -1,6 +1,6 @@
-import '../../../cores/cores.dart';
+import '../cores.dart';
 
-class SDropDown extends StatelessWidget {
+class DropDownWidget extends StatelessWidget {
   final String? label;
   final String hintText;
   final ValueChanged<String?> onChanged;
@@ -8,13 +8,11 @@ class SDropDown extends StatelessWidget {
   final String? text;
   final List<String> dropDownList;
   final ValueChanged<bool?> onTapped;
-  final double dropDownHeight;
 
-  const SDropDown(
+  const DropDownWidget(
       {this.label,
       required this.dropDownList,
       required this.hintText,
-      required this.dropDownHeight,
       required this.onChanged,
       required this.onTapped,
       this.tapped,
@@ -36,10 +34,9 @@ class SDropDown extends StatelessWidget {
                   fontSize: kfsTiny.sp,
                 )
               : const SizedBox.shrink(),
-          CustomDropdown(
+          _CustomDropdown(
               hintText: hintText,
               dropDownList: dropDownList,
-              dropDownHeight: dropDownHeight,
               onChanged: onChanged,
               onTapped: onTapped)
         ].separate(7.h.verticalSpace),
@@ -48,20 +45,18 @@ class SDropDown extends StatelessWidget {
   }
 }
 
-class CustomDropdown extends StatefulWidget {
+class _CustomDropdown extends StatefulWidget {
   final String hintText;
   final List<String> dropDownList;
-  final double dropDownHeight;
   final Function(String) onChanged;
   final Function(bool?) onTapped;
   final bool? tapped;
   final String? initialValue;
 
-  const CustomDropdown({
+  const _CustomDropdown({
     super.key,
     required this.hintText,
     required this.dropDownList,
-    required this.dropDownHeight,
     required this.onChanged,
     required this.onTapped,
     this.tapped,
@@ -72,9 +67,10 @@ class CustomDropdown extends StatefulWidget {
   _CustomDropdownState createState() => _CustomDropdownState();
 }
 
-class _CustomDropdownState extends State<CustomDropdown> {
+class _CustomDropdownState extends State<_CustomDropdown> {
   bool _isDropDown = false;
   String? _selectedText;
+  final double _unitHeight = 45.h;
 
   @override
   void initState() {
@@ -87,7 +83,9 @@ class _CustomDropdownState extends State<CustomDropdown> {
     return AnimatedContainer(
       width: double.maxFinite,
       duration: duration,
-      height: _isDropDown ? widget.dropDownHeight + 58.h : 58.h,
+      height: _isDropDown
+          ? (_unitHeight * widget.dropDownList.length) + 58.h
+          : 58.h,
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xffF1F1F1), width: 2),
         borderRadius: BorderRadius.circular(12),
@@ -134,7 +132,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
           AnimatedCrossFade(
             firstChild: const SizedBox(),
             secondChild: SizedBox(
-              height: widget.dropDownHeight,
+              height: (_unitHeight * widget.dropDownList.length),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,6 +161,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                           widget.onChanged(item);
                         },
                         child: Container(
+                          height: _unitHeight,
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(
                               horizontal: kfsMedium, vertical: kfsVeryTiny),

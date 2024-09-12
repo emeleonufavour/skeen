@@ -1,13 +1,12 @@
-import 'dart:developer';
-
 import 'package:camera/camera.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../cores/cores.dart';
-import '../notifier/chat_bot_notifier.dart';
+import '../../../../../cores/cores.dart';
+import '../../notifiers/barcode_scanner_notifier.dart';
+import '../../notifiers/skin_product_notifier.dart';
 import '../painter/camera_screen_overlay.dart';
 
 // Barcode scanner provider
@@ -29,34 +28,6 @@ class CameraPreviewWidget extends ConsumerWidget {
     );
   }
 }
-
-// class CameraScreen extends ConsumerWidget {
-//   static const String route = 'camera_screen';
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return Scaffold(
-//       appBar: AppBar(
-//           leading: IconButton(
-//               onPressed: () => goBack(), icon: const Icon(Icons.arrow_back)),
-//           title: TextWidget('Camera App')),
-//       body: Column(
-//         children: [
-//           Expanded(child: CameraPreviewWidget()),
-//           ElevatedButton(
-//             onPressed: () async {
-//               final controller =
-//                   await ref.read(cameraControllerProvider.future);
-//               final image = await controller.takePicture();
-
-//               log('Picture saved to: ${image.path}');
-//             },
-//             child: TextWidget('Take Picture'),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class BarcodeScannerScreen extends ConsumerStatefulWidget {
   static const String route = 'barcode_scanner';

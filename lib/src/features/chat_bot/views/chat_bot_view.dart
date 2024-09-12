@@ -1,5 +1,5 @@
 import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/widget/chat_text_field.dart';
+import 'package:myskin_flutterbytes/src/features/chat_bot/components/chat_text_field.dart';
 
 import '../../../cores/cores.dart';
 import '../../../cores/shared/app_bar.dart';

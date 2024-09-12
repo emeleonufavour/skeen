@@ -1,6 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/views/product_camera.dart';
+import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
 
 class ChatTextField extends StatelessWidget {
   const ChatTextField({super.key});

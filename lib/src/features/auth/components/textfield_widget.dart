@@ -3,8 +3,14 @@ import 'package:myskin_flutterbytes/src/cores/cores.dart';
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController textController;
   final String hintText;
+  final Widget? suffixIcon;
+  final void Function(String)? onChanged;
   const TextFieldWidget(
-      {required this.textController, required this.hintText, super.key});
+      {required this.textController,
+      required this.hintText,
+      this.suffixIcon,
+      this.onChanged,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +23,7 @@ class TextFieldWidget extends StatelessWidget {
           fontSize: kfsTiny.sp),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 15.w),
+        suffixIcon: suffixIcon,
         hintStyle: TextStyle(
             fontFamily: Assets.poppins,
             color: const Color(0xFF697D95),

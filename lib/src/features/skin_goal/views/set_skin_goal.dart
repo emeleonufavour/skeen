@@ -103,24 +103,19 @@ class SetSkinGoalView extends ConsumerWidget {
                     decorationColor: Theme.of(context).primaryColor,
                   ).padding(bottom: 10.h),
 
-                  SDropDown(
+                  DropDownWidget(
                           dropDownList: const ["Daily", "Weekly", "Monthly"],
                           hintText: "Frequency",
-                          dropDownHeight: 130.h,
                           onChanged: (v) {},
                           onTapped: (v) {})
                       .padding(bottom: 10.h),
 
-                  CalendarDropdown(
-                          hintText: "Start date",
-                          dropDownHeight: 350.h,
-                          onDateSelected: (v) {})
+                  CalendarDropdown(text: "Start date", onDateSelected: (v) {})
                       .padding(bottom: 10.h),
 
-                  SDropDown(
+                  DropDownWidget(
                       dropDownList: const [""],
                       hintText: "Reminder",
-                      dropDownHeight: 130.h,
                       onChanged: (v) {},
                       onTapped: (v) {
                         controller.nextPage(

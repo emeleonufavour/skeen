@@ -2,17 +2,16 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:intl/intl.dart' show DateFormat;
 
-import '../../../cores/cores.dart';
+import '../cores.dart';
 
 class CalendarDropdown extends StatefulWidget {
-  final String hintText;
-  final double dropDownHeight;
+  final String text;
+
   final Function(DateTime) onDateSelected;
 
   const CalendarDropdown({
     super.key,
-    required this.hintText,
-    required this.dropDownHeight,
+    required this.text,
     required this.onDateSelected,
   });
 
@@ -40,7 +39,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
     return AnimatedContainer(
       width: double.maxFinite,
       duration: const Duration(milliseconds: 500),
-      height: _isDropDown ? widget.dropDownHeight + 58.h : 58.h,
+      height: _isDropDown ? 350.h + 58.h : 58.h,
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xffF1F1F1), width: 2),
         borderRadius: BorderRadius.circular(12),
@@ -49,7 +48,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
         children: [
           ListTile(
               title: TextWidget(
-                widget.hintText,
+                widget.text,
                 fontWeight: FontWeight.w500,
                 textColor: Colors.black,
                 fontSize: 12,
@@ -78,7 +77,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
           AnimatedCrossFade(
             firstChild: const SizedBox(),
             secondChild: SizedBox(
-              height: widget.dropDownHeight,
+              height: 350.h,
               child: CalendarCarousel(
                 key: _calendarKey,
                 onDayPressed: (DateTime date, List events) {
@@ -107,7 +106,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
                 selectedDateTime: _selectedDate ?? DateTime.now(),
                 todayBorderColor: Colors.transparent,
                 weekFormat: false,
-                height: widget.dropDownHeight,
+                height: 350.h,
 
                 daysHaveCircularBorder: true,
               ),

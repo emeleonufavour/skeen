@@ -8,6 +8,8 @@ import 'package:myskin_flutterbytes/src/features/onboarding/presentation/views/o
 import 'package:myskin_flutterbytes/src/features/report/views/report_view.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
 
+import '../features/scan_product/presentation/ui/views/scan_product_view.dart';
+
 class SkeenApp extends StatefulWidget {
   const SkeenApp({super.key});
 
@@ -29,7 +31,7 @@ class _SkeenAppState extends State<SkeenApp> {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: OnboardingView.route,
+        initialRoute: ScanProductView.route,
         // initialRoute: ReportView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,
