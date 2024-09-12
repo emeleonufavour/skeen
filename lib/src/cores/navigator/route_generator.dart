@@ -6,7 +6,7 @@ import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/auth/views/forgot_password.dart';
 import 'package:myskin_flutterbytes/src/features/auth/views/signin_view.dart';
 import 'package:myskin_flutterbytes/src/features/auth/views/signup_view.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/views/chat_bot_view.dart';
+import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/history/views/history_view.dart';

@@ -3,7 +3,15 @@ import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
 
 class ChatTextField extends StatelessWidget {
-  const ChatTextField({super.key});
+  final void Function()? sendAction;
+  final TextEditingController controller;
+  final FocusNode? focusNode;
+  final void Function(String)? onFieldSubmitted;
+  const ChatTextField(
+      {required this.sendAction,
+      required this.controller,
+      this.focusNode,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +28,9 @@ class ChatTextField extends StatelessWidget {
         ),
         Expanded(
           child: TextFormField(
+            controller: controller,
+            focusNode: focusNode,
+            onFieldSubmitted: (value) {},
             style: TextStyle(
                 fontFamily: Assets.poppins,
                 color: Colors.black,
@@ -55,11 +66,14 @@ class ChatTextField extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          padding: EdgeInsets.all(10.h),
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor, shape: BoxShape.circle),
-          child: SvgPicture.asset(Assets.sendIcon),
+        GestureDetector(
+          onTap: sendAction,
+          child: Container(
+            padding: EdgeInsets.all(10.h),
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor, shape: BoxShape.circle),
+            child: SvgPicture.asset(Assets.sendIcon),
+          ),
         )
       ].separate(7.w.horizontalSpace),
     ).padding(horizontal: 1, vertical: 25);

@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+import '../components/chat_message_render_object.dart';
+
+class ChatMessage extends LeafRenderObjectWidget {
+  const ChatMessage({
+    super.key,
+    required this.text,
+    required this.sentAt,
+    this.style,
+  });
+
+  final String text;
+  final String sentAt;
+  final TextStyle? style;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
+    TextStyle? effectiveTextStyle = style;
+    if (style == null || style!.inherit) {
+      effectiveTextStyle = defaultTextStyle.style.merge(style);
+    }
+    return ChatMessageRenderObject(
+      text: text,
+      textDirection: Directionality.of(context),
+      textStyle: effectiveTextStyle!,
+    );
+  }
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    ChatMessageRenderObject renderObject,
+  ) {
+    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
+    TextStyle? effectiveTextStyle = style;
+    if (style == null || style!.inherit) {
+      effectiveTextStyle = defaultTextStyle.style.merge(style);
+    }
+    renderObject.text = text;
+    renderObject.textStyle = effectiveTextStyle!;
+
+    renderObject.textDirection = Directionality.of(context);
+  }
+}
