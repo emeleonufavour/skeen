@@ -1,5 +1,4 @@
-import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/skin_goal.dart';
+import '../../auth.dart';
 
 class AuthView extends StatelessWidget {
   final String heading;

@@ -1,5 +1,4 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+import '../../auth.dart';
 
 class PasswordTextfield extends StatefulWidget {
   final TextEditingController textController;

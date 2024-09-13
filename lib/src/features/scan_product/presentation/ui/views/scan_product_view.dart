@@ -1,7 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/presentation/notifiers/skin_product_notifier.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/components/add_product_bm.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/skin_goal.dart';
+
+import '../../../scan_product.dart';
 
 class ScanProductView extends ConsumerWidget {
   const ScanProductView({super.key});

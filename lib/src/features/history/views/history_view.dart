@@ -1,4 +1,4 @@
-import '../../../cores/cores.dart';
+import '../history.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({super.key});

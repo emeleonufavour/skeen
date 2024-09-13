@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:myskin_flutterbytes/src/features/auth/components/password_textfield.dart';
-import 'package:myskin_flutterbytes/src/features/auth/components/textfield_widget.dart';
-import 'package:myskin_flutterbytes/src/features/auth/views/auth_view.dart';
+import '../../auth.dart';
 
 class SigninView extends StatelessWidget {
   SigninView({super.key});

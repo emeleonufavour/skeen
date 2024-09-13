@@ -1,19 +1,7 @@
-import 'package:camera/camera.dart';
+import '../../../scan_product.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
-import 'package:image_picker/image_picker.dart';
-
-import '../../../../../cores/cores.dart';
-import '../../notifiers/barcode_scanner_notifier.dart';
-import '../../notifiers/skin_product_notifier.dart';
-import '../painter/camera_screen_overlay.dart';
-
-// Barcode scanner provider
 final barcodeScannerProvider = Provider((ref) => BarcodeScanner());
 final imagePickerProvider = Provider((ref) => ImagePicker());
-
-// Barcode value provider
 final barcodeValueProvider = StateProvider<String?>((ref) => null);
 
 class CameraPreviewWidget extends ConsumerWidget {

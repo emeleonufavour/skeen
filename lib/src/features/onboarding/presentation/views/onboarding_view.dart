@@ -1,9 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/features.dart';
-import 'package:myskin_flutterbytes/src/features/onboarding/data/models/onboarding_content_model.dart';
-
-import '../notifiers/onboarding_notifier.dart';
+import '../../onboarding.dart';
 
 List<OnboardingContentModel> _onboardingContent = [
   OnboardingContentModel(

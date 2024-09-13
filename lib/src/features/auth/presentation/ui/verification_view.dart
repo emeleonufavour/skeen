@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../components/textfield_widget.dart';
-import 'auth_view.dart';
+import '../../auth.dart';
 
 class VerificationView extends StatelessWidget {
   VerificationView({super.key});

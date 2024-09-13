@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
-
 import '../skin_goal.dart';
 
 List<String> days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

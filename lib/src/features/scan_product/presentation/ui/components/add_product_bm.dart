@@ -1,10 +1,5 @@
 import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/features/auth/components/textfield_widget.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/data/models/skincare_product.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/skin_goal.dart';
-
-import '../../notifiers/skin_product_notifier.dart';
-import '../views/scan_product_camera.dart';
+import 'package:myskin_flutterbytes/src/features/scan_product/scan_product.dart';
 
 class AddProductBottomSheet extends ConsumerStatefulWidget {
   AddProductBottomSheet({super.key});

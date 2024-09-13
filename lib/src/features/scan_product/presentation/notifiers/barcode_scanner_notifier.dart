@@ -1,6 +1,5 @@
-import 'package:camera/camera.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../scan_product.dart';
 
 final cameraControllerProvider =
     FutureProvider.autoDispose<CameraController>((ref) async {

@@ -1,8 +1,4 @@
-import 'package:myskin_flutterbytes/src/features/auth/components/password_textfield.dart';
-import 'package:myskin_flutterbytes/src/features/auth/components/textfield_widget.dart';
-import 'package:myskin_flutterbytes/src/features/auth/views/auth_view.dart';
-import 'package:myskin_flutterbytes/src/features/home/home.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/skin_goal.dart';
+import '../../auth.dart';
 
 class SignUpView extends StatelessWidget {
   SignUpView({super.key});

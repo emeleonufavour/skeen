@@ -1,4 +1,4 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import '../../auth.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController textController;

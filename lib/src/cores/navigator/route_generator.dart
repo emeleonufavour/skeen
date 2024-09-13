@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/auth/views/forgot_password.dart';
-import 'package:myskin_flutterbytes/src/features/auth/views/signin_view.dart';
-import 'package:myskin_flutterbytes/src/features/auth/views/signup_view.dart';
+import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/forgot_password.dart';
+import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signin_view.dart';
+import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signup_view.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
@@ -24,7 +24,7 @@ class RouteGenerator {
       case SkinCareGoalView.route:
         return pageRoute(const SkinCareGoalView());
       case ChatBotView.route:
-        return pageRoute(const ChatBotView());
+        return pageRoute(ChatBotView());
       case HistoryView.route:
         return pageRoute(const HistoryView());
       case BarcodeScannerScreen.route:
@@ -38,7 +38,7 @@ class RouteGenerator {
       case OnboardingView.route:
         return pageRoute(OnboardingView());
       case ScanProductView.route:
-        return pageRoute(ScanProductView());
+        return pageRoute(const ScanProductView());
       default:
         return errorRoute();
     }

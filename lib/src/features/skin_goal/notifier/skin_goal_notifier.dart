@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../skin_goal.dart';
 
 final skinGoalBottomSheetProvider =
     StateNotifierProvider<SkinGoalBottomSheetNotifier, int>((ref) {

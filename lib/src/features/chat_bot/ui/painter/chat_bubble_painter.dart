@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-
-import '../../../skin_goal/skin_goal.dart';
+import '../../chat_bot.dart';
 
 class ChatBubblePainter extends CustomPainter {
   final Color color;

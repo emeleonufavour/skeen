@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:myskin_flutterbytes/src/features/auth/components/textfield_widget.dart';
-import 'package:myskin_flutterbytes/src/features/auth/views/auth_view.dart';
+import '../../auth.dart';
 
 class ForgotPasswordView extends StatelessWidget {
   ForgotPasswordView({super.key});

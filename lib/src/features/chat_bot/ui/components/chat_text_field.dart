@@ -1,6 +1,5 @@
 import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
+import '../../chat_bot.dart';
 
 class ChatTextField extends StatelessWidget {
   final void Function()? sendAction;
@@ -11,6 +10,7 @@ class ChatTextField extends StatelessWidget {
       {required this.sendAction,
       required this.controller,
       this.focusNode,
+      this.onFieldSubmitted,
       super.key});
 
   @override
@@ -30,7 +30,7 @@ class ChatTextField extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             focusNode: focusNode,
-            onFieldSubmitted: (value) {},
+            onFieldSubmitted: onFieldSubmitted,
             style: TextStyle(
                 fontFamily: Assets.poppins,
                 color: Colors.black,

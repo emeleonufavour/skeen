@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:myskin_flutterbytes/src/features/auth/components/password_textfield.dart';
-import 'auth_view.dart';
+import '../../auth.dart';
 
 class ResetPasswordView extends StatelessWidget {
   ResetPasswordView({super.key});
