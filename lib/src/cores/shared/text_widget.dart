@@ -41,7 +41,7 @@ class TextWidget extends StatelessWidget {
         text,
         style: TextStyle(
           fontSize: fontSize!.sp,
-          fontFamily: fontFamily ?? 'Poppins',
+          fontFamily: fontFamily ?? Assets.poppins,
           color: textColor,
           fontWeight: fontWeight,
           fontStyle: fontStyle,
@@ -113,7 +113,7 @@ class RichTextWidget extends StatelessWidget {
           fontSize: fontSize!,
           color: textColor,
           fontWeight: fontWeight,
-          fontFamily: fontFamily ?? 'Poppins',
+          fontFamily: fontFamily ?? Assets.poppins,
           overflow: overflow,
         ),
         children: <InlineSpan>[
@@ -123,7 +123,7 @@ class RichTextWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: fontSize2!,
               color: textColor2,
-              fontFamily: fontFamily ?? 'Poppins',
+              fontFamily: fontFamily ?? Assets.poppins,
               fontWeight: fontWeight2,
               decoration: decoration2,
             ),
@@ -133,7 +133,7 @@ class RichTextWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: fontSize2!,
               color: textColor3,
-              fontFamily: fontFamily ?? 'Poppins',
+              fontFamily: fontFamily ?? Assets.poppins,
               fontWeight: fontWeight2,
             ),
           ),
@@ -143,7 +143,7 @@ class RichTextWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: fontSize2!,
               color: textColor2,
-              fontFamily: fontFamily ?? 'Poppins',
+              fontFamily: fontFamily ?? Assets.poppins,
               fontWeight: fontWeight2,
               decoration: decoration4,
             ),

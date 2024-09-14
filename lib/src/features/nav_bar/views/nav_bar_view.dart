@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/report/views/report_view.dart';
 
 class NavBarView extends ConsumerWidget {
   const NavBarView({super.key});
@@ -8,7 +10,7 @@ class NavBarView extends ConsumerWidget {
   static const String route = '/nav_bar';
   static final pages = [
     const HomeView(),
-    Container(color: Colors.red),
+    const ReportView(),
     Container(color: Colors.yellow),
     Container(color: Colors.blue),
     Container(color: Colors.purple),
@@ -61,11 +63,13 @@ class NavBarView extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 _Tile(
-                  isSelected: currentIndex == 3,
-                  image: Assets.chatBox,
-                  title: 'Chatbox',
-                  onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(3),
-                ),
+                    isSelected: currentIndex == 3,
+                    image: Assets.chatBox,
+                    title: 'Chatbox',
+                    onTap: () {
+                      // ref.read(navNotifier.notifier).setNavBarIndex(3);
+                      goTo(ChatBotView.route);
+                    }),
                 const Spacer(),
                 _Tile(
                   isSelected: currentIndex == 4,

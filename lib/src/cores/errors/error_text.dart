@@ -13,5 +13,5 @@ class ErrorText {
   static const formatError = 'Unable To Format Data!';
 
   static const somethingWentWrongFromOurEnd =
-      'It\'s not you it\'s us, please contact support ';
+      'It\'s not you, it\'s us. Please contact support ';
 }

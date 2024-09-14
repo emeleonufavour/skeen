@@ -23,14 +23,34 @@ extension WidgetExtension on Widget {
   }
 
   Widget padding({
-    required double horizontal,
-    required double vertical,
+    double? all,
+    double? horizontal,
+    double? vertical,
+    double? left,
+    double? top,
+    double? right,
+    double? bottom,
   }) {
+    EdgeInsets edgeInsets;
+
+    if (all != null) {
+      edgeInsets = EdgeInsets.all(all);
+    } else if (horizontal != null || vertical != null) {
+      edgeInsets = EdgeInsets.symmetric(
+        horizontal: horizontal ?? 0.0,
+        vertical: vertical ?? 0.0,
+      );
+    } else {
+      edgeInsets = EdgeInsets.only(
+        left: left ?? 0.0,
+        top: top ?? 0.0,
+        right: right ?? 0.0,
+        bottom: bottom ?? 0.0,
+      );
+    }
+
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontal,
-        vertical: vertical,
-      ),
+      padding: edgeInsets,
       child: this,
     );
   }

@@ -1,4 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -11,7 +15,9 @@ Future<dynamic> goTo(String routeName, {Object? arguments}) {
 
 Future<dynamic> go(Widget page) {
   return navigatorKey.currentState!.push(
-    MaterialPageRoute(builder: (context) => page),
+    (!kIsWeb && Platform.isAndroid)
+        ? MaterialPageRoute(builder: (context) => page)
+        : CupertinoPageRoute(builder: (context) => page),
   );
 }
 
@@ -31,5 +37,11 @@ Future<dynamic> clearPath(String routeName, {Object? arguments}) {
 }
 
 void goBack([Object? result]) {
-  return navigatorKey.currentState!.pop(result);
+  final NavigatorState? navigator = navigatorKey.currentState;
+  if (navigator != null && navigator.canPop()) {
+    return navigator.pop(result);
+  } else {
+    AppLogger.logWarning(
+        "YOU ARE ATTEMPTING TO POP A SCREEN THAT HAS NO SCREEN BEFORE IT!");
+  }
 }

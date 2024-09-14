@@ -36,6 +36,6 @@ class HomeAppBar extends StatelessWidget {
           child: ImageWidget(url: Assets.bell),
         ),
       ],
-    ).padding(horizontal: kfsExtraLarge.w, vertical: 0);
+    ).padding(horizontal: kfsExtraLarge.w);
   }
 }
