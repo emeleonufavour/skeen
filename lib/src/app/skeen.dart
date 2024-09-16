@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
 
 import '../features/chat_bot/ui/views/chat_bot_view.dart';
 import '../features/scan_product/presentation/ui/views/scan_product_view.dart';
@@ -25,7 +26,7 @@ class _SkeenAppState extends State<SkeenApp> {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: ChatBotView.route,
+        initialRoute: SkinCareGoalView.route,
         // initialRoute: ReportView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,

@@ -6,8 +6,6 @@ class SkinGoalBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentPage = ref.watch(skinGoalBottomSheetProvider);
-
     return PageView(
       controller: _pageController,
       onPageChanged: (int page) {

@@ -1,11 +1,10 @@
 // // test/chat_bot_test.dart
 // import 'package:flutter_test/flutter_test.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:google_generative_ai/google_generative_ai.dart';
 // import 'package:mockito/mockito.dart';
 // import 'package:myskin_flutterbytes/src/features/chat_bot/ui/notifier/chat_bot_notifier.dart';
 
-// class MockGenerativeModel extends Mock {}
+// class MockGenerativeModel extends Mock implements GenerativeModel {}
 
 // class MockChatSession extends Mock implements ChatSession {}
 

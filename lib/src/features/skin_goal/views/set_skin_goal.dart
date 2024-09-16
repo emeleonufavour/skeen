@@ -1,5 +1,7 @@
 import '../skin_goal.dart';
 
+ObjectKey _reminderKey = const ObjectKey('reminder');
+
 class SetSkinGoalView extends ConsumerWidget {
   final PageController controller;
   const SetSkinGoalView({required this.controller, super.key});
@@ -14,8 +16,10 @@ class SetSkinGoalView extends ConsumerWidget {
           "Setting your skincare goal",
           fontSize: kfsMedium.sp,
           fontWeight: w500,
-        ).padding(top: 15.h, bottom: 20.h),
-        Expanded(
+        ).padding(
+          top: 15.h,
+        ),
+        Flexible(
           child: Stack(children: [
             SingleChildScrollView(
               child: Column(
@@ -114,6 +118,7 @@ class SetSkinGoalView extends ConsumerWidget {
                       .padding(bottom: 10.h),
 
                   DropDownWidget(
+                      key: _reminderKey,
                       dropDownList: const [""],
                       hintText: "Reminder",
                       onChanged: (v) {},
@@ -139,7 +144,7 @@ class SetSkinGoalView extends ConsumerWidget {
           ]),
         ),
       ],
-    ).padding(all: kfsMedium);
+    ).padding(horizontal: kfsMedium);
   }
 }
 

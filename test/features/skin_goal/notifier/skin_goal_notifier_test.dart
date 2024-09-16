@@ -25,7 +25,6 @@ void main() {
       notifier.nextPage();
       expect(notifier.state, equals(2));
 
-      // Make sure the next page index should not pass 2
       notifier.nextPage();
       expect(notifier.state, equals(2));
     });
@@ -39,7 +38,6 @@ void main() {
       notifier.previousPage();
       expect(notifier.state, equals(0));
 
-      // Make sure it does not go lower than 0
       notifier.previousPage();
       expect(notifier.state, equals(0));
     });

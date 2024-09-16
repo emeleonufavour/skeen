@@ -1,7 +1,7 @@
 import '../../auth.dart';
 
-class SigninView extends StatelessWidget {
-  SigninView({super.key});
+class SignInView extends StatelessWidget {
+  SignInView({super.key});
   static const String route = 'sign_in';
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

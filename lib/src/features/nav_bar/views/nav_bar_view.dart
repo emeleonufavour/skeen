@@ -43,14 +43,14 @@ class NavBarView extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _Tile(
+                Tile(
                   isSelected: currentIndex == 0,
                   image: Assets.home,
                   title: 'Home',
                   onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(0),
                 ),
                 const Spacer(),
-                _Tile(
+                Tile(
                   isSelected: currentIndex == 1,
                   image: Assets.report,
                   title: 'Reports',
@@ -62,7 +62,7 @@ class NavBarView extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                _Tile(
+                Tile(
                     isSelected: currentIndex == 3,
                     image: Assets.chatBox,
                     title: 'Chatbox',
@@ -71,7 +71,7 @@ class NavBarView extends ConsumerWidget {
                       goTo(ChatBotView.route);
                     }),
                 const Spacer(),
-                _Tile(
+                Tile(
                   isSelected: currentIndex == 4,
                   onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(4),
                   title: 'Settings',
@@ -95,8 +95,8 @@ class NavBarView extends ConsumerWidget {
   }
 }
 
-class _Tile extends StatelessWidget {
-  const _Tile({
+class Tile extends StatelessWidget {
+  const Tile({
     required this.isSelected,
     required this.image,
     required this.title,
