@@ -45,35 +45,49 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          ListTile(
-              title: TextWidget(
-                widget.text,
-                fontWeight: FontWeight.w500,
-                textColor: Colors.black,
-                fontSize: 12,
-              ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (_selectedDate != null)
+          Center(
+            child: GestureDetector(
+              onTap: _toggleDropdown,
+              child: SizedBox(
+                height: 54.h,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
                     TextWidget(
-                      DateFormat('MMM d').format(_selectedDate!),
-                      textColor: const Color(0xff999999),
+                      widget.text,
                       fontWeight: FontWeight.w500,
+                      textColor: Colors.black,
                       fontSize: 12.sp,
                     ),
-                  AnimatedRotation(
-                    turns: _isDropDown ? 0.5 : 0,
-                    duration: const Duration(milliseconds: 300),
-                    child: const Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: Color(0xff999999),
-                    ),
-                  ),
-                ],
+                    //trailing
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (_selectedDate != null)
+                          TextWidget(
+                            DateFormat('MMM d').format(_selectedDate!),
+                            textColor: const Color(0xff999999),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.sp,
+                          ).padding(right: 5.w),
+                        AnimatedRotation(
+                          turns: _isDropDown ? 0.5 : 0,
+                          duration: const Duration(milliseconds: 300),
+                          child: const Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: Color(0xff999999),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ).padding(horizontal: kfsVeryTiny.w),
               ),
-              onTap: _toggleDropdown),
+            ),
+          ),
           AnimatedCrossFade(
             firstChild: const SizedBox(),
             secondChild: SizedBox(
@@ -100,7 +114,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
                 weekdayTextStyle:
                     TextStyle(color: Colors.grey, fontFamily: Assets.poppins),
                 thisMonthDayBorderColor: Colors.transparent,
-                // todayButtonColor: Palette,
+                todayButtonColor: Palette.grey,
                 selectedDayButtonColor: Theme.of(context).primaryColor,
                 selectedDayBorderColor: Theme.of(context).primaryColor,
                 selectedDateTime: _selectedDate ?? DateTime.now(),
