@@ -6,27 +6,20 @@ const String geminiApiKey = String.fromEnvironment('API_KEY');
 final chatBotProvider =
     StateNotifierProvider<ChatBotNotifier, ChatBotState>((ref) {
   final disappearNotifier = ref.read(disappearProvider.notifier);
-  return ChatBotNotifier(disappearNotifier);
+  GenerativeModel model = GenerativeModel(
+    model: 'gemini-1.5-flash-latest',
+    apiKey: geminiApiKey,
+  );
+  ChatSession chat = model.startChat();
+  return ChatBotNotifier(disappearNotifier, model, chat);
 });
 
 class ChatBotNotifier extends StateNotifier<ChatBotState> {
   final DisappearNotifier disappearNotifier;
-
-  ChatBotNotifier(this.disappearNotifier)
-      : super(ChatBotState(messages: [], isLoading: false)) {
-    _initializeChat();
-  }
-
-  late final GenerativeModel _model;
-  late final ChatSession _chat;
-
-  void _initializeChat() {
-    _model = GenerativeModel(
-      model: 'gemini-1.5-flash-latest',
-      apiKey: geminiApiKey,
-    );
-    _chat = _model.startChat();
-  }
+  final GenerativeModel model;
+  final ChatSession chat;
+  ChatBotNotifier(this.disappearNotifier, this.model, this.chat)
+      : super(ChatBotState(messages: [], isLoading: false));
 
   Future<void> sendMessage(String message) async {
     state = state.copyWith(isLoading: true);
@@ -41,7 +34,7 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
     state = state.copyWith(messages: updatedMessages);
 
     try {
-      final response = await _chat.sendMessage(Content.text(message));
+      final response = await chat.sendMessage(Content.text(message));
       final text = response.text;
       if (text != null) {
         updatedMessages = [

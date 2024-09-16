@@ -5,9 +5,9 @@
 // import 'package:mockito/mockito.dart';
 // import 'package:myskin_flutterbytes/src/features/chat_bot/ui/notifier/chat_bot_notifier.dart';
 
-// class MockGenerativeModel extends Mock  {}
+// class MockGenerativeModel extends Mock {}
 
-// class MockChatSession extends Mock implements ChatSession{}
+// class MockChatSession extends Mock implements ChatSession {}
 
 // void main() {
 //   late ChatBotNotifier chatBotNotifier;

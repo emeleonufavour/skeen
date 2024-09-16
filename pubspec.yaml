@@ -26,6 +26,7 @@ dependencies:
   image_picker: ^1.1.2
   google_generative_ai: ^0.4.6
   mockito: ^5.4.4
+  mocktail: ^1.0.4
 
 dev_dependencies:
   flutter_test:
