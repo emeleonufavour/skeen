@@ -1,29 +1,81 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
+
+import '../../../model/test_material_app.dart';
 
 class MockWidgetRef extends Mock implements WidgetRef {}
 
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
 void main() {
-  testWidgets('SkinGoalBottomSheet renders PageView',
-      (WidgetTester tester) async {
-    final mockRef = MockWidgetRef();
-    when(mockRef.watch(skinGoalBottomSheetProvider)).thenReturn(0);
+  group("SkinGoalBottomSheet", () {
+    testWidgets(
+        'Tap Floating Action Button in SkinCareGoalView to show SkinGoalBottomSheet',
+        (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
 
-    await tester.pumpWidget(ProviderScope(
-      child: MaterialApp(home: SkinGoalBottomSheet()),
-    ));
+      await tester.pumpWidget(
+        ProviderScope(
+          child: TestMaterialAppWidget(
+            route: SkinCareGoalView.route,
+            navigatorObservers: [mockObserver],
+          ),
+        ),
+      );
 
-    expect(find.byType(PageView), findsOneWidget);
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
 
-    expect(find.byType(SetSkinGoalView), findsOneWidget);
+      expect(find.byType(SkinGoalBottomSheet), findsOneWidget);
+    });
 
-    await tester.drag(find.byType(PageView), const Offset(-400, 0));
-    await tester.pumpAndSettle();
+    testWidgets('SkinGoalBottomSheet renders PageView',
+        (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
 
-    expect(find.byType(SetGoalReminderView), findsOneWidget);
+      await tester.pumpWidget(
+        ProviderScope(
+          child: TestMaterialAppWidget(
+            route: SkinCareGoalView.route,
+            navigatorObservers: [mockObserver],
+          ),
+        ),
+      );
 
-    verify(mockRef.read(skinGoalBottomSheetProvider.notifier).setPage(1))
-        .called(1);
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SkinGoalBottomSheet), findsOneWidget);
+
+      expect(find.byType(PageView), findsAtLeast(1));
+
+      expect(find.byType(DropDownWidget), findsAtLeast(2));
+      expect(find.byType(CalendarDropdown), findsOneWidget);
+    });
+
+    testWidgets("Navigate To Set Reminder in Bottom Sheet",
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          child: TestMaterialAppWidget(
+            route: SkinCareGoalView.route,
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const ObjectKey('reminder')), findsOneWidget);
+
+      await tester.tap(
+        find.byKey(const ObjectKey('reminder')),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text("Reminder"), findsOneWidget);
+    });
   });
 }
