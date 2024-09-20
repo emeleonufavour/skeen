@@ -5,32 +5,38 @@ import 'package:flutter/services.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goal_view.dart';
 import 'dart:developer' as dev;
 import '../../../chat_bot/chat_bot.dart';
 import '../../data/gemma_response.dart';
 
-Future<GemmaResponse?> pickAndScanImage(GenerativeModel model) async {
+Future<GemmaResponse?> pickAndScanImage(
+    GenerativeModel model, SkinGoalsNotifier skinGoals) async {
   try {
     final ImagePicker picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      final res = await _processImage(pickedFile.path, model);
+      final res = await _processImage(pickedFile.path, model, skinGoals);
       return res;
     } else {
       print("Image is null");
     }
   } catch (e) {
-    print('Error picking or scanning image: $e');
+    dev.log('Error picking or scanning image: $e');
   } finally {
     // setState(() => _isScanning = false);
   }
   return null;
 }
 
-Future<GemmaResponse?> _processImage(
-    String imagePath, GenerativeModel model) async {
+Future<GemmaResponse?> _processImage(String imagePath, GenerativeModel model,
+    SkinGoalsNotifier skinGoals) async {
   final inputImage = InputImage.fromFilePath(imagePath);
+  final List<String> goals =
+      (skinGoals.onlySkinGoals())[0].goals!.map((goal) => goal.name).toList();
+  dev.log("Goals: $goals");
   try {
     File file = File(imagePath);
     final Uint8List bytes = await file.readAsBytes();
@@ -42,7 +48,7 @@ Future<GemmaResponse?> _processImage(
         The image should contain the ingredients of the product. 
         Try and identify the ingredients of the product. 
         If you are able to identify it, your response should be in JSON format of this structure
-        like this only. My skin care goal is to have a lighter skin.
+        like this only. My skin care goal are ${goals.toString()}.
 
         {
         "status": "success",
@@ -87,14 +93,15 @@ Future<GemmaResponse?> _processImage(
   return Future.value(null);
 }
 
-class ActivitySection extends StatefulWidget {
+class ActivitySection extends ConsumerStatefulWidget {
   const ActivitySection({super.key});
 
   @override
-  State<ActivitySection> createState() => _ActivitySectionState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ActivitySectionState();
 }
 
-class _ActivitySectionState extends State<ActivitySection> {
+class _ActivitySectionState extends ConsumerState<ActivitySection> {
   late final GenerativeModel _model;
   late final ChatSession _chat;
 
@@ -103,7 +110,7 @@ class _ActivitySectionState extends State<ActivitySection> {
     super.initState();
     _model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
-      apiKey: "AIzaSyC9DFSUt3umhF79YEs1UeY4gNqXuIBVHbE",
+      apiKey: "",
     );
     _chat = _model.startChat();
   }
@@ -123,6 +130,7 @@ class _ActivitySectionState extends State<ActivitySection> {
               // Scan skin products
               ActivityBox(
                 iconPath: Assets.lotus,
+                title: "Scan skin products",
                 description:
                     "Scan your product ingredients to know how it affects your skin",
                 onTap: () => showDialog(
@@ -147,9 +155,11 @@ class _ActivitySectionState extends State<ActivitySection> {
                               Button(
                                 onTap: () async {
                                   final GemmaResponse? response =
-                                      await pickAndScanImage(_model);
+                                      await pickAndScanImage(_model,
+                                          ref.read(skinGoalsNotifier.notifier));
 
                                   if (response != null) {
+                                    dev.log(response.suggestion);
                                     goTo(ChatBotView.route,
                                         arguments: {"response": response});
                                   } else {
@@ -171,9 +181,11 @@ class _ActivitySectionState extends State<ActivitySection> {
                     }),
               ),
               ActivityBox(
+                title: "Skincare goal",
                 iconPath: Assets.flower,
                 description:
-                    "Users can scan products, check ingredients, verify claims, and assess routine fit.",
+                    "You can set personalized skincare goals, track progress, and adjust your routine.",
+                onTap: () => goTo(SkinCareGoalView.route),
               )
             ].separate(kfsVeryTiny.horizontalSpace),
           ),

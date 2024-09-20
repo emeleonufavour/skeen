@@ -2,10 +2,12 @@ import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class ActivityBox extends StatelessWidget {
   final String iconPath;
+  final String title;
   final String description;
   final void Function()? onTap;
   const ActivityBox(
       {required this.iconPath,
+      required this.title,
       required this.description,
       this.onTap,
       super.key});
@@ -37,8 +39,8 @@ class ActivityBox extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TextWidget(
-                  "Scan skin products",
+                TextWidget(
+                  title,
                   fontWeight: FontWeight.w500,
                   fontSize: kfsTiny,
                 ),
