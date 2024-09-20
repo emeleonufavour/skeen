@@ -4,6 +4,7 @@ class DropDownWidget extends StatelessWidget {
   final String? label;
   final String hintText;
   final ValueChanged<String?> onChanged;
+  final String? initialValue;
   final bool? tapped;
   final String? text;
   final List<String> dropDownList;
@@ -15,6 +16,7 @@ class DropDownWidget extends StatelessWidget {
       required this.hintText,
       required this.onChanged,
       required this.onTapped,
+      this.initialValue,
       this.tapped,
       this.text,
       super.key});
@@ -36,6 +38,7 @@ class DropDownWidget extends StatelessWidget {
               : const SizedBox.shrink(),
           _CustomDropdown(
               hintText: hintText,
+              initialValue: initialValue,
               dropDownList: dropDownList,
               onChanged: onChanged,
               onTapped: onTapped)

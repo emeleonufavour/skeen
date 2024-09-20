@@ -6,13 +6,14 @@ import '../cores.dart';
 
 class CalendarDropdown extends StatefulWidget {
   final String text;
-
+  final DateTime? date;
   final Function(DateTime) onDateSelected;
 
   const CalendarDropdown({
     super.key,
     required this.text,
     required this.onDateSelected,
+    this.date,
   });
 
   @override
@@ -28,10 +29,15 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
     setState(() {
       _isDropDown = !_isDropDown;
       if (_isDropDown) {
-        // Force calendar to rebuild when opening dropdown
         _calendarKey = UniqueKey();
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDate = widget.date;
   }
 
   @override

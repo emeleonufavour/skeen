@@ -1,4 +1,4 @@
-import '../skin_goal.dart';
+import '../../skin_goal.dart';
 
 final skinGoalBottomSheetProvider =
     StateNotifierProvider<SkinGoalBottomSheetNotifier, int>((ref) {

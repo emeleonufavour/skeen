@@ -14,7 +14,7 @@ import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/history/views/history_view.dart';
 import 'package:myskin_flutterbytes/src/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_view.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goal_view.dart';
 
 import '../../features/auth/presentation/ui/reset_password.dart';
 

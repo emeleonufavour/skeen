@@ -1,4 +1,4 @@
-import '../skin_goal.dart';
+import '../../skin_goal.dart';
 
 class SkinGoalBottomSheet extends ConsumerWidget {
   final PageController _pageController = PageController();
