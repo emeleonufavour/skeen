@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/features.dart';
+
+import '../features/chat_bot/ui/views/chat_bot_view.dart';
+import '../features/scan_product/presentation/ui/views/scan_product_view.dart';
 
 class SkeenApp extends StatefulWidget {
   const SkeenApp({super.key});
@@ -23,7 +25,8 @@ class _SkeenAppState extends State<SkeenApp> {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: NavBarView.route,
+        initialRoute: ChatBotView.route,
+        // initialRoute: ReportView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: navigatorKey,
