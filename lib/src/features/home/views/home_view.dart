@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
       body: Column(
         children: [
           const HomeAppBar(
-            name: 'Alexa Nurul',
+            name: 'Adepitan Oluwatosin',
           ),
           kfsMedium.verticalSpace,
           SingleChildScrollView(

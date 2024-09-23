@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final navNotifier =
-    NotifierProvider<NavBarNotifier, int>(NavBarNotifier.new);
+final navNotifier = NotifierProvider<NavBarNotifier, int>(NavBarNotifier.new);
 
 class NavBarNotifier extends Notifier<int> {
   @override

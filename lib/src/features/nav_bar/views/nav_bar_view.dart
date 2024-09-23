@@ -6,6 +6,7 @@ class NavBarView extends ConsumerWidget {
   const NavBarView({super.key});
 
   static const String route = '/nav_bar';
+
   static final pages = [
     const HomeView(),
     Container(color: Colors.red),
@@ -19,6 +20,7 @@ class NavBarView extends ConsumerWidget {
     final currentIndex = ref.watch(navNotifier);
     return BaseScaffold(
       padding: EdgeInsets.zero,
+      safeAreaTop: false,
       body: IndexedStack(
         index: currentIndex,
         children: pages,
