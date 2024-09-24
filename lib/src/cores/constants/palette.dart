@@ -5,6 +5,7 @@ class Palette {
   static const Color primaryColor = Color(0xffB36370);
   static const Color backgroundColor = Color(0xffFAFAFF);
   static const Color borderColor = Color(0xffF1F1F1);
+  static const Color borderColor1 = Color(0xffEEDDE0);
 
   static const Color lightGrey = Color(0xffF1F1F1);
   static const Color grey = Color(0xff999999);
@@ -13,6 +14,8 @@ class Palette {
 
   static const Color text1 = Color(0xff999999);
   static const Color text2 = Color(0xff1E1E1E);
+
+  static const Color hinTextColor = Color(0xFF697D95);
 
   static const Color bg1 = Color(0xff98FBF5);
   static const Color bg2 = Color(0xffEEDDE0);

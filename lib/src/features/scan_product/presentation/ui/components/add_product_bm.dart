@@ -1,11 +1,12 @@
-import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/scan_product.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class AddProductBottomSheet extends ConsumerStatefulWidget {
-  AddProductBottomSheet({super.key});
+  const AddProductBottomSheet({super.key});
 
   @override
-  _AddProductBottomSheetState createState() => _AddProductBottomSheetState();
+  ConsumerState<AddProductBottomSheet> createState() =>
+      _AddProductBottomSheetState();
 }
 
 class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
@@ -60,12 +61,18 @@ class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
                     suffixIcon: GestureDetector(
                       onTap: () => goTo(BarcodeScannerScreen.route),
                       child: Container(
-                          padding: const EdgeInsets.all(kfsTiny),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  width: 1, color: Palette.lightGrey)),
-                          child: SvgPicture.asset(Assets.scanBarcode)),
+                        padding: const EdgeInsets.all(kfsTiny),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 1,
+                            color: Palette.lightGrey,
+                          ),
+                        ),
+                        child: SvgPicture.asset(
+                          Assets.scanBarcode,
+                        ),
+                      ),
                     ),
                     onChanged: (value) =>
                         ref.read(textProvider.notifier).state = value,
@@ -93,14 +100,15 @@ class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
                     fontSize: kfsTiny.sp,
                   ).padding(bottom: 5.h),
                   DropDownWidget(
-                      dropDownList: const [
-                        "1 week before",
-                        "2 weeks before",
-                        "1 month before"
-                      ],
-                      hintText: "Set reminder",
-                      onChanged: (v) {},
-                      onTapped: (v) {}),
+                    dropDownList: const [
+                      "1 week before",
+                      "2 weeks before",
+                      "1 month before"
+                    ],
+                    hintText: "Set reminder",
+                    onChanged: (v) {},
+                    onTapped: (v) {},
+                  ),
                   60.h.verticalSpace,
                 ],
               ),
@@ -136,13 +144,16 @@ void showAddProductBottomSheet(BuildContext context) {
     ),
     builder: (BuildContext context) {
       return LayoutBuilder(
-          builder: (context, constraints) => Container(
-              constraints: BoxConstraints(
-                maxHeight: screenHeight * 0.8,
-              ),
-              child: SizedBox(
-                  height: constraints.maxHeight,
-                  child: AddProductBottomSheet())));
+        builder: (context, constraints) => Container(
+          constraints: BoxConstraints(
+            maxHeight: screenHeight * 0.8,
+          ),
+          child: SizedBox(
+            height: constraints.maxHeight,
+            child: const AddProductBottomSheet(),
+          ),
+        ),
+      );
     },
   );
 }

@@ -9,15 +9,16 @@ class DropDownWidget extends StatelessWidget {
   final List<String> dropDownList;
   final ValueChanged<bool?> onTapped;
 
-  const DropDownWidget(
-      {this.label,
-      required this.dropDownList,
-      required this.hintText,
-      required this.onChanged,
-      required this.onTapped,
-      this.tapped,
-      this.text,
-      super.key});
+  const DropDownWidget({
+    this.label,
+    required this.dropDownList,
+    required this.hintText,
+    required this.onChanged,
+    required this.onTapped,
+    this.tapped,
+    this.text,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,17 +51,16 @@ class _CustomDropdown extends StatefulWidget {
   final List<String> dropDownList;
   final Function(String) onChanged;
   final Function(bool?) onTapped;
-  final bool? tapped;
+  final bool? isTapped;
   final String? initialValue;
 
   const _CustomDropdown({
-    super.key,
     required this.hintText,
     required this.dropDownList,
     required this.onChanged,
     required this.onTapped,
-    this.tapped,
-    this.initialValue,
+    this.isTapped = true,
+    this.initialValue = '',
   });
 
   @override
@@ -82,7 +82,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       width: double.maxFinite,
-      duration: duration,
+      duration: duration300,
       height: _isDropDown
           ? (_unitHeight * widget.dropDownList.length) + 58.h
           : 58.h,
@@ -181,7 +181,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
             crossFadeState: _isDropDown
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
-            duration: duration,
+            duration: duration300,
           ),
         ],
       ),

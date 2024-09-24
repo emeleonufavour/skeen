@@ -12,6 +12,9 @@ Future<void> svgPrecacheImage() async {
     Assets.report,
     Assets.chatBox,
     Assets.gear,
+    Assets.onboarding1,
+    Assets.onboarding2,
+    Assets.onboarding3,
   ];
 
   for (String element in svgs) {

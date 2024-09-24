@@ -1,9 +1,9 @@
-export 'components/activity_section.dart';
-export 'components/bill_board.dart';
-export 'components/home_app_bar.dart';
-export 'components/recommendation_section.dart';
+export 'presentation/components/activity_section.dart';
+export 'presentation/components/bill_board.dart';
+export 'presentation/components/home_app_bar.dart';
+export 'presentation/components/recommendation_section.dart';
 export 'package:flutter_svg/svg.dart';
-export 'views/home_view.dart';
-export 'widgets/activity_box.dart';
-export 'widgets/recommendation_box.dart';
-export 'widgets/see_all_tile.dart';
+export 'presentation/views/home_view.dart';
+export 'presentation/widgets/activity_box.dart';
+export 'presentation/widgets/recommendation_box.dart';
+export 'presentation/widgets/see_all_tile.dart';

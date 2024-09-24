@@ -1,16 +1,17 @@
-import '../../auth.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController textController;
   final String hintText;
   final Widget? suffixIcon;
   final void Function(String)? onChanged;
-  const TextFieldWidget(
-      {required this.textController,
-      required this.hintText,
-      this.suffixIcon,
-      this.onChanged,
-      super.key});
+  const TextFieldWidget({
+    required this.textController,
+    required this.hintText,
+    this.suffixIcon,
+    this.onChanged,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

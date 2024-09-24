@@ -5,6 +5,8 @@ final imagePickerProvider = Provider((ref) => ImagePicker());
 final barcodeValueProvider = StateProvider<String?>((ref) => null);
 
 class CameraPreviewWidget extends ConsumerWidget {
+  const CameraPreviewWidget({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cameraControllerAsyncValue = ref.watch(cameraControllerProvider);
@@ -19,8 +21,11 @@ class CameraPreviewWidget extends ConsumerWidget {
 
 class BarcodeScannerScreen extends ConsumerStatefulWidget {
   static const String route = 'barcode_scanner';
+
+  const BarcodeScannerScreen({super.key});
   @override
-  _BarcodeScannerScreenState createState() => _BarcodeScannerScreenState();
+  ConsumerState<BarcodeScannerScreen> createState() =>
+      _BarcodeScannerScreenState();
 }
 
 class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
@@ -33,7 +38,7 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
     final barcodeValue = ref.watch(barcodeValueProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Barcode Scanner')),
+      appBar: AppBar(title: const Text('Barcode Scanner')),
       body: cameraControllerAsyncValue.when(
         data: (controller) => Stack(
           fit: StackFit.expand,
@@ -49,9 +54,9 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
                   if (barcodeValue != null)
                     Text(
                       'Barcode: $barcodeValue',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -66,7 +71,7 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
                         onPressed: _isScanning
                             ? null
                             : () => _pickAndScanImage(barcodeScanner),
-                        child: Text('Pick from Gallery'),
+                        child: const Text('Pick from Gallery'),
                       ),
                     ],
                   ),
@@ -75,7 +80,7 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
             ),
           ],
         ),
-        loading: () => CircularProgressIndicator(),
+        loading: () => const CircularProgressIndicator(),
         error: (error, stack) => Text('Error: $error'),
       ),
     );
@@ -91,7 +96,6 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
       final image = await controller.takePicture();
       await _processImage(image.path, scanner);
     } catch (e) {
-      print('Error scanning barcode: $e');
       ref.read(barcodeValueProvider.notifier).state = 'Error scanning barcode';
     } finally {
       setState(() => _isScanning = false);
@@ -113,7 +117,6 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
         ref.read(barcodeValueProvider.notifier).state = 'No image selected';
       }
     } catch (e) {
-      print('Error picking or scanning image: $e');
       ref.read(barcodeValueProvider.notifier).state = 'Error processing image';
     } finally {
       setState(() => _isScanning = false);
@@ -122,10 +125,10 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
 
   Future<void> _processImage(String imagePath, BarcodeScanner scanner) async {
     final inputImage = InputImage.fromFilePath(imagePath);
-    final barcodes = await scanner.processImage(inputImage);
+    final barcode = await scanner.processImage(inputImage);
 
-    if (barcodes.isNotEmpty) {
-      ref.read(barcodeValueProvider.notifier).state = barcodes.first.rawValue;
+    if (barcode.isNotEmpty) {
+      ref.read(barcodeValueProvider.notifier).state = barcode.first.rawValue;
     } else {
       ref.read(barcodeValueProvider.notifier).state = 'No barcode found';
     }

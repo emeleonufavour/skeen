@@ -1,12 +1,15 @@
-import '../../auth.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class PasswordTextfield extends StatefulWidget {
   final TextEditingController textController;
   final bool showPasswordStrength;
-  const PasswordTextfield(
-      {required this.textController,
-      required this.showPasswordStrength,
-      super.key});
+
+  const PasswordTextfield({
+    required this.textController,
+    required this.showPasswordStrength,
+    super.key,
+  });
 
   @override
   State<PasswordTextfield> createState() => _PasswordTextfieldState();
@@ -48,42 +51,40 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
           controller: widget.textController,
           obscureText: _obscureText,
           style: TextStyle(
-              fontFamily: Assets.poppins,
-              color: Colors.black,
-              fontSize: kfsTiny.sp),
+            fontFamily: Assets.poppins,
+            color: Colors.black,
+            fontSize: kfsTiny.sp,
+          ),
           decoration: InputDecoration(
             suffixIcon: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-                icon: Icon(
-                    _obscureText ? Icons.visibility_off : Icons.visibility)),
+              onPressed: () => setState(() => _obscureText = !_obscureText),
+              icon:
+                  Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+            ),
             contentPadding: EdgeInsets.symmetric(horizontal: 15.w),
             hintStyle: TextStyle(
-                fontFamily: Assets.poppins,
-                color: const Color(0xFF697D95),
-                fontSize: kfsTiny.sp,
-                fontWeight: w400),
+              fontFamily: Assets.poppins,
+              color: Palette.hinTextColor,
+              fontSize: kfsTiny.sp,
+              fontWeight: w400,
+            ),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                    width: 2,
-                    style: BorderStyle.solid,
-                    color: Palette.lightGrey)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                  width: 2, style: BorderStyle.solid, color: Palette.lightGrey),
+            ),
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                    width: 2,
-                    style: BorderStyle.solid,
-                    color: Palette.lightGrey)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                  width: 2, style: BorderStyle.solid, color: Palette.lightGrey),
+            ),
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                    width: 2,
-                    style: BorderStyle.solid,
-                    color: Theme.of(context).primaryColor)),
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                  width: 2,
+                  style: BorderStyle.solid,
+                  color: Theme.of(context).primaryColor),
+            ),
             hintText: "Password",
           ),
           onChanged: (value) {

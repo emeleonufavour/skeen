@@ -1,2 +1,10 @@
+export 'auth/auth.dart';
+export 'chat_bot/chat_bot.dart';
+export 'history/history.dart';
 export 'home/home.dart';
 export 'nav_bar/nav_bar.dart';
+export 'onboarding/onboarding.dart';
+export 'report/report.dart';
+export 'scan_product/scan_product.dart';
+export 'skin_goal/skin_goal.dart';
+export 'splash/splash.dart';

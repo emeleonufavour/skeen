@@ -1,4 +1,5 @@
-import '../skin_goal.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class SkinGoalBottomSheet extends ConsumerWidget {
   final PageController _pageController = PageController();
@@ -6,8 +7,6 @@ class SkinGoalBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentPage = ref.watch(skinGoalBottomSheetProvider);
-
     return PageView(
       controller: _pageController,
       onPageChanged: (int page) {
@@ -32,13 +31,16 @@ void showSkinGoalBottomSheet(BuildContext context) {
     ),
     builder: (BuildContext context) {
       return LayoutBuilder(
-          builder: (context, constraints) => Container(
-              constraints: BoxConstraints(
-                maxHeight: screenHeight * 0.88,
-              ),
-              child: SizedBox(
-                  height: constraints.maxHeight,
-                  child: SkinGoalBottomSheet())));
+        builder: (context, constraints) => Container(
+          constraints: BoxConstraints(
+            maxHeight: screenHeight * 0.88,
+          ),
+          child: SizedBox(
+            height: constraints.maxHeight,
+            child: SkinGoalBottomSheet(),
+          ),
+        ),
+      );
     },
   );
 }

@@ -1,4 +1,5 @@
-import '../skin_goal.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class SetSkinGoalView extends ConsumerWidget {
   final PageController controller;
@@ -104,28 +105,29 @@ class SetSkinGoalView extends ConsumerWidget {
                   ).padding(bottom: 10.h),
 
                   DropDownWidget(
-                          dropDownList: const ["Daily", "Weekly", "Monthly"],
-                          hintText: "Frequency",
-                          onChanged: (v) {},
-                          onTapped: (v) {})
-                      .padding(bottom: 10.h),
+                    dropDownList: const ["Daily", "Weekly", "Monthly"],
+                    hintText: "Frequency",
+                    onChanged: (v) {},
+                    onTapped: (v) {},
+                  ).padding(bottom: 10.h),
 
-                  CalendarDropdown(text: "Start date", onDateSelected: (v) {})
-                      .padding(bottom: 10.h),
+                  CalendarDropdown(
+                    text: "Start date",
+                    onDateSelected: (v) {},
+                  ).padding(bottom: 10.h),
 
                   DropDownWidget(
-                      dropDownList: const [""],
-                      hintText: "Reminder",
-                      onChanged: (v) {},
-                      onTapped: (v) {
-                        controller.nextPage(
-                          duration: duration,
-                          curve: Curves.easeInOut,
-                        );
-                        ref
-                            .read(skinGoalBottomSheetProvider.notifier)
-                            .nextPage();
-                      }).padding(bottom: 50.h),
+                    dropDownList: const [""],
+                    hintText: "Reminder",
+                    onChanged: (v) {},
+                    onTapped: (v) {
+                      controller.nextPage(
+                        duration: duration300,
+                        curve: Curves.easeInOut,
+                      );
+                      ref.read(skinGoalBottomSheetProvider.notifier).nextPage();
+                    },
+                  ).padding(bottom: 50.h),
                 ],
               ),
             ),

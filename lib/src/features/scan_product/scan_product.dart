@@ -9,6 +9,6 @@ export 'package:flutter/material.dart';
 export 'package:myskin_flutterbytes/src/cores/shared/text_widget.dart';
 export 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/components/add_product_bm.dart';
 export 'package:myskin_flutterbytes/src/features/skin_goal/skin_goal.dart';
-export 'package:myskin_flutterbytes/src/features/auth/components/textfield_widget.dart';
 export 'package:myskin_flutterbytes/src/features/scan_product/data/models/skincare_product.dart';
 export 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
+export 'presentation/ui/views/scan_product_view.dart';

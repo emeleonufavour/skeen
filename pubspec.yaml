@@ -26,6 +26,7 @@ dependencies:
   image_picker: ^1.1.2
   google_generative_ai: ^0.4.6
   mockito: ^5.4.4
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -66,3 +67,8 @@ flutter:
           weight: 800
         - asset: assets/fonts/Poppins/Poppins-Black.ttf
           weight: 900
+          
+    - family: Orelega
+      fonts: 
+        - asset: assets/fonts/orelega_one/orelega_one_regular.ttf
+      

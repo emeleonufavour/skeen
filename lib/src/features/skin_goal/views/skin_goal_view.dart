@@ -1,4 +1,5 @@
-import '../skin_goal.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class SkinCareGoalView extends StatelessWidget {
   const SkinCareGoalView({super.key});

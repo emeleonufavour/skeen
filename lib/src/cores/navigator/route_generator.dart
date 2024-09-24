@@ -3,42 +3,46 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/forgot_password.dart';
-import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signin_view.dart';
-import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signup_view.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
-import 'package:myskin_flutterbytes/src/features/history/views/history_view.dart';
-import 'package:myskin_flutterbytes/src/features/onboarding/presentation/views/onboarding_view.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_view.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/views/skin_goal_view.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // final Object? args = settings.arguments;
 
     switch (settings.name) {
+      case SplashView.route:
+        return pageRoute(const SplashView());
+
       case NavBarView.route:
         return pageRoute(const NavBarView());
+
       case SkinCareGoalView.route:
         return pageRoute(const SkinCareGoalView());
+
       case ChatBotView.route:
         return pageRoute(ChatBotView());
+
       case HistoryView.route:
         return pageRoute(const HistoryView());
+
       case BarcodeScannerScreen.route:
-        return pageRoute(BarcodeScannerScreen());
+        return pageRoute(const BarcodeScannerScreen());
+
       case SignUpView.route:
         return pageRoute(SignUpView());
-      case SigninView.route:
-        return pageRoute(SigninView());
+
+      case SignInView.route:
+        return pageRoute(SignInView());
+
       case ForgotPasswordView.route:
         return pageRoute(ForgotPasswordView());
+
       case OnboardingView.route:
-        return pageRoute(OnboardingView());
+        return pageRoute(const OnboardingView());
+
       case ScanProductView.route:
         return pageRoute(const ScanProductView());
+
       default:
         return errorRoute();
     }
