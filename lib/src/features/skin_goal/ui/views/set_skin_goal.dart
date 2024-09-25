@@ -1,3 +1,5 @@
+import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_goal_tab_bar_position.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/widget/goal_content.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/widget/routine_content.dart';
 
@@ -49,6 +51,7 @@ class _SetSkinGoalViewState extends ConsumerState<SetSkinGoalView>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(setSkinGoalProvider);
+    final position = ref.read(positionProvider);
     bool isHealth = provider.category == SkinGoalCategory.health;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -127,6 +130,7 @@ class _SetSkinGoalViewState extends ConsumerState<SetSkinGoalView>
                   text: "Save",
                   onTap: () {
                     ref.read(setSkinGoalProvider.notifier).saveGoals();
+
                     goBack();
                   }),
             )

@@ -34,8 +34,10 @@ Future<GemmaResponse?> pickAndScanImage(
 Future<GemmaResponse?> _processImage(String imagePath, GenerativeModel model,
     SkinGoalsNotifier skinGoals) async {
   final inputImage = InputImage.fromFilePath(imagePath);
-  final List<String> goals =
-      (skinGoals.onlySkinGoals())[0].goals!.map((goal) => goal.name).toList();
+  final List<String> goals = (skinGoals.showOnlySkinHealthGoals())[0]
+      .goals!
+      .map((goal) => goal.name)
+      .toList();
   dev.log("Goals: $goals");
   try {
     File file = File(imagePath);

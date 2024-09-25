@@ -2,16 +2,25 @@
 import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goal_state.dart';
 
 class SkinGoalsState {
-  List<SkinGoalState> goals = [];
+  List<SkinGoalState> routines;
+  SkinGoalState healthGoal;
+  List<SkinGoalState> visibleList;
+
   SkinGoalsState({
-    required this.goals,
+    required this.routines,
+    required this.healthGoal,
+    required this.visibleList,
   });
 
   SkinGoalsState copyWith({
-    List<SkinGoalState>? goals,
+    List<SkinGoalState>? routines,
+    SkinGoalState? healthGoal,
+    List<SkinGoalState>? visibleList,
   }) {
     return SkinGoalsState(
-      goals: goals ?? this.goals,
+      routines: routines ?? this.routines,
+      healthGoal: healthGoal ?? this.healthGoal,
+      visibleList: visibleList ?? this.visibleList,
     );
   }
 }

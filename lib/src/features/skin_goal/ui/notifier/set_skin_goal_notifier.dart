@@ -89,7 +89,10 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
 
   Future<void> saveGoals() async {
     try {
-      skinGoals.addSkinGoal(state);
+      state.category == SkinGoalCategory.health
+          ? skinGoals
+              .updateSkinGoals(state.goals!.where((g) => g.isSelected).toList())
+          : skinGoals.addSkinRoutine(state);
     } catch (e) {
       AppLogger.logError(e.toString());
     }
