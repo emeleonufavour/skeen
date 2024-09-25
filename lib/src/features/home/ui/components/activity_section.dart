@@ -110,7 +110,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
     super.initState();
     _model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
-      apiKey: "AIzaSyC9DFSUt3umhF79YEs1UeY4gNqXuIBVHbE",
+      apiKey: "",
     );
     _chat = _model.startChat();
   }

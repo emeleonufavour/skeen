@@ -28,8 +28,10 @@ class ScanProductView extends ConsumerWidget {
                 String formattedDate = DateFormat('d, MMM yyyy')
                     .format(products[index].expiryDate);
                 return Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: EdgeInsets.only(bottom: 10.h),
+                  padding: EdgeInsets.all(10.h),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: kGlobalPadding,
+                  ).copyWith(bottom: 10.h),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: Palette.lightGrey)),
@@ -46,7 +48,7 @@ class ScanProductView extends ConsumerWidget {
                             fontWeight: w500,
                           ).padding(bottom: 7.h),
                           RichTextWidget(
-                            text: "Expires: ",
+                            text: "Expires:   ",
                             text2: formattedDate,
                             textColor: Palette.grey,
                             textColor2: Colors.black,
