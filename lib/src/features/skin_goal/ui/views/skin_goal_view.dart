@@ -39,7 +39,7 @@ class _SkinCareGoalView extends ConsumerState<SkinCareGoalView> {
           : Column(
               children: [
                 Container(
-                  width: 335.w,
+                  width: tabBarWidth,
                   height: 55.h,
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                   decoration: BoxDecoration(
@@ -51,7 +51,7 @@ class _SkinCareGoalView extends ConsumerState<SkinCareGoalView> {
                       left: position,
                       duration: duration,
                       child: Container(
-                        width: 335.w / 2,
+                        width: tabBarWidth / 2,
                         height: 37.h,
                         decoration: const BoxDecoration(
                             color: Palette.primaryColor,
@@ -81,9 +81,7 @@ class _SkinCareGoalView extends ConsumerState<SkinCareGoalView> {
                           10.w.horizontalSpace,
                           GestureDetector(
                               onTap: () {
-                                ref
-                                    .read(positionProvider.notifier)
-                                    .moveRight(335.w);
+                                ref.read(positionProvider.notifier).moveRight();
                                 ref
                                     .read(skinGoalsNotifier.notifier)
                                     .showOnlySkinRoutine();

@@ -51,7 +51,7 @@ class _SetSkinGoalViewState extends ConsumerState<SetSkinGoalView>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(setSkinGoalProvider);
-    final position = ref.read(positionProvider);
+
     bool isHealth = provider.category == SkinGoalCategory.health;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {

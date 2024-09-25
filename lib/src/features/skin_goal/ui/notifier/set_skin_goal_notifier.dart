@@ -16,7 +16,7 @@ enum SkinGoalCategory {
 
 final setSkinGoalProvider =
     StateNotifierProvider<SetSkinGoalNotifier, SkinGoalState>((ref) {
-  final skinGoalsProvider = ref.read(skinGoalsNotifier.notifier);
+  final skinGoalsProvider = ref.watch(skinGoalsNotifier.notifier);
   return SetSkinGoalNotifier(skinGoalsProvider);
 });
 
@@ -38,6 +38,7 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
 
   void toggleCategory(SkinGoalCategory category) {
     state = state.copyWith(category: category);
+    skinGoals.setCategory(category);
     if (category == SkinGoalCategory.health) {
       state = state.copyWith(frequency: null);
     } else {
@@ -89,10 +90,7 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
 
   Future<void> saveGoals() async {
     try {
-      state.category == SkinGoalCategory.health
-          ? skinGoals
-              .updateSkinGoals(state.goals!.where((g) => g.isSelected).toList())
-          : skinGoals.addSkinRoutine(state);
+      skinGoals.saveGoals(state);
     } catch (e) {
       AppLogger.logError(e.toString());
     }

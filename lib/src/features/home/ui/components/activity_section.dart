@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goals_state.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goal_view.dart';
 import 'dart:developer' as dev;
@@ -12,7 +13,7 @@ import '../../../chat_bot/chat_bot.dart';
 import '../../data/gemma_response.dart';
 
 Future<GemmaResponse?> pickAndScanImage(
-    GenerativeModel model, SkinGoalsNotifier skinGoals) async {
+    GenerativeModel model, SkinGoalsState skinGoals) async {
   try {
     final ImagePicker picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -31,19 +32,16 @@ Future<GemmaResponse?> pickAndScanImage(
   return null;
 }
 
-Future<GemmaResponse?> _processImage(String imagePath, GenerativeModel model,
-    SkinGoalsNotifier skinGoals) async {
+Future<GemmaResponse?> _processImage(
+    String imagePath, GenerativeModel model, SkinGoalsState skinGoals) async {
   final inputImage = InputImage.fromFilePath(imagePath);
-  final List<String> goals = (skinGoals.showOnlySkinHealthGoals())[0]
-      .goals!
-      .map((goal) => goal.name)
-      .toList();
+  final List<String> goals =
+      (skinGoals.healthGoal).goals!.map((goal) => goal.name).toList();
   dev.log("Goals: $goals");
   try {
     File file = File(imagePath);
     final Uint8List bytes = await file.readAsBytes();
 
-    final ByteData byteData = ByteData.sublistView(bytes);
     final content = [
       Content.multi([
         TextPart("""This should be an image of a SkinCare product. 
@@ -112,7 +110,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
     super.initState();
     _model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
-      apiKey: "",
+      apiKey: "AIzaSyC9DFSUt3umhF79YEs1UeY4gNqXuIBVHbE",
     );
     _chat = _model.startChat();
   }
@@ -157,8 +155,8 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                               Button(
                                 onTap: () async {
                                   final GemmaResponse? response =
-                                      await pickAndScanImage(_model,
-                                          ref.read(skinGoalsNotifier.notifier));
+                                      await pickAndScanImage(
+                                          _model, ref.read(skinGoalsNotifier));
 
                                   if (response != null) {
                                     dev.log(response.suggestion);
