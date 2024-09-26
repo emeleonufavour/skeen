@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 /// WIDGET EXTENSIONS
@@ -93,3 +94,6 @@ extension NameInitials on String {
     return initials.substring(0, initials.length.clamp(0, 3));
   }
 }
+
+/// HIVE EXTENSIONS
+

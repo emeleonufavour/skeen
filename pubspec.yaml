@@ -16,7 +16,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   intl: ^0.18.0
   flutter_calendar_carousel: ^2.4.3
-  get_it: ^7.7.0
+  get_it: ^8.0.0
   fpdart: ^1.1.0
   extended_image: ^8.2.1
   flutter_riverpod: ^2.5.1
@@ -28,6 +28,9 @@ dependencies:
   mockito: ^5.4.4
   mocktail: ^1.0.4
   flutter_local_notifications: ^17.2.3
+  flutter_secure_storage: ^4.2.1
+  shared_preferences: ^2.3.2
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

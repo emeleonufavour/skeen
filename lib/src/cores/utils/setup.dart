@@ -1,14 +1,18 @@
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
-import '../../service/notification_service.dart';
+import 'notification_helper.dart';
+import 'session_manager.dart';
 
 class Setup {
   static Future<void> run() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    final notificationService = NotificationService();
-    await notificationService.initializeNotifications();
+    // final notificationService = NotificationService();
+    // await notificationService.initializeNotifications();
+    // await notificationService.requestPermissions();
 
     await SetUpLocators.init();
 

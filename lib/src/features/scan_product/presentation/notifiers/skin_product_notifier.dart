@@ -1,16 +1,42 @@
+import 'package:get_it/get_it.dart';
+import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
+
 import '../../scan_product.dart';
 
 final skinCareProductProvider =
     StateNotifierProvider<ProductNotifier, List<SkinCareProduct>>((ref) {
-  return ProductNotifier();
+  final SessionManager sessionManager = GetIt.I<SessionManager>();
+  return ProductNotifier(sessionManager);
 });
 
 final textProvider = StateProvider<String>((ref) => '');
 
 class ProductNotifier extends StateNotifier<List<SkinCareProduct>> {
-  ProductNotifier() : super([]);
+  final SessionManager _sessionManager;
+  ProductNotifier(this._sessionManager) : super([]) {
+    _initializeState();
+  }
 
-  void addProduct(SkinCareProduct product) {
-    state = [...state, product];
+  final String _listKey = 'skin_care_products_list';
+
+  Future<void> _initializeState() async {
+    final cachedProducts = _sessionManager.getObjectList<SkinCareProduct>(
+      _listKey,
+      (json) => SkinCareProduct.fromJson(json),
+    );
+
+    if (cachedProducts != null && cachedProducts.isNotEmpty) {
+      state = cachedProducts;
+    }
+  }
+
+  Future<void> addProduct(SkinCareProduct product) async {
+    try {
+      state = [...state, product];
+      await _sessionManager.storeObjectList<SkinCareProduct>(
+          _listKey, state, (obj) => obj.toJson());
+    } catch (e) {
+      AppLogger.logError(e.toString());
+    }
   }
 }

@@ -16,13 +16,30 @@ class NotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
     const DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings();
+        DarwinInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
+    );
     const InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  Future<void> requestPermissions() async {
+    final platform =
+        flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>();
+    if (platform != null) {
+      await platform.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+    }
   }
 
   Future<void> scheduleDaily(
@@ -40,7 +57,7 @@ class NotificationService {
           priority: Priority.high,
         ),
       ),
-      androidAllowWhileIdle: true,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
@@ -62,7 +79,7 @@ class NotificationService {
           priority: Priority.high,
         ),
       ),
-      androidAllowWhileIdle: true,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,

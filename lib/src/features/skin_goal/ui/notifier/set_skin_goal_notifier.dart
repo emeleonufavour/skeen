@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:get_it/get_it.dart';
+import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 
 import '../../data/models/goal.dart';
@@ -12,17 +14,24 @@ enum SkinGoalCategory {
 
   final String name;
   const SkinGoalCategory(this.name);
+
+  String toJson() => name;
+
+  static SkinGoalCategory fromJson(String json) =>
+      SkinGoalCategory.values.firstWhere((category) => category.name == json);
 }
 
 final setSkinGoalProvider =
     StateNotifierProvider<SetSkinGoalNotifier, SkinGoalState>((ref) {
+  final SessionManager sessionManager = GetIt.I<SessionManager>();
   final skinGoalsProvider = ref.watch(skinGoalsNotifier.notifier);
-  return SetSkinGoalNotifier(skinGoalsProvider);
+  return SetSkinGoalNotifier(skinGoalsProvider, sessionManager);
 });
 
 class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
+  final SessionManager _sessionManager;
   SkinGoalsNotifier skinGoals;
-  SetSkinGoalNotifier(this.skinGoals)
+  SetSkinGoalNotifier(this.skinGoals, this._sessionManager)
       : super(SkinGoalState(
           category: SkinGoalCategory.health,
           goals: [
@@ -34,7 +43,22 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
             Goal(name: "Redness Reduction"),
             Goal(name: "Detoxification"),
           ],
-        ));
+        )) {
+    _loadSavedState();
+  }
+
+  final String _key = "skin_goal_state";
+
+  Future<void> _loadSavedState() async {
+    final savedState = _sessionManager.getCachedObject<SkinGoalState>(
+      _key,
+      SkinGoalState.fromJson,
+    );
+    if (savedState != null) {
+      state = savedState;
+      skinGoals.setCategory(savedState.category);
+    }
+  }
 
   void toggleCategory(SkinGoalCategory category) {
     state = state.copyWith(category: category);
@@ -90,6 +114,11 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
 
   Future<void> saveGoals() async {
     try {
+      await _sessionManager.storeObject<SkinGoalState>(
+        _key,
+        state,
+        (state) => state.toJson(),
+      );
       skinGoals.saveGoals(state);
     } catch (e) {
       AppLogger.logError(e.toString());

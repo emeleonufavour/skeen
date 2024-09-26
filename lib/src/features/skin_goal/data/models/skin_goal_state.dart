@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../../skin_goal.dart';
 import '../../ui/notifier/set_skin_goal_notifier.dart';
 import 'goal.dart';
@@ -19,6 +18,35 @@ class SkinGoalState {
     this.selectedDays,
     this.reminderTimes,
   });
+
+  Map<String, dynamic> toJson() => {
+        'category': category.toJson(),
+        'goals': goals?.map((goal) => goal.toJson()).toList(),
+        'frequency': frequency,
+        'startDate': startDate?.toIso8601String(),
+        'selectedDays': selectedDays,
+        'reminderTimes': reminderTimes
+            ?.map((time) => '${time.hour}:${time.minute}')
+            .toList(),
+      };
+
+  factory SkinGoalState.fromJson(Map<String, dynamic> json) => SkinGoalState(
+        category: SkinGoalCategory.fromJson(json['category']),
+        goals: (json['goals'] as List<dynamic>?)
+            ?.map((goalJson) => Goal.fromJson(goalJson))
+            .toList(),
+        frequency: json['frequency'],
+        startDate: json['startDate'] != null
+            ? DateTime.parse(json['startDate'])
+            : null,
+        selectedDays: (json['selectedDays'] as List<dynamic>?)?.cast<bool>(),
+        reminderTimes:
+            (json['reminderTimes'] as List<dynamic>?)?.map((timeString) {
+          final parts = timeString.split(':');
+          return TimeOfDay(
+              hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+        }).toList(),
+      );
 
   SkinGoalState copyWith({
     SkinGoalCategory? category,
