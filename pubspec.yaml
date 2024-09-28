@@ -31,6 +31,7 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   shared_preferences: ^2.3.2
   hive_flutter: ^1.1.0
+  rxdart: ^0.28.0
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +39,13 @@ dev_dependencies:
 
   flutter_lints: ^4.0.0
   build_runner: ^2.4.12
+  flutter_launcher_icons: ^0.14.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 flutter:
   # The following line ensures that the Material Icons font is
