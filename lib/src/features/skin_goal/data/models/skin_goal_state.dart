@@ -5,6 +5,7 @@ import 'goal.dart';
 class SkinGoalState {
   final SkinGoalCategory category;
   final List<Goal>? goals;
+  final String? routineName;
   final String? frequency;
   final DateTime? startDate;
   final List<bool>? selectedDays;
@@ -13,6 +14,7 @@ class SkinGoalState {
   SkinGoalState({
     required this.category,
     this.goals,
+    this.routineName,
     this.frequency,
     this.startDate,
     this.selectedDays,
@@ -22,6 +24,7 @@ class SkinGoalState {
   Map<String, dynamic> toJson() => {
         'category': category.toJson(),
         'goals': goals?.map((goal) => goal.toJson()).toList(),
+        'routineName': routineName,
         'frequency': frequency,
         'startDate': startDate?.toIso8601String(),
         'selectedDays': selectedDays,
@@ -35,6 +38,7 @@ class SkinGoalState {
         goals: (json['goals'] as List<dynamic>?)
             ?.map((goalJson) => Goal.fromJson(goalJson))
             .toList(),
+        routineName: json['routineName'],
         frequency: json['frequency'],
         startDate: json['startDate'] != null
             ? DateTime.parse(json['startDate'])
@@ -51,6 +55,7 @@ class SkinGoalState {
   SkinGoalState copyWith({
     SkinGoalCategory? category,
     List<Goal>? goals,
+    String? routineName,
     String? frequency,
     DateTime? startDate,
     List<bool>? selectedDays,
@@ -59,6 +64,7 @@ class SkinGoalState {
     return SkinGoalState(
       category: category ?? this.category,
       goals: goals ?? this.goals,
+      routineName: routineName ?? this.routineName,
       frequency: frequency ?? this.frequency,
       startDate: startDate ?? this.startDate,
       selectedDays: selectedDays ?? this.selectedDays,

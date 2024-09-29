@@ -1,4 +1,3 @@
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_goal_tab_bar_position.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/widget/goal_content.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/widget/routine_content.dart';
@@ -6,6 +5,8 @@ import 'package:myskin_flutterbytes/src/features/skin_goal/ui/widget/routine_con
 import '../../skin_goal.dart';
 import '../notifier/set_skin_goal_notifier.dart';
 import '../widget/category_button.dart';
+
+final routineTextProvider = StateProvider<String>((ref) => '');
 
 class SetSkinGoalView extends ConsumerStatefulWidget {
   final PageController controller;
@@ -17,12 +18,15 @@ class SetSkinGoalView extends ConsumerStatefulWidget {
 
 class _SetSkinGoalViewState extends ConsumerState<SetSkinGoalView>
     with SingleTickerProviderStateMixin {
+  late TextEditingController _textController;
   late AnimationController _animationController;
   late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
+    _textController =
+        TextEditingController(text: ref.read(routineTextProvider));
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
@@ -115,7 +119,10 @@ class _SetSkinGoalViewState extends ConsumerState<SetSkinGoalView>
                                 : _animation.value,
                             child: isHealth
                                 ? const GoalContent()
-                                : RoutineContent(controller: widget.controller),
+                                : RoutineContent(
+                                    controller: widget.controller,
+                                    textController: _textController,
+                                  ),
                           )
                         ],
                       );
@@ -129,6 +136,9 @@ class _SetSkinGoalViewState extends ConsumerState<SetSkinGoalView>
               child: Button(
                   text: "Save",
                   onTap: () {
+                    ref
+                        .read(setSkinGoalProvider.notifier)
+                        .setRoutineName(_textController.text);
                     ref.read(setSkinGoalProvider.notifier).saveGoals();
 
                     goBack();

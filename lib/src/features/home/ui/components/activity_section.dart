@@ -7,9 +7,10 @@ import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goals_state.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goal_view.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
 import 'dart:developer' as dev;
 import '../../../chat_bot/chat_bot.dart';
+import '../../../scan_product/presentation/ui/views/scan_product_view.dart';
 import '../../data/gemma_response.dart';
 
 Future<GemmaResponse?> pickAndScanImage(
@@ -139,7 +140,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                       return Dialog(
                         alignment: Alignment.bottomCenter,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(40.0),
                         ),
                         elevation: 5.0,
                         backgroundColor: Colors.white,
@@ -148,11 +149,14 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Button(
+                              Button.withBorderLine(
                                 onTap: () {},
                                 text: "Take a photo ",
+                                color: Colors.transparent,
+                                borderColor: Theme.of(context).primaryColor,
+                                textColor: Theme.of(context).primaryColor,
                               ),
-                              Button(
+                              Button.withBorderLine(
                                 onTap: () async {
                                   final GemmaResponse? response =
                                       await pickAndScanImage(
@@ -167,14 +171,19 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                                   }
                                 },
                                 text: "Choose from library",
+                                color: Colors.transparent,
+                                borderColor: Theme.of(context).primaryColor,
+                                textColor: Theme.of(context).primaryColor,
                               ),
+                              2.h.verticalSpace,
                               TextWidget(
                                 "Cancel",
                                 fontWeight: FontWeight.w500,
-                                textColor: Colors.red,
+                                textColor: Palette.grey,
                                 onTap: () => goBack(),
-                              )
-                            ].separate(7.h.verticalSpace),
+                              ),
+                              3.h.verticalSpace,
+                            ].separate(10.h.verticalSpace),
                           ),
                         ),
                       );
@@ -186,7 +195,14 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                 description:
                     "You can set personalized skincare goals, track progress, and adjust your routine.",
                 onTap: () => goTo(SkinCareGoalView.route),
-              )
+              ),
+              ActivityBox(
+                title: "Track your products",
+                iconPath: Assets.flower,
+                description:
+                    "You can keep track of your products and let us notify you when they are about to expire.",
+                onTap: () => goTo(ScanProductView.route),
+              ),
             ].separate(kfsVeryTiny.horizontalSpace),
           ),
         ),

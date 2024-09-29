@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get_it/get_it.dart';
+import 'package:myskin_flutterbytes/src/cores/utils/notification_helper.dart';
 import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 
@@ -25,13 +26,19 @@ final setSkinGoalProvider =
     StateNotifierProvider<SetSkinGoalNotifier, SkinGoalState>((ref) {
   final SessionManager sessionManager = GetIt.I<SessionManager>();
   final skinGoalsProvider = ref.watch(skinGoalsNotifier.notifier);
-  return SetSkinGoalNotifier(skinGoalsProvider, sessionManager);
+  final LocalNotificationService notificationService =
+      GetIt.I<LocalNotificationService>();
+
+  return SetSkinGoalNotifier(
+      skinGoalsProvider, sessionManager, notificationService);
 });
 
 class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
   final SessionManager _sessionManager;
   SkinGoalsNotifier skinGoals;
-  SetSkinGoalNotifier(this.skinGoals, this._sessionManager)
+  final LocalNotificationService _notificationService;
+  SetSkinGoalNotifier(
+      this.skinGoals, this._sessionManager, this._notificationService)
       : super(SkinGoalState(
           category: SkinGoalCategory.health,
           goals: [
@@ -95,6 +102,10 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
     state = state.copyWith(startDate: date);
   }
 
+  void setRoutineName(String? routineName) {
+    state = state.copyWith(routineName: routineName);
+  }
+
   void toggleReminderDay(int index) {
     final newSelectedDays = [...state.selectedDays!];
     newSelectedDays[index] = !newSelectedDays[index];
@@ -113,6 +124,7 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
   }
 
   Future<void> saveGoals() async {
+    AppLogger.log("Routine Name => ${state.routineName}");
     try {
       await _sessionManager.storeObject<SkinGoalState>(
         _key,
@@ -120,10 +132,57 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
         (state) => state.toJson(),
       );
       skinGoals.saveGoals(state);
+
+      if (state.category == SkinGoalCategory.routine) {
+        await _scheduleNotifications();
+      }
     } catch (e) {
-      AppLogger.logError(e.toString());
+      AppLogger.logError("Error saving goals => $e");
     }
 
     log('Saving goals: ${state.category}, ${state.goals!.where((g) => g.isSelected).map((g) => g.name).toList()}, ${state.frequency}, ${state.startDate}');
+  }
+
+  Future<void> _scheduleNotifications() async {
+    switch (state.frequency) {
+      case 'daily':
+        for (var time in state.reminderTimes!) {
+          await _notificationService.scheduleDaily(
+            state.category.hashCode,
+            'Skin Routine Reminder',
+            'Time for your ${state.routineName} routine!',
+            time,
+          );
+        }
+        break;
+      case 'weekly':
+        for (int i = 0; i < 7; i++) {
+          if (state.selectedDays![i]) {
+            for (var time in state.reminderTimes!) {
+              await _notificationService.scheduleWeekly(
+                state.category.hashCode + i,
+                'Skin Routine Reminder',
+                'Time for your ${state.routineName} routine!',
+                time,
+                i + 1, // weekday is 1-7 in the notification service
+              );
+            }
+          }
+        }
+        break;
+      case 'monthly':
+        if (state.startDate != null) {
+          for (var time in state.reminderTimes!) {
+            await _notificationService.scheduleMonthly(
+              state.category.hashCode,
+              'Skin Routine Reminder',
+              'Time for your ${state.routineName} routine!',
+              time,
+              state.startDate!.day,
+            );
+          }
+        }
+        break;
+    }
   }
 }

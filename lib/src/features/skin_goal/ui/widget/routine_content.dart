@@ -1,12 +1,15 @@
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_skin_goal_notifier.dart';
 
+import '../../../auth/presentation/components/textfield_widget.dart';
 import '../../skin_goal.dart';
 
 ObjectKey _reminderKey = const ObjectKey('reminder');
 
 class RoutineContent extends ConsumerWidget {
   final PageController controller;
-  const RoutineContent({required this.controller, super.key});
+  final TextEditingController textController;
+  const RoutineContent(
+      {required this.controller, required this.textController, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,12 +17,19 @@ class RoutineContent extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextWidget(
-          "Custom",
-          fontWeight: w600,
-          fontSize: kfsVeryTiny,
-          decorationColor: Theme.of(context).primaryColor,
-        ).padding(top: 15.h, bottom: 10.h),
+        // TextWidget(
+        //   "Custom",
+        //   fontWeight: w600,
+        //   fontSize: kfsVeryTiny,
+        //   decorationColor: Theme.of(context).primaryColor,
+        // ).padding(top: 15.h, bottom: 10.h),
+        7.h.verticalSpace,
+        TextFieldWidget(
+          textController: textController,
+          hintText: "Name of your routine",
+          onChanged: (value) =>
+              ref.read(routineTextProvider.notifier).state = value,
+        ).padding(vertical: 14.h),
         DropDownWidget(
                 dropDownList: const ["Daily", "Weekly", "Monthly"],
                 hintText: "Frequency",

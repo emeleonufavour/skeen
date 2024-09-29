@@ -17,18 +17,27 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
             healthGoal:
                 SkinGoalState(category: SkinGoalCategory.health, goals: []),
             visibleList: [])) {
-    _loadSavedState();
+    loadSavedState();
   }
 
   final String _key = 'skin_goals_state';
 
-  Future<void> _loadSavedState() async {
+  Future<void> loadSavedState() async {
     final savedState = _sessionManager.getCachedObject<SkinGoalsState>(
       _key,
       SkinGoalsState.fromJson,
     );
     if (savedState != null) {
       state = savedState;
+    }
+  }
+
+  void setState(SkinGoalsState newState) {
+    try {
+      state = newState;
+    } catch (e, stackTrace) {
+      AppLogger.log('Error updating SkinGoalsNotifier state: $e');
+      AppLogger.log('Stack trace: $stackTrace');
     }
   }
 
@@ -53,6 +62,7 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
     AppLogger.log("Health => ${state.healthGoal}");
   }
 
+  // TODO: Fix Provider bug that happens here we open Bottom Sheet
   void showOnlySkinHealthGoals() async {
     try {
       state = state.copyWith(visibleList: [state.healthGoal]);
@@ -63,7 +73,7 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
         (state) => state.toJson(),
       );
     } catch (e) {
-      AppLogger.log(e.toString());
+      AppLogger.log("Error showing only skin goals => $e");
     }
   }
 
@@ -77,7 +87,59 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
         (state) => state.toJson(),
       );
     } catch (e) {
-      AppLogger.log(e.toString());
+      AppLogger.log("Error showing only skin routines => $e");
+    }
+  }
+
+  Future<void> deleteRoutine(int index) async {
+    try {
+      if (index < 0 || index >= state.routines.length) {
+        throw RangeError('Index out of bounds');
+      }
+
+      final newRoutines = List<SkinGoalState>.from(state.routines);
+      newRoutines.removeAt(index);
+
+      setState(state.copyWith(
+        routines: newRoutines,
+        visibleList: newRoutines,
+      ));
+
+      await _sessionManager.storeObject<SkinGoalsState>(
+        _key,
+        state,
+        (state) => state.toJson(),
+      );
+    } catch (e, stackTrace) {
+      AppLogger.log('Error deleting routine: $e');
+      AppLogger.log('Stack trace: $stackTrace');
+    }
+  }
+
+  Future<void> deleteHealthGoal(int index) async {
+    try {
+      if (index < 0 || index >= (state.healthGoal.goals?.length ?? 0)) {
+        throw RangeError('Index out of bounds');
+      }
+
+      final newGoals = List<Goal>.from(state.healthGoal.goals ?? []);
+      newGoals.removeAt(index);
+
+      final updatedHealthGoal = state.healthGoal.copyWith(goals: newGoals);
+
+      setState(state.copyWith(
+        healthGoal: updatedHealthGoal,
+        visibleList: [updatedHealthGoal],
+      ));
+
+      await _sessionManager.storeObject<SkinGoalsState>(
+        _key,
+        state,
+        (state) => state.toJson(),
+      );
+    } catch (e, stackTrace) {
+      AppLogger.log('Error deleting health goal: $e');
+      AppLogger.log('Stack trace: $stackTrace');
     }
   }
 
@@ -94,7 +156,7 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
         (state) => state.toJson(),
       );
     } catch (e) {
-      AppLogger.log(e.toString());
+      AppLogger.log("Error saving goals in notifier => $e");
     }
   }
 

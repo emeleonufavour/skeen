@@ -10,10 +10,6 @@ class Setup {
   static Future<void> run() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    // final notificationService = NotificationService();
-    // await notificationService.initializeNotifications();
-    // await notificationService.requestPermissions();
-
     await SetUpLocators.init();
 
     await svgPrecacheImage();

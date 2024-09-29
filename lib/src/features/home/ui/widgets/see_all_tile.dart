@@ -9,10 +9,10 @@ class SeeAllTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextWidget(title, fontWeight: w600),
-        const TextWidget(
-          "See all",
-          textColor: Palette.text1,
-        )
+        // const TextWidget(
+        //   "See all",
+        //   textColor: Palette.text1,
+        // )
       ],
     );
   }

@@ -3,18 +3,20 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
-class NotificationService {
+import '../../features/auth/auth.dart';
+
+class LocalNotificationService {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  NotificationService() {
+  LocalNotificationService() {
     initializeNotifications();
   }
 
   Future<void> initializeNotifications() async {
     tz.initializeTimeZones();
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
+        AndroidInitializationSettings('@mipmap/launcher_icon');
     const DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
       requestAlertPermission: false,
@@ -30,6 +32,7 @@ class NotificationService {
   }
 
   Future<void> requestPermissions() async {
+    AppLogger.log("Request notification permission");
     final platform =
         flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin>();
@@ -40,6 +43,23 @@ class NotificationService {
         sound: true,
       );
     }
+  }
+
+  Future showSimpleNotification(
+      {required String title,
+      required String body,
+      required String payload}) async {
+    AppLogger.log("Show simple notification");
+    const AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails('your channel id', 'your channel name',
+            channelDescription: 'your channel description',
+            importance: Importance.max,
+            priority: Priority.high,
+            ticker: 'ticker');
+    const NotificationDetails notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+    await flutterLocalNotificationsPlugin
+        .show(0, title, body, notificationDetails, payload: payload);
   }
 
   Future<void> scheduleDaily(
@@ -86,6 +106,28 @@ class NotificationService {
     );
   }
 
+  Future<void> scheduleMonthly(
+      int id, String title, String body, TimeOfDay time, int day) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      _nextInstanceOfMonthlyDay(time, day),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'monthly_notification_channel',
+          'Monthly Notifications',
+          importance: Importance.max,
+          priority: Priority.high,
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
+    );
+  }
+
   Future<void> scheduleCustom(
       int id, String title, String body, DateTime dateTime) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
@@ -126,6 +168,14 @@ class NotificationService {
   tz.TZDateTime _nextInstanceOfWeekday(TimeOfDay time, int day) {
     tz.TZDateTime scheduledDate = _nextInstanceOfTime(time);
     while (scheduledDate.weekday != day) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate;
+  }
+
+  tz.TZDateTime _nextInstanceOfMonthlyDay(TimeOfDay time, int day) {
+    tz.TZDateTime scheduledDate = _nextInstanceOfTime(time);
+    while (scheduledDate.day != day) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
     return scheduledDate;

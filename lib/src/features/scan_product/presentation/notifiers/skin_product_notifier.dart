@@ -36,7 +36,7 @@ class ProductNotifier extends StateNotifier<List<SkinCareProduct>> {
       await _sessionManager.storeObjectList<SkinCareProduct>(
           _listKey, state, (obj) => obj.toJson());
     } catch (e) {
-      AppLogger.logError(e.toString());
+      AppLogger.logError("Error adding product $e");
     }
   }
 }
