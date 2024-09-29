@@ -35,7 +35,7 @@ class AuthView extends StatelessWidget {
             ).padding(bottom: 7.h),
             TextWidget(
               description,
-              fontSize: kfsMedium.sp,
+              fontSize: kfsTiny.sp,
             ).padding(bottom: 30.h),
             Column(
               children: contents.separate(10.h.verticalSpace),

@@ -40,10 +40,12 @@ class _SplashViewState extends State<SplashView>
           }
         }
         setState(() => text = traqa.substring(0, _index));
+        if (_index == textLength) {
+          timer.cancel();
+          _initScaleAnimation();
+        }
       },
     );
-
-    _initScaleAnimation();
 
     super.initState();
   }
@@ -87,7 +89,7 @@ class _SplashViewState extends State<SplashView>
   void _initScaleAnimation() {
     _expandController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 300),
     );
 
     _expandAnimation = Tween<double>(begin: 1, end: screenHeight * .08).animate(
@@ -98,7 +100,7 @@ class _SplashViewState extends State<SplashView>
     );
 
     Future.delayed(
-      duration2s,
+      duration300,
       () => _expandController.forward(),
     );
 

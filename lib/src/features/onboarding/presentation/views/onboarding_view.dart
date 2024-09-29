@@ -67,7 +67,7 @@ class OnboardingView extends ConsumerWidget {
               OnboardingTracker(currentIndex: index),
               const Spacer(),
               Button(
-                onTap: () {},
+                onTap: () => clearPath(SignUpView.route),
                 text: 'Get Started',
               ).padding(horizontal: 18.w),
               18.h.verticalSpace,
