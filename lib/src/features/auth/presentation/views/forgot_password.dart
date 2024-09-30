@@ -11,13 +11,17 @@ class ForgotPasswordView extends StatelessWidget {
     return AuthView(
       heading: "Forgot password",
       description:
-          "Enter your email address to receive a password Verification code.",
+          "Enter your email address to receive a password verification code.",
       contents: [
-        TextFieldWidget(textController: emailController, hintText: "Email"),
+        TextFieldWidget(
+          textController: emailController,
+          hintText: "Email",
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.done,
+        ),
       ],
       mainButtonAction: () {},
       mainButtonText: "Submit",
-      isSignIn: false,
     );
   }
 }

@@ -22,6 +22,18 @@ class SignInView extends StatelessWidget {
           hintText: 'Password',
           isPassword: true,
         ),
+        Align(
+          alignment: Alignment.topRight,
+          child: GestureDetector(
+            onTap: () => goTo(ForgotPasswordView.route),
+            child: const TextWidget(
+              'Forgot Password?',
+              fontWeight: w500,
+              fontSize: kfsVeryTiny,
+              textColor: Palette.primaryColor,
+            ),
+          ),
+        ),
       ],
       mainButtonAction: () {},
       mainButtonText: 'Sign in',

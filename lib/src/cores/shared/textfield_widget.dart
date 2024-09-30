@@ -13,9 +13,13 @@ class TextFieldWidget extends StatefulWidget {
   final int? maxLines;
   final bool shouldShowPasswordValidator;
   final void Function(bool)? onPasswordValidityChanged;
+  final TextInputAction? textInputAction;
+  final void Function(String)? onSubmit;
 
   const TextFieldWidget({
     this.textController,
+    this.textInputAction,
+    this.onSubmit,
     this.hintText,
     this.onPasswordValidityChanged,
     this.maxLines,
@@ -47,6 +51,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              textInputAction: widget.textInputAction,
               controller: widget.textController,
               obscuringCharacter: '●',
               style: TextStyle(
@@ -76,6 +81,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 ),
                 hintText: widget.hintText,
               ),
+              onFieldSubmitted: widget.onSubmit,
               onChanged: (value) {
                 if (widget.onChanged != null) widget.onChanged!(value);
                 if (widget.isPassword && widget.shouldShowPasswordValidator) {

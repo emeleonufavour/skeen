@@ -61,7 +61,7 @@ class BaseScaffold extends StatelessWidget {
                   padding: padding ??
                       const EdgeInsets.fromLTRB(
                         kfsExtraLarge,
-                        kfsExtraLarge,
+                        kGlobalPadding,
                         kfsExtraLarge,
                         0,
                       ),
@@ -70,7 +70,12 @@ class BaseScaffold extends StatelessWidget {
               )
             : Padding(
                 padding: padding ??
-                    const EdgeInsets.symmetric(horizontal: kfsExtraLarge),
+                    const EdgeInsets.fromLTRB(
+                      kfsExtraLarge,
+                      kGlobalPadding,
+                      kfsExtraLarge,
+                      0,
+                    ),
                 child: body,
               ),
       ),
