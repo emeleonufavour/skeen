@@ -28,7 +28,7 @@ class PasswordStrengthItem extends StatelessWidget {
                 width: 10,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Palette.lightGrey,
+                  color: Palette.borderColor,
                 ),
               ),
         2.horizontalSpace,

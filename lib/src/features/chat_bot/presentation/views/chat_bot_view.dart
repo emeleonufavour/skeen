@@ -43,7 +43,7 @@ class ChatBotView extends ConsumerWidget {
             child: Container(
                 padding: EdgeInsets.all(kfsVeryTiny.h),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Palette.lightGrey),
+                    border: Border.all(color: Palette.borderColor),
                     shape: BoxShape.circle),
                 child: SvgPicture.asset(Assets.arrowClock)),
           ),

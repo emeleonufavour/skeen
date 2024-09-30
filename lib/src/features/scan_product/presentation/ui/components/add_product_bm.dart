@@ -66,7 +66,7 @@ class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
                           shape: BoxShape.circle,
                           border: Border.all(
                             width: 1,
-                            color: Palette.lightGrey,
+                            color: Palette.borderColor,
                           ),
                         ),
                         child: SvgPicture.asset(

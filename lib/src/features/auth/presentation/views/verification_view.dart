@@ -1,4 +1,5 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class VerificationView extends StatelessWidget {
   VerificationView({super.key});
@@ -15,7 +16,7 @@ class VerificationView extends StatelessWidget {
       ],
       mainButtonAction: () {},
       mainButtonText: "Verify",
-      signUpOrSignIn: false,
+      isSignIn: false,
     );
   }
 }

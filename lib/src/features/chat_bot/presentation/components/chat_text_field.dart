@@ -25,7 +25,7 @@ class ChatTextField extends StatelessWidget {
             padding: const EdgeInsets.all(kfsTiny),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(width: 1, color: Palette.lightGrey),
+              border: Border.all(width: 1, color: Palette.borderColor),
             ),
             child: SvgPicture.asset(Assets.scanBarcode),
           ),
@@ -53,7 +53,7 @@ class ChatTextField extends StatelessWidget {
                 borderSide: const BorderSide(
                   width: 2,
                   style: BorderStyle.solid,
-                  color: Palette.lightGrey,
+                  color: Palette.borderColor,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
@@ -61,7 +61,7 @@ class ChatTextField extends StatelessWidget {
                 borderSide: const BorderSide(
                   width: 2,
                   style: BorderStyle.solid,
-                  color: Palette.lightGrey,
+                  color: Palette.borderColor,
                 ),
               ),
               focusedBorder: OutlineInputBorder(

@@ -2,7 +2,6 @@ import 'package:intl/intl.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-
 class ScanProductView extends ConsumerWidget {
   const ScanProductView({super.key});
 
@@ -24,7 +23,7 @@ class ScanProductView extends ConsumerWidget {
                       "You are yet to add a product click the + button ",
                       fontSize: kfsTiny,
                       fontWeight: w500,
-                      textColor: Color(0xff999999),
+                      textColor: Palette.text1,
                     ),
                   )
                 ],
@@ -40,7 +39,7 @@ class ScanProductView extends ConsumerWidget {
                     margin: EdgeInsets.only(bottom: 10.h),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Palette.lightGrey)),
+                        border: Border.all(color: Palette.borderColor)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +55,7 @@ class ScanProductView extends ConsumerWidget {
                             RichTextWidget(
                               text: "Expires: ",
                               text2: formattedDate,
-                              textColor: Palette.grey,
+                              textColor: Palette.text1,
                               textColor2: Colors.black,
                             )
                           ],

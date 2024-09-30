@@ -59,7 +59,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
                   if (_selectedDate != null)
                     TextWidget(
                       DateFormat('MMM d').format(_selectedDate!),
-                      textColor: const Color(0xff999999),
+                      textColor: Palette.text1,
                       fontWeight: FontWeight.w500,
                       fontSize: 12.sp,
                     ),
@@ -68,7 +68,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
                     duration: const Duration(milliseconds: 300),
                     child: const Icon(
                       Icons.keyboard_arrow_down_rounded,
-                      color: Color(0xff999999),
+                      color: Palette.text1,
                     ),
                   ),
                 ],

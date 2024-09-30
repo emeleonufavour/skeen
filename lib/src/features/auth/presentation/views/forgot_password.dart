@@ -1,3 +1,4 @@
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class ForgotPasswordView extends StatelessWidget {
@@ -8,14 +9,15 @@ class ForgotPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthView(
-        heading: "Forgot password",
-        description:
-            "Enter your email address to receive a password Verification code.",
-        contents: [
-          TextFieldWidget(textController: emailController, hintText: "Email"),
-        ],
-        mainButtonAction: () {},
-        mainButtonText: "Submit",
-        signUpOrSignIn: false);
+      heading: "Forgot password",
+      description:
+          "Enter your email address to receive a password Verification code.",
+      contents: [
+        TextFieldWidget(textController: emailController, hintText: "Email"),
+      ],
+      mainButtonAction: () {},
+      mainButtonText: "Submit",
+      isSignIn: false,
+    );
   }
 }

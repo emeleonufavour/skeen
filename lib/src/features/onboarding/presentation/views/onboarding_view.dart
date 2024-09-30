@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/gestures.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
@@ -72,9 +73,11 @@ class OnboardingView extends ConsumerWidget {
               ).padding(horizontal: 18.w),
               18.h.verticalSpace,
               RichTextWidget(
-                text: "Already has an account? ",
+                text: "Already have an account? ",
                 text2: "Sign in",
                 textColor2: Theme.of(context).primaryColor,
+                onTap: TapGestureRecognizer()
+                  ..onTap = () => goTo(SignInView.route),
                 fontWeight2: w500,
                 fontWeight: w400,
               ),

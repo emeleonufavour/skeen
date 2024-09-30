@@ -106,7 +106,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
                   TextWidget(
                     _selectedText!,
                     fontWeight: FontWeight.w500,
-                    textColor: const Color(0xff999999),
+                    textColor: Palette.text1,
                     fontSize: 12.sp,
                   ),
                 AnimatedRotation(

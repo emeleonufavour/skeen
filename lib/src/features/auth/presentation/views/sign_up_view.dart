@@ -1,5 +1,5 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class SignUpView extends StatelessWidget {
   SignUpView({super.key});
@@ -20,19 +20,21 @@ class SignUpView extends StatelessWidget {
         TextFieldWidget(
           textController: fullNameCtr,
           hintText: "Full name",
-        ).padding(bottom: 10.h),
+        ),
         TextFieldWidget(
           textController: emailCtr,
           hintText: "Email",
-        ).padding(bottom: 10.h),
-        PasswordTextfield(
+        ),
+        TextFieldWidget(
           textController: passCtr,
-          showPasswordStrength: false,
-        )
+          hintText: 'Password',
+          isPassword: true,
+          shouldShowPasswordValidator: true,
+        ),
       ],
       mainButtonAction: () {},
       mainButtonText: "Sign up",
-      signUpOrSignIn: true,
+      isSignIn: false,
     );
   }
 }

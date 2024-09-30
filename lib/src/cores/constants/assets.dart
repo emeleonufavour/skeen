@@ -7,10 +7,10 @@ class Assets {
   static String lotus = _svgAsset('lotus');
   static String scanIcon = _svgAsset('scan_icon');
   static String home = _svgAsset('home');
-  static String chatBox = _svgAsset('chatbox');
+  static String chatBox = _svgAsset('chat_box');
   static String gear = _svgAsset('gear');
   static String report = _svgAsset('reports');
-  
+
   static String sendIcon = _svgAsset('send_icon');
   static String scanFont = _svgAsset('scan_font');
   static String arrowClock = _svgAsset('arrow_clock');
@@ -19,6 +19,10 @@ class Assets {
   static String onboarding2 = _svgAsset("onb_2");
   static String onboarding3 = _svgAsset("onb_3");
   static String google = _svgAsset("google");
+  static String eyeClose = _svgAsset("eye_close");
+  static String eye = _svgAsset("eye");
+  static String cancel = _svgAsset("cancel");
+  static String check = _svgAsset("check");
 
   static String faceCream = _pngAsset('face_cream');
   static String veggies = _pngAsset('veggies');

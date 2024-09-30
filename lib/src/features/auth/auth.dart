@@ -1,11 +1,10 @@
 export 'data/model/password_strength.dart';
 export 'package:myskin_flutterbytes/src/features/auth/auth.dart';
-export 'presentation/components/password_textfield.dart';
-export 'presentation/components/textfield_widget.dart';
-export 'presentation/views/auth_view.dart';
+export 'presentation/widgets/base_auth_view.dart';
 export 'presentation/views/forgot_password.dart';
 export 'presentation/views/reset_password.dart';
 export 'presentation/views/sign_in_view.dart';
 export 'presentation/views/sign_up_view.dart';
 export 'presentation/views/verification_view.dart';
+export 'presentation/widgets/or_widget.dart';
 export 'presentation/widgets/password_strength_item.dart';

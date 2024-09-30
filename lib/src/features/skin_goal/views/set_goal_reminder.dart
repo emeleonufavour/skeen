@@ -77,7 +77,7 @@ class SetGoalReminderView extends ConsumerWidget {
           duration: duration300,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(12)),
-              border: Border.all(width: 1.h, color: Palette.lightGrey)),
+              border: Border.all(width: 1.h, color: Palette.borderColor)),
           child: Column(
             children: List.generate(times.length, (index) {
               if (index == (times.length - 1)) {
@@ -112,7 +112,7 @@ class SetGoalReminderView extends ConsumerWidget {
                     Container(
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                          color: Palette.lightGrey,
+                          color: Palette.borderColor,
                           borderRadius: BorderRadius.circular(6)),
                       child: const TextWidget(
                         "09 : 41 AM",
@@ -120,7 +120,7 @@ class SetGoalReminderView extends ConsumerWidget {
                     ),
                   ]).padding(horizontal: 16.w, vertical: 12.h);
             }).separate(const Divider(
-              color: Palette.lightGrey,
+              color: Palette.borderColor,
               thickness: 1.0,
             )),
           ),

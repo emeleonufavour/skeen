@@ -1,3 +1,4 @@
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class ResetPasswordView extends StatelessWidget {
@@ -8,15 +9,19 @@ class ResetPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthView(
-        heading: "Reset password",
-        description:
-            "Enter your email address to receive a password Verification code.",
-        contents: [
-          PasswordTextfield(
-              textController: passwordController, showPasswordStrength: true)
-        ],
-        mainButtonAction: () {},
-        mainButtonText: "Verify",
-        signUpOrSignIn: false);
+      heading: "Reset password",
+      description:
+          "Enter your email address to receive a password Verification code.",
+      contents: [
+        TextFieldWidget(
+          textController: passwordController,
+          hintText: 'Password',
+          isPassword: true,
+        )
+      ],
+      mainButtonAction: () {},
+      mainButtonText: "Verify",
+      isSignIn: false,
+    );
   }
 }

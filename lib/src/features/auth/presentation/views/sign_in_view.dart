@@ -1,4 +1,5 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class SignInView extends StatelessWidget {
   SignInView({super.key});
@@ -12,13 +13,19 @@ class SignInView extends StatelessWidget {
       heading: "Welcome back",
       description: "Log in to continue your personalized skin care journey.",
       contents: [
-        TextFieldWidget(textController: emailController, hintText: "Email"),
-        PasswordTextfield(
-            textController: passwordController, showPasswordStrength: false)
+        TextFieldWidget(
+          textController: emailController,
+          hintText: "Email",
+        ),
+        TextFieldWidget(
+          textController: passwordController,
+          hintText: 'Password',
+          isPassword: true,
+        ),
       ],
       mainButtonAction: () {},
       mainButtonText: 'Sign in',
-      signUpOrSignIn: true,
+      isSignIn: true,
     );
   }
 }

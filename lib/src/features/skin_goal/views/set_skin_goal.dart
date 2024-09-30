@@ -61,7 +61,7 @@ class SetSkinGoalView extends ConsumerWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: const Color(0xff999999).withOpacity(0.6),
+                              color: Palette.text1,
                             )),
                         child: Row(
                           children: [
@@ -69,8 +69,7 @@ class SetSkinGoalView extends ConsumerWidget {
                               "Routine",
                               fontSize: kfsVeryTiny.sp,
                               fontWeight: w400,
-                              decorationColor:
-                                  const Color(0xff999999).withOpacity(0.6),
+                              decorationColor: Palette.text1,
                             )
                           ],
                         ),

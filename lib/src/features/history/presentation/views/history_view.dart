@@ -14,7 +14,7 @@ class HistoryView extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 10.h),
           child: TextWidget(
             "Today",
-            decorationColor: const Color(0xff999999),
+            decorationColor: Palette.text1,
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
           ),
@@ -26,7 +26,7 @@ class HistoryView extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 10.h),
           child: TextWidget(
             "Yesterday",
-            decorationColor: const Color(0xff999999),
+            decorationColor: Palette.text1,
             fontSize: kfsTiny.sp,
             fontWeight: w600,
           ),

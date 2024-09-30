@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
