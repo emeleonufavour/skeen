@@ -61,11 +61,10 @@ class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
                       onTap: () => goTo(BarcodeScannerScreen.route),
                       child: Container(
                           padding: const EdgeInsets.all(kfsTiny),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  width: 1, color: Palette.lightGrey)),
-                          child: SvgPicture.asset(Assets.scanBarcode)),
+                          child: ImageWidget(
+                            url: Assets.scanIcon,
+                            color: Theme.of(context).primaryColor,
+                          )),
                     ),
                     onChanged: (value) =>
                         ref.read(textProvider.notifier).state = value,

@@ -5,10 +5,10 @@ class AnimatedIntroText extends StatelessWidget {
   final bool hasMoved;
 
   const AnimatedIntroText({
-    Key? key,
+    super.key,
     required this.child,
     required this.hasMoved,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ class DropDownWidget extends StatelessWidget {
   final String? label;
   final String hintText;
   final ValueChanged<String?> onChanged;
+  final String? initialValue;
   final bool? tapped;
   final String? text;
   final List<String> dropDownList;
@@ -15,6 +16,7 @@ class DropDownWidget extends StatelessWidget {
       required this.hintText,
       required this.onChanged,
       required this.onTapped,
+      this.initialValue,
       this.tapped,
       this.text,
       super.key});
@@ -36,6 +38,7 @@ class DropDownWidget extends StatelessWidget {
               : const SizedBox.shrink(),
           _CustomDropdown(
               hintText: hintText,
+              initialValue: initialValue,
               dropDownList: dropDownList,
               onChanged: onChanged,
               onTapped: onTapped)
@@ -92,42 +95,54 @@ class _CustomDropdownState extends State<_CustomDropdown> {
       ),
       child: Column(
         children: [
-          ListTile(
-            title: TextWidget(
-              widget.hintText,
-              fontWeight: FontWeight.w500,
-              textColor: Colors.black,
-              fontSize: 12.sp,
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isDropDown = !_isDropDown;
+                });
+                widget.onTapped(_isDropDown);
+              },
+              child: SizedBox(
+                height: 54.h,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextWidget(
+                      widget.hintText,
+                      fontWeight: FontWeight.w500,
+                      textColor: Colors.black,
+                      fontSize: 12.sp,
+                    ),
+                    //trailing
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (_selectedText != null)
+                          TextWidget(
+                            _selectedText!,
+                            textColor: const Color(0xff999999),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.sp,
+                          ).padding(right: 5.w),
+                        AnimatedRotation(
+                          turns: _isDropDown ? 0.5 : 0,
+                          duration: const Duration(milliseconds: 300),
+                          child: const Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: Color(0xff999999),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ).padding(horizontal: kfsVeryTiny.w),
+              ),
             ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (_selectedText != null)
-                  TextWidget(
-                    _selectedText!,
-                    fontWeight: FontWeight.w500,
-                    textColor: const Color(0xff999999),
-                    fontSize: 12.sp,
-                  ),
-                AnimatedRotation(
-                  turns: _isDropDown ? 0.5 : 0,
-                  duration: const Duration(milliseconds: 300),
-                  child: const Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    color: Palette.text1,
-                  ),
-                ),
-              ],
-            ),
-            onTap: () {
-              setState(() {
-                _isDropDown = !_isDropDown;
-              });
-              widget.onTapped(_isDropDown);
-            },
           ),
           if (_isDropDown)
-            Divider(height: 1.h, color: Colors.grey.withOpacity(0.5))
+            Divider(height: .1.h, color: Colors.grey.withOpacity(0.5))
                 .padding(horizontal: kfsTiny.w),
           AnimatedCrossFade(
             firstChild: const SizedBox(),
