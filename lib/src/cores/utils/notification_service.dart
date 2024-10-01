@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -19,10 +20,10 @@ class LocalNotificationService {
         AndroidInitializationSettings('@mipmap/launcher_icon');
     const DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
-      requestAlertPermission: false,
-      requestBadgePermission: false,
-      requestSoundPermission: false,
-    );
+            // requestAlertPermission: false,
+            // requestBadgePermission: false,
+            // requestSoundPermission: false,
+            );
     const InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
@@ -32,7 +33,27 @@ class LocalNotificationService {
   }
 
   Future<void> requestPermissions() async {
-    AppLogger.log("Request notification permission");
+    if (Platform.isAndroid) {
+      return _requestPermissionsOnAndroid();
+    } else if (Platform.isIOS) {
+      return _requestPermissionsOnIOS();
+    } else {
+      AppLogger.logError("Current platform is not supported");
+    }
+  }
+
+  Future<void> _requestPermissionsOnAndroid() async {
+    AppLogger.log("Request notification permission on Android");
+    final platform =
+        flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+    if (platform != null) {
+      await platform.requestNotificationsPermission();
+    }
+  }
+
+  Future<void> _requestPermissionsOnIOS() async {
+    AppLogger.log("Request notification permission on IOS");
     final platform =
         flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin>();

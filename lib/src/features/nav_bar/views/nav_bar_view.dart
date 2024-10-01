@@ -68,7 +68,10 @@ class NavBarView extends ConsumerWidget {
                     title: 'Chatbox',
                     onTap: () {
                       // ref.read(navNotifier.notifier).setNavBarIndex(3);
-                      goTo(ChatBotView.route);
+                      goTo(
+                        ChatBotView.route,
+                        // arguments:
+                      );
                     }),
                 const Spacer(),
                 Tile(

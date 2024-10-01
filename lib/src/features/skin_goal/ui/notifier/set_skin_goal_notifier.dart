@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:get_it/get_it.dart';
-import 'package:myskin_flutterbytes/src/cores/utils/notification_helper.dart';
+import 'package:myskin_flutterbytes/src/cores/utils/notification_service.dart';
 import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 
@@ -136,17 +136,20 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
       if (state.category == SkinGoalCategory.routine) {
         await _scheduleNotifications();
       }
+      AppLogger.log(state.toString());
     } catch (e) {
       AppLogger.logError("Error saving goals => $e");
     }
 
-    log('Saving goals: ${state.category}, ${state.goals!.where((g) => g.isSelected).map((g) => g.name).toList()}, ${state.frequency}, ${state.startDate}');
+    // log('Saving goals: ${state.category}, ${state.goals!.where((g) => g.isSelected).map((g) => g.name).toList()}, ${state.frequency}, ${state.startDate}');
   }
 
   Future<void> _scheduleNotifications() async {
-    switch (state.frequency) {
+    switch (state.frequency!.toLowerCase()) {
       case 'daily':
+        AppLogger.log("Scheduling daily");
         for (var time in state.reminderTimes!) {
+          AppLogger.log("Scheduling daily at $time");
           await _notificationService.scheduleDaily(
             state.category.hashCode,
             'Skin Routine Reminder',

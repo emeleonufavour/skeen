@@ -1,14 +1,11 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:myskin_flutterbytes/src/features/home/data/gemma_response.dart';
 import '../../chat_bot.dart';
-import 'dart:developer' as dev;
-
-String introText =
-    "Welcome! 👋 I'm here to help with all your skincare needs. You can ask me about your skin test results, get personalized product recommendations, or even scan the barcode of your skincare products to learn more about them. How can I assist you today?";
 
 class ChatBotView extends ConsumerWidget {
-  ChatBotView({super.key});
+  ChatBotView({this.response, super.key});
 
+  final GemmaResponse? response;
   static const String route = "chat_bot";
   final TextEditingController textController = TextEditingController();
   final FocusNode _textFieldFocus = FocusNode();
@@ -39,7 +36,7 @@ class ChatBotView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-    dev.log("args: ${args.toString()}");
+    AppLogger.log("args: ${args.toString()}");
     GemmaResponse? response = args?["response"];
 
     final chatBotState = ref.watch(chatBotProvider);

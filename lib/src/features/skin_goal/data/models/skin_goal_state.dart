@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../../skin_goal.dart';
 import '../../ui/notifier/set_skin_goal_notifier.dart';
 import 'goal.dart';
@@ -70,5 +71,10 @@ class SkinGoalState {
       selectedDays: selectedDays ?? this.selectedDays,
       reminderTimes: reminderTimes ?? this.reminderTimes,
     );
+  }
+
+  @override
+  String toString() {
+    return 'SkinGoalState(category: ${category.name}, goals: $goals, routineName: $routineName, frequency: $frequency, startDate: $startDate, selectedDays: $selectedDays, reminderTimes: $reminderTimes)';
   }
 }

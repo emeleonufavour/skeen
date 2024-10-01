@@ -5,8 +5,11 @@ class TestMaterialAppWidget extends StatelessWidget {
   // final Map<String, WidgetBuilder> routes;
   String route;
 
-  TestMaterialAppWidget(
-      {super.key, required this.route, this.navigatorObservers = const []});
+  TestMaterialAppWidget({
+    super.key,
+    required this.route,
+    this.navigatorObservers = const [],
+  });
 
   @override
   Widget build(BuildContext context) {

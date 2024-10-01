@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mockito/mockito.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/forgot_password.dart';
 import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signin_view.dart';
 import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signup_view.dart';
 import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/verification_view.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
+import 'package:myskin_flutterbytes/src/features/home/data/gemma_response.dart';
 import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/history/views/history_view.dart';
@@ -20,7 +20,7 @@ import '../../features/auth/presentation/ui/reset_password.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    // final Object? args = settings.arguments;
+    final Object? args = settings.arguments;
 
     switch (settings.name) {
       case NavBarView.route:
@@ -28,7 +28,8 @@ class RouteGenerator {
       case SkinCareGoalView.route:
         return pageRoute(const SkinCareGoalView());
       case ChatBotView.route:
-        return pageRoute(ChatBotView());
+        final param = args as GemmaResponse?;
+        return pageRoute(ChatBotView(response: param));
       case HistoryView.route:
         return pageRoute(const HistoryView());
       case BarcodeScannerScreen.route:

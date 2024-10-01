@@ -2,6 +2,8 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import '../../chat_bot.dart';
 
 const String geminiApiKey = String.fromEnvironment('API_KEY');
+String introText =
+    "Welcome! 👋 I'm here to help with all your skincare needs. You can ask me about your skin test results, get personalized product recommendations, or even scan the barcode of your skincare products to learn more about them. How can I assist you today?";
 
 final chatBotProvider =
     StateNotifierProvider<ChatBotNotifier, ChatBotState>((ref) {
@@ -44,7 +46,7 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
         state = state.copyWith(messages: updatedMessages);
       }
     } catch (e) {
-      print(e.toString());
+      AppLogger.log(e.toString());
       // Handle error
     } finally {
       state = state.copyWith(isLoading: false);

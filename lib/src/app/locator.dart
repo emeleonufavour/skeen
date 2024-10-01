@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../cores/utils/notification_helper.dart';
+import '../cores/utils/notification_service.dart';
 import '../cores/utils/session_manager.dart';
 
 class SetUpLocators {

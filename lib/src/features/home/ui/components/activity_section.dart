@@ -8,7 +8,6 @@ import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view
 import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goals_state.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
-import 'dart:developer' as dev;
 import '../../../chat_bot/chat_bot.dart';
 import '../../../scan_product/presentation/ui/views/scan_product_view.dart';
 import '../../data/gemma_response.dart';
@@ -26,7 +25,7 @@ Future<GemmaResponse?> pickAndScanImage(
       print("Image is null");
     }
   } catch (e) {
-    dev.log('Error picking or scanning image: $e');
+    AppLogger.log('Error picking or scanning image: $e');
   } finally {
     // setState(() => _isScanning = false);
   }
@@ -38,7 +37,7 @@ Future<GemmaResponse?> _processImage(
   final inputImage = InputImage.fromFilePath(imagePath);
   final List<String> goals =
       (skinGoals.healthGoal).goals!.map((goal) => goal.name).toList();
-  dev.log("Goals: $goals");
+  AppLogger.log("Goals: $goals");
   try {
     File file = File(imagePath);
     final Uint8List bytes = await file.readAsBytes();
@@ -77,15 +76,14 @@ Future<GemmaResponse?> _processImage(
     var text = response.text;
 
     if (text == null) {
-      dev.log("Omo Gemini no gree pick call o");
+      AppLogger.log("Omo Gemini no gree pick call o");
     } else {
       String jsonString = text;
       jsonString =
           jsonString.replaceAll('```json', '').replaceAll('```', '').trim();
-      // dev.log(jsonString);
+
       Map<String, dynamic> jsonObject = jsonDecode(jsonString);
-      // dev.log(jsonObject);
-      // dev.log(.toString());
+
       return GemmaResponse.fromJson(jsonObject);
     }
   } catch (e) {
@@ -163,11 +161,13 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                                           _model, ref.read(skinGoalsNotifier));
 
                                   if (response != null) {
-                                    dev.log(response.suggestion);
-                                    goTo(ChatBotView.route,
-                                        arguments: {"response": response});
+                                    AppLogger.log(response.suggestion);
+                                    goTo(
+                                      ChatBotView.route,
+                                      arguments: response,
+                                    );
                                   } else {
-                                    dev.log("Unable to navigate");
+                                    AppLogger.log("Unable to navigate");
                                   }
                                 },
                                 text: "Choose from library",
