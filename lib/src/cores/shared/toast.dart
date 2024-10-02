@@ -94,6 +94,6 @@ void showToast({
     context: context,
     message: message,
     backgroundColor: backgroundColor,
-    duration: duration4s,
+    duration: duration3s,
   );
 }

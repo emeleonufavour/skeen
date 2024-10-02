@@ -1,6 +1,8 @@
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:myskin_flutterbytes/src/cores/shared/toast.dart';
+import 'package:myskin_flutterbytes/src/features/chat_bot/chat_bot.dart';
 
 import '../cores.dart';
 
@@ -101,11 +103,18 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
               child: CalendarCarousel(
                 key: _calendarKey,
                 onDayPressed: (DateTime date, List events) {
-                  setState(() {
-                    _selectedDate = date;
-                    _isDropDown = false;
-                  });
-                  widget.onDateSelected(date);
+                  if (isDateInFuture(date)) {
+                    setState(() {
+                      _selectedDate = date;
+                      _isDropDown = false;
+                    });
+                    widget.onDateSelected(date);
+                  } else {
+                    showToast(
+                        context: context,
+                        message: "You must pick a day after today",
+                        type: ToastType.error);
+                  }
                 },
                 // daysTextStyle: TextStyle(color: ),
                 iconColor: Theme.of(context).primaryColor,

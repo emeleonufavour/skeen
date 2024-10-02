@@ -195,9 +195,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                 iconPath: Assets.flower,
                 description:
                     "You can set personalized skincare goals, track progress, and adjust your routine.",
-                onTap: () => showToast(
-                    context: context, message: "Hello", type: ToastType.normal),
-                // onTap: () => goTo(SkinCareGoalView.route),
+                onTap: () => goTo(SkinCareGoalView.route),
               ),
               ActivityBox(
                 title: "Track your products",
