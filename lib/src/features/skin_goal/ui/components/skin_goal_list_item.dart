@@ -7,9 +7,10 @@ final FocusNode buttonFocusNode = FocusNode(debugLabel: 'Menu Button');
 
 class SkinGoalListItem extends ConsumerWidget {
   final String name;
+  final String? frequency;
   final void Function() onDelete;
   const SkinGoalListItem(
-      {required this.name, required this.onDelete, super.key});
+      {required this.name, this.frequency, required this.onDelete, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,11 +33,12 @@ class SkinGoalListItem extends ConsumerWidget {
                 fontWeight: w500,
               ),
               7.h.verticalSpace,
-              const TextWidget(
-                "Everyday, 7:30 AM",
-                fontWeight: w500,
-                textColor: Palette.grey,
-              ),
+              if (frequency != null)
+                TextWidget(
+                  frequency!,
+                  fontWeight: w500,
+                  textColor: Palette.grey,
+                ),
             ],
           ),
           MenuAnchor(

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:myskin_flutterbytes/src/cores/shared/toast.dart';
 import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goals_state.dart';
@@ -109,7 +110,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
     super.initState();
     _model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
-      apiKey: "",
+      apiKey: "AIzaSyC9DFSUt3umhF79YEs1UeY4gNqXuIBVHbE",
     );
     _chat = _model.startChat();
   }
@@ -194,7 +195,9 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                 iconPath: Assets.flower,
                 description:
                     "You can set personalized skincare goals, track progress, and adjust your routine.",
-                onTap: () => goTo(SkinCareGoalView.route),
+                onTap: () => showToast(
+                    context: context, message: "Hello", type: ToastType.normal),
+                // onTap: () => goTo(SkinCareGoalView.route),
               ),
               ActivityBox(
                 title: "Track your products",

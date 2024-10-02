@@ -52,8 +52,11 @@ class _SkinCareGoalView extends ConsumerState<SkinCareGoalView> {
                         final name = isSkinHealth
                             ? skinGoals.visibleList[0].goals![index].name
                             : skinGoals.visibleList[index].routineName!;
+                        final frequency =
+                            skinGoals.visibleList[index].frequency;
                         return SkinGoalListItem(
                           name: name,
+                          frequency: frequency,
                           onDelete: isSkinHealth
                               ? () async =>
                                   skinGoalsProvider.deleteHealthGoal(index)
