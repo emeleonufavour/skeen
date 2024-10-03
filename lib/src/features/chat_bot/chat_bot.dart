@@ -14,4 +14,4 @@ export 'package:flutter_riverpod/flutter_riverpod.dart';
 export '../chat_bot/data/models/chat_state.dart';
 export 'dart:math';
 export 'package:flutter/rendering.dart';
-export 'package:myskin_flutterbytes/src/features/scan_product/scan_product.dart';
+export 'package:myskin_flutterbytes/src/features/track_product/scan_product.dart';

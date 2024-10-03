@@ -1,5 +1,6 @@
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/components/goal_tab_bar.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/components/skin_goal_list_item.dart';
+import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_skin_goal_notifier.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 
 import '../../skin_goal.dart';
@@ -25,6 +26,7 @@ class _SkinCareGoalView extends ConsumerState<SkinCareGoalView> {
     final position = ref.watch(positionProvider);
     final skinGoals = ref.watch(skinGoalsNotifier);
     final skinGoalsProvider = ref.read(skinGoalsNotifier.notifier);
+    final skinGoalProvider = ref.read(setSkinGoalProvider.notifier);
 
     bool isSkinHealth = position == 0;
 
@@ -52,11 +54,15 @@ class _SkinCareGoalView extends ConsumerState<SkinCareGoalView> {
                         final name = isSkinHealth
                             ? skinGoals.visibleList[0].goals![index].name
                             : skinGoals.visibleList[index].routineName!;
+                        final frequency = isSkinHealth
+                            ? null
+                            : skinGoals.visibleList[index].frequency;
                         return SkinGoalListItem(
                           name: name,
+                          frequency: frequency,
                           onDelete: isSkinHealth
-                              ? () async =>
-                                  skinGoalsProvider.deleteHealthGoal(index)
+                              ? () async => skinGoalsProvider.deleteHealthGoal(
+                                  index, skinGoalProvider)
                               : () async =>
                                   skinGoalsProvider.deleteRoutine(index),
                         );

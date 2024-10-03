@@ -1,6 +1,6 @@
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
-class BarcodeScannerOverlay extends CustomPainter {
+class CameraBackgroundOverlay extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -12,8 +12,8 @@ class BarcodeScannerOverlay extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4.0;
 
-    final scanAreaWidth = screenWidth * 0.7;
-    final scanAreaHeight = screenHeight * 0.4;
+    final scanAreaWidth = screenWidth * 0.9;
+    final scanAreaHeight = screenHeight * 0.7;
     final scanAreaLeft = (screenWidth - scanAreaWidth) / 2;
     final scanAreaTop = (screenHeight - scanAreaHeight) / 2;
 

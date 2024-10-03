@@ -19,11 +19,6 @@ class SetUpLocators {
     await localNotificationService.initializeNotifications();
     await localNotificationService.requestPermissions();
 
-    localNotificationService.showSimpleNotification(
-        title: "Success",
-        body: "You have successfully implemented local",
-        payload: "payload");
-
     getIt.registerLazySingleton<SessionManager>(() => SessionManager());
     getIt.registerLazySingleton<LocalNotificationService>(
         () => localNotificationService);

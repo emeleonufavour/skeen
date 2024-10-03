@@ -34,11 +34,6 @@ class ChatBotView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-    AppLogger.log("args: ${args.toString()}");
-    GemmaResponse? response = args?["response"];
-
     final chatBotState = ref.watch(chatBotProvider);
     final shouldDisappear = ref.watch(disappearProvider);
     return BaseScaffold(
@@ -71,11 +66,9 @@ class ChatBotView extends ConsumerWidget {
               child: TextWidget(
                 response == null
                     ? introText
-                    : (response.ingredients.isEmpty
+                    : (response!.ingredients.isEmpty
                         ? "The image you gave me does not contain ingredients"
-                        : response.ingredients[0] +
-                            "Here is my suggestion" +
-                            response.suggestion),
+                        : "Here is my suggestion ${response!.suggestion}"),
                 fontSize: kfsVeryTiny,
                 fontWeight: w400,
                 textColor: Palette.white,

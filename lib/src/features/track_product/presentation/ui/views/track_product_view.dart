@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 import '../../../scan_product.dart';
+
+final FocusNode productItemFocusNode =
+    FocusNode(debugLabel: 'Product Item Delete Button');
 
 class ScanProductView extends ConsumerWidget {
   const ScanProductView({super.key});
@@ -10,6 +14,7 @@ class ScanProductView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final products = ref.watch(skinCareProductProvider);
+    final productsNotifier = ref.read(skinCareProductProvider.notifier);
     return Scaffold(
       appBar: const CustomAppBar(title: "Track your product"),
       body: products.isEmpty
@@ -55,7 +60,42 @@ class ScanProductView extends ConsumerWidget {
                           )
                         ],
                       ),
-                      const Icon(Icons.more_horiz)
+                      MenuAnchor(
+                        childFocusNode: productItemFocusNode,
+                        style: MenuStyle(
+                          backgroundColor:
+                              WidgetStateProperty.all(Colors.white),
+                          elevation: const WidgetStatePropertyAll(0),
+                        ),
+                        menuChildren: [
+                          MenuItemButton(
+                            leadingIcon: const Icon(
+                              CupertinoIcons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () =>
+                                productsNotifier.deleteProduct(index),
+                            child: const TextWidget(
+                              "Delete",
+                              fontWeight: w500,
+                              textColor: Colors.red,
+                            ),
+                          ),
+                        ],
+                        builder: (context, controller, _) {
+                          return IconButton(
+                            icon: const Icon(Icons.more_horiz),
+                            onPressed: () {
+                              productItemFocusNode.requestFocus();
+                              if (controller.isOpen) {
+                                controller.close();
+                              } else {
+                                controller.open();
+                              }
+                            },
+                          );
+                        },
+                      ),
                     ],
                   ),
                 );

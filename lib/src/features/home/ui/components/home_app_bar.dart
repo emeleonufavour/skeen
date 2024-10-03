@@ -8,6 +8,7 @@ class HomeAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        // TODO: Compare with profile widget on Settings page
         Container(
           padding: EdgeInsets.all(kfsTiny.w),
           decoration: const BoxDecoration(

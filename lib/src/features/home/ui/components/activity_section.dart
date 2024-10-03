@@ -3,13 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:myskin_flutterbytes/src/cores/shared/toast.dart';
 import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goals_state.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
 import '../../../chat_bot/chat_bot.dart';
-import '../../../scan_product/presentation/ui/views/scan_product_view.dart';
+import '../../../track_product/presentation/ui/views/track_product_view.dart';
 import '../../data/gemma_response.dart';
 
 Future<GemmaResponse?> pickAndScanImage(
@@ -148,7 +149,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Button.withBorderLine(
-                                onTap: () {},
+                                onTap: () => goTo(CameraScreen.route),
                                 text: "Take a photo ",
                                 color: Colors.transparent,
                                 borderColor: Theme.of(context).primaryColor,
