@@ -78,13 +78,16 @@ final List<Product> allProducts = [
     'Redness reduction': 8,
     'Detoxification': 6,
   }),
-  Product('Nivea Perfect and Radiant Body Lotion.', {
-    'Moisturization': 7,
-    'Reduce Acne': 3,
-    'Oil control': 3,
-    'Sun protection': 6,
-    'Exfoliation': 7,
-    'Redness reduction': 4,
-    'Detoxification': 5,
-  }),
+  Product(
+    'Nivea Perfect and Radiant Body Lotion.',
+    {
+      'Moisturization': 7,
+      'Reduce Acne': 3,
+      'Oil control': 3,
+      'Sun protection': 6,
+      'Exfoliation': 7,
+      'Redness reduction': 4,
+      'Detoxification': 5,
+    },
+  ),
 ];

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 void main() {
   group('SkinGoalBottomSheetNotifier', () {

@@ -1,4 +1,4 @@
-import '../../skin_goal.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class CategoryButton extends ConsumerWidget {
   final bool isSelected;

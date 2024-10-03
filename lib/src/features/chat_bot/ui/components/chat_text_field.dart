@@ -1,5 +1,4 @@
-import 'package:flutter_svg/svg.dart';
-import '../../chat_bot.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class ChatTextField extends StatelessWidget {
   final void Function()? sendAction;

@@ -1,4 +1,4 @@
-package com.example.myskin_flutterbytes
+package com.skeen.app
 
 import io.flutter.embedding.android.FlutterActivity
 

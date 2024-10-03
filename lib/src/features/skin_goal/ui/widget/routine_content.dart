@@ -1,7 +1,4 @@
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_skin_goal_notifier.dart';
-
-import '../../../auth/presentation/components/textfield_widget.dart';
-import '../../skin_goal.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 ObjectKey _reminderKey = const ObjectKey('reminder');
 
@@ -51,7 +48,7 @@ class RoutineContent extends ConsumerWidget {
           onChanged: (v) {},
           onTapped: (v) {
             controller.nextPage(
-              duration: duration,
+              duration: duration300,
               curve: Curves.easeInOut,
             );
             ref.read(skinGoalBottomSheetProvider.notifier).nextPage();

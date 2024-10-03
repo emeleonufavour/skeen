@@ -1,1 +1,1 @@
-export '../../cores/cores.dart';
+export 'views/history_view.dart';

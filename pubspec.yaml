@@ -1,7 +1,7 @@
 name: myskin_flutterbytes
 description: "A new Flutter project."
 
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -16,7 +16,6 @@ dependencies:
   flutter_svg: ^2.0.10+1
   intl: ^0.18.0
   flutter_calendar_carousel: ^2.4.3
-  get_it: ^8.0.0
   fpdart: ^1.1.0
   extended_image: ^8.2.1
   flutter_riverpod: ^2.5.1
@@ -33,6 +32,10 @@ dependencies:
   hive_flutter: ^1.1.0
   rxdart: ^0.28.0
   timezone: ^0.9.4
+  carousel_slider: ^5.0.0
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.4
 
 dev_dependencies:
   flutter_test:
@@ -47,15 +50,11 @@ flutter_launcher_icons:
   ios: true
   remove_alpha_ios: true
   image_path: "assets/images/app_icon.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
 
 flutter:
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
+
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
     - assets/svg/
@@ -81,3 +80,7 @@ flutter:
           weight: 800
         - asset: assets/fonts/Poppins/Poppins-Black.ttf
           weight: 900
+          
+    - family: Orelega
+      fonts: 
+        - asset: assets/fonts/orelega_one/orelega_one_regular.ttf         

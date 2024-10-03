@@ -1,4 +1,4 @@
-import '../../chat_bot.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class AnimatedIntroText extends StatelessWidget {
   final Widget child;
@@ -13,9 +13,10 @@ class AnimatedIntroText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
-        top: hasMoved ? -200 : 20,
-        curve: Curves.easeInOut,
-        duration: duration2s,
-        child: child);
+      top: hasMoved ? -200 : 20,
+      curve: Curves.easeInOut,
+      duration: duration2s,
+      child: child,
+    );
   }
 }

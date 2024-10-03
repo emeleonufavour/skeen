@@ -1,12 +1,9 @@
-import 'package:get_it/get_it.dart';
-import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
-
-import '../../scan_product.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 final skinCareProductProvider =
     StateNotifierProvider<ProductNotifier, List<SkinCareProduct>>((ref) {
-  final SessionManager sessionManager = GetIt.I<SessionManager>();
-  return ProductNotifier(sessionManager);
+  final sessionManger = ref.read(sessionManagerProvider);
+  return ProductNotifier(sessionManger);
 });
 
 final textProvider = StateProvider<String>((ref) => '');

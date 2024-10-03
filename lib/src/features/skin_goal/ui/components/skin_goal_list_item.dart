@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 final FocusNode buttonFocusNode = FocusNode(debugLabel: 'Menu Button');
 

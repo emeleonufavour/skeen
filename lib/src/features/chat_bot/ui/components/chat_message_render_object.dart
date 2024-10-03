@@ -1,4 +1,6 @@
-import '../../chat_bot.dart';
+import 'dart:math';
+
+import 'package:flutter/rendering.dart';
 
 class ChatMessageRenderObject extends RenderBox {
   ChatMessageRenderObject({

@@ -1,99 +1,89 @@
-import '../../onboarding.dart';
-
-List<OnboardingContentModel> _onboardingContent = [
-  OnboardingContentModel(
-      svgPath: Assets.onboarding1,
-      title: "Start Your Skin Health Journey",
-      content:
-          "Upload your skin concerns for detection and get results in minutes."),
-  OnboardingContentModel(
-      svgPath: Assets.onboarding2,
-      title: "Track Your Progress",
-      content:
-          "Set skincare goals, track your routine, and get reminders for product use and expiration."),
-  OnboardingContentModel(
-      svgPath: Assets.onboarding3,
-      title: "Chat with Our Experts",
-      content:
-          "Got questions? Scan products or chat with our bot for instant, tailored answers.")
-];
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/gestures.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class OnboardingView extends ConsumerWidget {
-  OnboardingView({super.key});
-  static const String route = 'onboarding';
-  final PageController pageController = PageController();
+  const OnboardingView({super.key});
+
+  static const String route = '/onboarding';
+
+  static ValueNotifier<int> indexNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentPage = ref.watch(onboardingProvider);
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenHeight * .7,
-              child: PageView(
-                controller: pageController,
-                onPageChanged: (index) {
-                  ref.read(onboardingProvider.notifier).setPage(index);
+    final listOfImages = [
+      Assets.onboarding1,
+      Assets.onboarding2,
+      Assets.onboarding3,
+    ];
+
+    return BaseScaffold(
+      useSingleScroll: false,
+      padding: EdgeInsets.zero,
+      body: ValueListenableBuilder<int>(
+        valueListenable: indexNotifier,
+        builder: (_, int index, __) {
+          return Column(
+            children: [
+              CarouselSlider.builder(
+                itemCount: listOfImages.length,
+                itemBuilder: (_, int i, __) {
+                  final image = listOfImages[i];
+                  return ImageWidget(url: image);
                 },
-                children: List.generate(_onboardingContent.length, (index) {
-                  return _OnboardingView(model: _onboardingContent[index]);
-                }),
+                options: CarouselOptions(
+                  viewportFraction: 1,
+                  height: screenHeight * .6,
+                  autoPlay: true,
+                  autoPlayInterval: duration2s,
+                  onPageChanged: (int index, _) => indexNotifier.value = index,
+                ),
               ),
-            ),
-            Button(
-              onTap: () {
-                pageController.nextPage(
-                    duration: duration, curve: Curves.easeInOut);
-              },
-              text: currentPage == 2 ? "Get started" : "Next",
-            ).padding(horizontal: 18.w),
-            18.h.verticalSpace,
-            RichTextWidget(
-              text: "Already has an account? ",
-              text2: "Sign in",
-              textColor2: Theme.of(context).primaryColor,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _OnboardingView extends StatelessWidget {
-  final OnboardingContentModel model;
-
-  const _OnboardingView({
-    super.key,
-    required this.model,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset(model.svgPath),
-            TextWidget(
-              model.title,
-              fontWeight: w700,
-              fontSize: 20.sp,
-              textColor: Theme.of(context).primaryColor,
-            ).padding(top: 20.h),
-            TextWidget(
-              model.content,
-              fontWeight: w400,
-              fontSize: kfsTiny.sp,
-              textAlign: TextAlign.center,
-            ),
-          ].separate(10.h.verticalSpace),
-        ),
+              TextWidget(
+                switch (index) {
+                  0 => 'Start Your Skin Health Journey',
+                  1 => 'Track Your Progress',
+                  _ => 'Chat with Our Experts',
+                },
+                fontWeight: w700,
+                fontSize: kfsExtraLarge,
+                textColor: Palette.primaryColor,
+              ),
+              kfsTiny.verticalSpace,
+              TextWidget(
+                switch (index) {
+                  0 =>
+                    'Upload your skin concerns for detection and get results in minutes.',
+                  1 =>
+                    'Set skincare goals, track your routine, and get reminders for product use and expiration.',
+                  _ =>
+                    'Got questions? Scan products or chat with our bot for instant, tailored answers.',
+                },
+                textAlign: TextAlign.center,
+              ).padding(
+                horizontal: kfsExtraLarge.w,
+              ),
+              const Spacer(),
+              OnboardingTracker(currentIndex: index),
+              const Spacer(),
+              Button(
+                onTap: () => clearPath(SignUpView.route),
+                text: 'Get Started',
+              ).padding(horizontal: 18.w),
+              18.h.verticalSpace,
+              RichTextWidget(
+                text: "Already have an account? ",
+                text2: "Sign in",
+                textColor2: Theme.of(context).primaryColor,
+                onTap: TapGestureRecognizer()
+                  ..onTap = () => goTo(SignInView.route),
+                fontWeight2: w500,
+                fontWeight: w400,
+              ),
+              const Spacer(),
+            ],
+          );
+        },
       ),
     );
   }

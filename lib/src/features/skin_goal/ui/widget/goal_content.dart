@@ -1,7 +1,4 @@
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_skin_goal_notifier.dart';
-
-import '../../skin_goal.dart';
-import 'goal_item.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class GoalContent extends ConsumerWidget {
   const GoalContent({super.key});

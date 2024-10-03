@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
-
-import '../../auth.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class PasswordStrengthItem extends StatelessWidget {
   final String title;
   final bool active;
   const PasswordStrengthItem({
-    Key? key,
+    super.key,
     required this.title,
     required this.active,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +27,11 @@ class PasswordStrengthItem extends StatelessWidget {
                 height: 10,
                 width: 10,
                 decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: Palette.lightGrey),
+                  shape: BoxShape.circle,
+                  color: Palette.borderColor,
+                ),
               ),
-        2.w.horizontalSpace,
+        2.horizontalSpace,
         TextWidget(
           title,
         )

@@ -1,13 +1,6 @@
 import 'dart:developer';
 
-import 'package:get_it/get_it.dart';
-import 'package:myskin_flutterbytes/src/cores/utils/notification_service.dart';
-import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
-
-import '../../data/models/goal.dart';
-import '../../data/models/skin_goal_state.dart';
-import '../../skin_goal.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 enum SkinGoalCategory {
   health("Health"),
@@ -23,15 +16,19 @@ enum SkinGoalCategory {
 }
 
 final setSkinGoalProvider =
-    StateNotifierProvider<SetSkinGoalNotifier, SkinGoalState>((ref) {
-  final SessionManager sessionManager = GetIt.I<SessionManager>();
-  final skinGoalsProvider = ref.watch(skinGoalsNotifier.notifier);
-  final LocalNotificationService notificationService =
-      GetIt.I<LocalNotificationService>();
+    StateNotifierProvider<SetSkinGoalNotifier, SkinGoalState>(
+  (ref) {
+    final sessionManger = ref.read(sessionManagerProvider);
+    final skinGoalsProvider = ref.watch(skinGoalsNotifier.notifier);
+    final notificationService = ref.watch(notificationServiceProvider);
 
-  return SetSkinGoalNotifier(
-      skinGoalsProvider, sessionManager, notificationService);
-});
+    return SetSkinGoalNotifier(
+      skinGoalsProvider,
+      sessionManger,
+      notificationService,
+    );
+  },
+);
 
 class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
   final SessionManager _sessionManager;

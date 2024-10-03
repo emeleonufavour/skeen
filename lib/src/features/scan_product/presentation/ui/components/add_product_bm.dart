@@ -1,11 +1,10 @@
-import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/scan_product.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class AddProductBottomSheet extends ConsumerStatefulWidget {
-  AddProductBottomSheet({super.key});
+  const AddProductBottomSheet({super.key});
 
   @override
-  _AddProductBottomSheetState createState() => _AddProductBottomSheetState();
+  ConsumerState createState() => _AddProductBottomSheetState();
 }
 
 class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
@@ -141,7 +140,7 @@ void showAddProductBottomSheet(BuildContext context) {
               ),
               child: SizedBox(
                   height: constraints.maxHeight,
-                  child: AddProductBottomSheet())));
+                  child: const AddProductBottomSheet())));
     },
   );
 }

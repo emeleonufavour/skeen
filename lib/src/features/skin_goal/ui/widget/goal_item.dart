@@ -1,4 +1,4 @@
-import '../../skin_goal.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class GoalItem extends StatelessWidget {
   final String goal;
@@ -6,11 +6,11 @@ class GoalItem extends StatelessWidget {
   final VoidCallback onToggle;
 
   const GoalItem({
-    Key? key,
+    super.key,
     required this.goal,
     required this.isSelected,
     required this.onToggle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'dart:ui' as ui;
-import '../../chat_bot.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class ChatBubblePainter extends CustomPainter {
   final Color color;

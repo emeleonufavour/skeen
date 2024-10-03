@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 import '../../../scan_product.dart';
 
