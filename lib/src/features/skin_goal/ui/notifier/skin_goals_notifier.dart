@@ -107,14 +107,16 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
     }
   }
 
-  Future<void> deleteHealthGoal(int index) async {
+  Future<void> deleteHealthGoal(int index, SetSkinGoalNotifier skinGoal) async {
     try {
       if (index < 0 || index >= (state.healthGoal.goals?.length ?? 0)) {
         throw RangeError('Index out of bounds');
       }
 
-      final newGoals = List<Goal>.from(state.healthGoal.goals ?? []);
-      newGoals.removeAt(index);
+      final Goal? goalToBeDeleted = state.healthGoal.goals?[index];
+
+      final newGoals = List<Goal>.from(state.healthGoal.goals ?? [])
+        ..removeAt(index);
 
       final updatedHealthGoal = state.healthGoal.copyWith(goals: newGoals);
 
@@ -122,6 +124,10 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
         healthGoal: updatedHealthGoal,
         visibleList: [updatedHealthGoal],
       ));
+
+      if (goalToBeDeleted != null) {
+        skinGoal.toggleGoal(goalToBeDeleted.name);
+      }
 
       await _sessionManager.storeObject<SkinGoalsState>(
         _key,

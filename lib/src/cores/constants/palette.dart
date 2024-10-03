@@ -2,6 +2,8 @@ import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class Palette {
   static const Color white = Color(0xffFFFFFF);
+  static const Color red = Colors.red;
+  static const Color green = Colors.green;
   static const Color primaryColor = Color(0xffB36370);
   static const Color backgroundColor = Color(0xffFAFAFF);
 

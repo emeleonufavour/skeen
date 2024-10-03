@@ -3,7 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_camera.dart';
+import '../../../track_product/presentation/ui/views/track_product_view.dart';
 
 Future<GemmaResponse?> pickAndScanImage(
     GenerativeModel model, SkinGoalsState skinGoals) async {
@@ -141,7 +145,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Button.withBorderLine(
-                                onTap: () {},
+                                onTap: () => goTo(CameraScreen.route),
                                 text: "Take a photo ",
                                 color: Colors.transparent,
                                 borderColor: Theme.of(context).primaryColor,

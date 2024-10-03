@@ -152,27 +152,6 @@ class LocalNotificationService {
     );
   }
 
-  Future<void> scheduleCustom(
-      int id, String title, String body, DateTime dateTime) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(dateTime, tz.local),
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'custom_notification_channel',
-          'Custom Notifications',
-          importance: Importance.max,
-          priority: Priority.high,
-        ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
-  }
-
   tz.TZDateTime _nextInstanceOfTime(TimeOfDay time) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate = tz.TZDateTime(
@@ -203,5 +182,87 @@ class LocalNotificationService {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
     return scheduledDate;
+  }
+
+  Future<void> scheduleReminderBefore({
+    required int id,
+    required String title,
+    required String body,
+    required DateTime targetDate,
+    required Duration reminderPeriod,
+  }) async {
+    final notificationDate = targetDate.subtract(reminderPeriod);
+
+    if (notificationDate.isBefore(DateTime.now())) {
+      AppLogger.logWarning(
+          'You are attempting to schedule notification in the past');
+      return;
+    }
+
+    final tz.TZDateTime scheduledDate =
+        tz.TZDateTime.from(notificationDate, tz.local);
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      scheduledDate,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'reminder_notification_channel',
+          'Reminder Notifications',
+          importance: Importance.max,
+          priority: Priority.high,
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
+
+  Future<void> scheduleOneWeekBefore({
+    required int id,
+    required String title,
+    required String body,
+    required DateTime targetDate,
+  }) async {
+    await scheduleReminderBefore(
+      id: id,
+      title: title,
+      body: body,
+      targetDate: targetDate,
+      reminderPeriod: const Duration(days: 7),
+    );
+  }
+
+  Future<void> scheduleTwoWeeksBefore({
+    required int id,
+    required String title,
+    required String body,
+    required DateTime targetDate,
+  }) async {
+    await scheduleReminderBefore(
+      id: id,
+      title: title,
+      body: body,
+      targetDate: targetDate,
+      reminderPeriod: const Duration(days: 14),
+    );
+  }
+
+  Future<void> scheduleOneMonthBefore({
+    required int id,
+    required String title,
+    required String body,
+    required DateTime targetDate,
+  }) async {
+    await scheduleReminderBefore(
+      id: id,
+      title: title,
+      body: body,
+      targetDate: targetDate,
+      reminderPeriod: const Duration(days: 30),
+    );
   }
 }

@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_camera.dart';
+
+import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_view.dart';
+
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -18,8 +22,8 @@ class RouteGenerator {
         return pageRoute(ChatBotView(response: param));
       case HistoryView.route:
         return pageRoute(const HistoryView());
-      case BarcodeScannerScreen.route:
-        return pageRoute(const BarcodeScannerScreen());
+      case CameraScreen.route:
+        return pageRoute(const CameraScreen());
       case SignUpView.route:
         return pageRoute(const SignUpView());
       case SignInView.route:

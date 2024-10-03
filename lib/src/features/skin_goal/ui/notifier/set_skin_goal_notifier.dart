@@ -60,13 +60,12 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
     );
     if (savedState != null) {
       state = savedState;
-      skinGoals.setCategory(savedState.category);
     }
   }
 
   void toggleCategory(SkinGoalCategory category) {
     state = state.copyWith(category: category);
-    skinGoals.setCategory(category);
+
     if (category == SkinGoalCategory.health) {
       state = state.copyWith(frequency: null);
     } else {
@@ -164,7 +163,7 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
                 'Skin Routine Reminder',
                 'Time for your ${state.routineName} routine!',
                 time,
-                i + 1, // weekday is 1-7 in the notification service
+                i + 1,
               );
             }
           }
