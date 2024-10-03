@@ -16,12 +16,6 @@ class Setup {
     await localNotificationService.initializeNotifications();
     await localNotificationService.requestPermissions();
 
-    localNotificationService.showSimpleNotification(
-      title: "Success",
-      body: "You have successfully implemented local",
-      payload: "payload",
-    );
-
     SystemChrome.setPreferredOrientations(
       [
         DeviceOrientation.portraitUp,

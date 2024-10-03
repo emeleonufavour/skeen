@@ -21,9 +21,9 @@ class RouteGenerator {
       case BarcodeScannerScreen.route:
         return pageRoute(const BarcodeScannerScreen());
       case SignUpView.route:
-        return pageRoute(SignUpView());
+        return pageRoute(const SignUpView());
       case SignInView.route:
-        return pageRoute(SignInView());
+        return pageRoute(const SignInView());
       case ForgotPasswordView.route:
         return pageRoute(ForgotPasswordView());
       case OnboardingView.route:

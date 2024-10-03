@@ -1,10 +1,21 @@
 import 'package:myskin_flutterbytes/src/cores/utils/notifier_helper.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
+final signInProvider =
+    NotifierProvider<SignInNotifier, AppState<AuthResultEntity>>(
+  SignInNotifier.new,
+);
+
 class SignInNotifier extends Notifier<AppState<AuthResultEntity>>
     with NotifierHelper<AuthResultEntity> {
+  late final AuthRepository _authRepository;
+
   @override
-  AppState<AuthResultEntity> build() => AppState.initial();
+  AppState<AuthResultEntity> build() {
+    _authRepository = ref.read(authRepositoryProvider);
+
+    return AppState.initial();
+  }
 
   void updateEmail(String value) {
     state = state.copyWith();
@@ -25,22 +36,11 @@ class SignInNotifier extends Notifier<AppState<AuthResultEntity>>
 
     res.fold(
       (l) {
-        state = state.copyWith(
-          status: StateStatus.failure,
-          failure: l,
-        );
+        notifyOnError(error: l, state_: state);
       },
       (r) {
-        state = state.copyWith(
-          status: StateStatus.success,
-          data: r,
-        );
+        notifyOnSuccess(data: r, state_: state);
       },
     );
   }
-
-  final AuthRepository _authRepository;
-  SignInNotifier({
-    required AuthRepository authRepository,
-  }) : _authRepository = authRepository;
 }

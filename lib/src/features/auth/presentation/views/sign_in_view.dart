@@ -1,23 +1,27 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-class SignInView extends StatelessWidget {
-  SignInView({super.key});
+class SignInView extends ConsumerStatefulWidget {
+  const SignInView({super.key});
   static const String route = 'sign_in';
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
   @override
+  ConsumerState<SignInView> createState() => _SignInViewState();
+}
+
+class _SignInViewState extends ConsumerState<SignInView> {
+  @override
   Widget build(BuildContext context) {
+    final signInNotifier = ref.read(signInProvider.notifier);
     return AuthView(
       heading: "Welcome back",
       description: "Log in to continue your personalized skin care journey.",
       contents: [
         TextFieldWidget(
-          textController: emailController,
+          textController: _email,
           hintText: "Email",
         ),
         TextFieldWidget(
-          textController: passwordController,
+          textController: _password,
           hintText: 'Password',
           isPassword: true,
         ),
@@ -34,9 +38,22 @@ class SignInView extends StatelessWidget {
           ),
         ),
       ],
-      mainButtonAction: () {},
+      mainButtonAction: () => signInNotifier.signIn(
+        email: _email.text,
+        password: _password.text,
+      ),
       mainButtonText: 'Sign in',
       isSignIn: true,
     );
+  }
+
+  late TextEditingController _email;
+  late TextEditingController _password;
+
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
   }
 }

@@ -1,6 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
+final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>(
+  (ref) => AuthRemoteDataSourceImpl(firebaseHelper: FirebaseHelper()),
+);
+
 abstract interface class AuthRemoteDataSource {
   Future<AuthResultModel> login(String email, String password);
 

@@ -54,7 +54,6 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
     AppLogger.log("Health => ${state.healthGoal}");
   }
 
-  // TODO: Fix Provider bug that happens here we open Bottom Sheet
   void showOnlySkinHealthGoals() async {
     try {
       state = state.copyWith(visibleList: [state.healthGoal]);

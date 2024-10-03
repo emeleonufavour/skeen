@@ -1,14 +1,15 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-class SignUpView extends StatelessWidget {
-  SignUpView({super.key});
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
 
   static const String route = 'sign_up';
 
-  final TextEditingController passCtr = TextEditingController();
-  final TextEditingController fullNameCtr = TextEditingController();
-  final TextEditingController emailCtr = TextEditingController();
+  @override
+  State<SignUpView> createState() => _SignUpViewState();
+}
 
+class _SignUpViewState extends State<SignUpView> {
   @override
   Widget build(BuildContext context) {
     return AuthView(
@@ -17,15 +18,15 @@ class SignUpView extends StatelessWidget {
           "Sign up for personalized skin care insights and recommendations.",
       contents: [
         TextFieldWidget(
-          textController: fullNameCtr,
+          textController: _fullName,
           hintText: "Full name",
         ),
         TextFieldWidget(
-          textController: emailCtr,
+          textController: _email,
           hintText: "Email",
         ),
         TextFieldWidget(
-          textController: passCtr,
+          textController: _password,
           hintText: 'Password',
           isPassword: true,
           shouldShowPasswordValidator: true,
@@ -35,5 +36,25 @@ class SignUpView extends StatelessWidget {
       mainButtonText: "Sign up",
       isSignIn: false,
     );
+  }
+
+  late TextEditingController _fullName;
+  late TextEditingController _email;
+  late TextEditingController _password;
+
+  @override
+  void initState() {
+    _fullName = TextEditingController();
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _fullName.dispose();
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
   }
 }

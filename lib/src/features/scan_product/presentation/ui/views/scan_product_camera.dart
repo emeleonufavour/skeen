@@ -96,7 +96,6 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
       final image = await controller.takePicture();
       await _processImage(image.path, scanner);
     } catch (e) {
-      print('Error scanning barcode: $e');
       ref.read(barcodeValueProvider.notifier).state = 'Error scanning barcode';
     } finally {
       setState(() => _isScanning = false);
@@ -118,7 +117,6 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
         ref.read(barcodeValueProvider.notifier).state = 'No image selected';
       }
     } catch (e) {
-      print('Error picking or scanning image: $e');
       ref.read(barcodeValueProvider.notifier).state = 'Error processing image';
     } finally {
       setState(() => _isScanning = false);

@@ -23,6 +23,7 @@ class AuthView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       useSingleScroll: false,
+      resizeToAvoidInsets: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -2,10 +2,9 @@ import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class TestMaterialAppWidget extends StatelessWidget {
   final List<NavigatorObserver> navigatorObservers;
-  // final Map<String, WidgetBuilder> routes;
-  String route;
+  final String route;
 
-  TestMaterialAppWidget({
+  const TestMaterialAppWidget({
     super.key,
     required this.route,
     this.navigatorObservers = const [],
