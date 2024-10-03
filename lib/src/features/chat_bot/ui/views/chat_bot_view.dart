@@ -34,9 +34,6 @@ class ChatBotView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final args = response!.suggestion;
-    AppLogger.log("args: ${args.toString()}");
-
     final chatBotState = ref.watch(chatBotProvider);
     final shouldDisappear = ref.watch(disappearProvider);
     return BaseScaffold(

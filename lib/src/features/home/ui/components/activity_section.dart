@@ -10,7 +10,7 @@ import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goal
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
 import '../../../chat_bot/chat_bot.dart';
-import '../../../scan_product/presentation/ui/views/scan_product_view.dart';
+import '../../../track_product/presentation/ui/views/track_product_view.dart';
 import '../../data/gemma_response.dart';
 
 Future<GemmaResponse?> pickAndScanImage(
@@ -110,7 +110,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
     super.initState();
     _model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
-      apiKey: "AIzaSyC9DFSUt3umhF79YEs1UeY4gNqXuIBVHbE",
+      apiKey: "",
     );
     _chat = _model.startChat();
   }
@@ -149,7 +149,7 @@ class _ActivitySectionState extends ConsumerState<ActivitySection> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Button.withBorderLine(
-                                onTap: () {},
+                                onTap: () => goTo(CameraScreen.route),
                                 text: "Take a photo ",
                                 color: Colors.transparent,
                                 borderColor: Theme.of(context).primaryColor,

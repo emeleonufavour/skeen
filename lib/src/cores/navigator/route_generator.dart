@@ -9,11 +9,11 @@ import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signup_vie
 import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/verification_view.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/home/data/gemma_response.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_camera.dart';
+import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_camera.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/history/views/history_view.dart';
 import 'package:myskin_flutterbytes/src/features/onboarding/presentation/views/onboarding_view.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/presentation/ui/views/scan_product_view.dart';
+import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_view.dart';
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
 
 import '../../features/auth/presentation/ui/reset_password.dart';
@@ -32,8 +32,8 @@ class RouteGenerator {
         return pageRoute(ChatBotView(response: param));
       case HistoryView.route:
         return pageRoute(const HistoryView());
-      case BarcodeScannerScreen.route:
-        return pageRoute(BarcodeScannerScreen());
+      case CameraScreen.route:
+        return pageRoute(CameraScreen());
       case SignUpView.route:
         return pageRoute(SignUpView());
       case SignInView.route:

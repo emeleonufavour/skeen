@@ -1,6 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:myskin_flutterbytes/src/cores/shared/toast.dart';
-import 'package:myskin_flutterbytes/src/features/scan_product/scan_product.dart';
+import 'package:myskin_flutterbytes/src/features/track_product/scan_product.dart';
 
 bool isDateInFuture(DateTime date) {
   DateTime currentDate = DateTime.now();
