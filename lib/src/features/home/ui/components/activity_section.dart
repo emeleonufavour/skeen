@@ -19,7 +19,6 @@ Future<GemmaResponse?> pickAndScanImage(
       final res = await _processImage(pickedFile.path, model, skinGoals);
       return res;
     } else {
-      print("Image is null");
     }
   } catch (e) {
     AppLogger.log('Error picking or scanning image: $e');

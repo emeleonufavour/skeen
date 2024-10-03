@@ -12,7 +12,8 @@ mixin RepositoryErrorHandler {
     try {
       final result = await action();
       return Right(result);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e, s) {
+      AppLogger.log('$e $s', tag: 'FirebaseAuthException:');
       return Either.left(CustomFirebaseException(e.code));
     } on FirebaseException catch (e, s) {
       AppLogger.log('Error From Firebase: $e : Stack Trace $s');

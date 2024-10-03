@@ -82,6 +82,11 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   Future<void> _saveUser(User user, SignUpParamsModel params) async {
-    _firebaseHelper.userCollectionRef().doc(user.uid).set({});
+    _firebaseHelper.userCollectionRef().doc(user.uid).set({
+      'user_id': user.uid,
+      'email': user.email,
+      'fullname': params.fullName,
+      'createdAt': _firebaseHelper.timestamp,
+    });
   }
 }

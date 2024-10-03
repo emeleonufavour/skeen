@@ -1,5 +1,4 @@
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/cores/shared/toast.dart';
 import 'package:myskin_flutterbytes/src/features/track_product/scan_product.dart';
 
 bool isDateInFuture(DateTime date) {

@@ -6,6 +6,7 @@ export 'domain/entity/auth_result_entity.dart';
 export 'domain/entity/user_entity.dart';
 export 'domain/repository/auth_repository.dart';
 export 'presentation/notifiers/sign_in_notifier.dart';
+export 'presentation/notifiers/sign_up_notifier.dart';
 export 'presentation/views/forgot_password.dart';
 export 'presentation/views/reset_password.dart';
 export 'presentation/views/sign_in_view.dart';

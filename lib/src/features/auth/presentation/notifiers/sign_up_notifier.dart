@@ -1,11 +1,11 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-final signInProvider =
-    NotifierProvider<SignInNotifier, AppState<AuthResultEntity>>(
-  SignInNotifier.new,
+final signUpProvider =
+    NotifierProvider<SignUpNotifier, AppState<AuthResultEntity>>(
+  SignUpNotifier.new,
 );
 
-class SignInNotifier extends Notifier<AppState<AuthResultEntity>>
+class SignUpNotifier extends Notifier<AppState<AuthResultEntity>>
     with NotifierHelper<AuthResultEntity> {
   late final AuthRepository _authRepository;
 
@@ -16,14 +16,18 @@ class SignInNotifier extends Notifier<AppState<AuthResultEntity>>
     return AppState.initial();
   }
 
-  void signIn({
+  void signUp({
     required String email,
     required String password,
+    required String fullName,
   }) async {
     notifyOnLoading();
-    final res = await _authRepository.login(
-      email: email,
-      password: password,
+    final res = await _authRepository.register(
+      SignUpParamsModel(
+        email: email,
+        fullName: fullName,
+        password: password,
+      ),
     );
 
     res.fold(

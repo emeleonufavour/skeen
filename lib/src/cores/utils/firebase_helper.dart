@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 String userCollection = "users";
-String invitesCollection = "invites";
 
 class FirebaseHelper {
   Timestamp get timestamp => Timestamp.now();

@@ -1,40 +1,75 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-class SignUpView extends StatefulWidget {
+class SignUpView extends ConsumerStatefulWidget {
   const SignUpView({super.key});
 
   static const String route = 'sign_up';
 
   @override
-  State<SignUpView> createState() => _SignUpViewState();
+  ConsumerState<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class _SignUpViewState extends ConsumerState<SignUpView> {
+  final key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return AuthView(
-      heading: "Create Account",
-      description:
-          "Sign up for personalized skin care insights and recommendations.",
-      contents: [
-        TextFieldWidget(
-          textController: _fullName,
-          hintText: "Full name",
-        ),
-        TextFieldWidget(
-          textController: _email,
-          hintText: "Email",
-        ),
-        TextFieldWidget(
-          textController: _password,
-          hintText: 'Password',
-          isPassword: true,
-          shouldShowPasswordValidator: true,
-        ),
-      ],
-      mainButtonAction: () {},
-      mainButtonText: "Sign up",
-      isSignIn: false,
+    final signUpNotifier = ref.read(signUpProvider.notifier);
+
+    StateListener.listen<AuthResultEntity>(
+      context: context,
+      provider: signUpProvider,
+      ref: ref,
+    );
+
+    return Form(
+      key: key,
+      child: AuthView(
+        heading: "Create Account",
+        description:
+            "Sign up for personalized skin care insights and recommendations.",
+        contents: [
+          TextFieldWidget(
+            textController: _fullName,
+            hintText: "Full name",
+            textInputAction: TextInputAction.next,
+            validator: (v) => v!.validateFullName,
+          ),
+          TextFieldWidget(
+            textController: _email,
+            hintText: "Email",
+            validator: (v) => v!.validateEmail,
+            textInputAction: TextInputAction.next,
+          ),
+          TextFieldWidget(
+            textController: _password,
+            hintText: 'Password',
+            isPassword: true,
+            textInputAction: TextInputAction.done,
+            onSubmit: (_) {
+              if (key.currentState?.validate() ?? false) {
+                signUpNotifier.signUp(
+                  email: _email.text,
+                  fullName: _fullName.text,
+                  password: _password.text,
+                );
+              }
+            },
+            shouldShowPasswordValidator: true,
+          ),
+        ],
+        mainButtonAction: () {
+          if (key.currentState?.validate() ?? false) {
+            signUpNotifier.signUp(
+              email: _email.text,
+              fullName: _fullName.text,
+              password: _password.text,
+            );
+          }
+        },
+        mainButtonText: "Sign up",
+        isSignIn: false,
+      ),
     );
   }
 

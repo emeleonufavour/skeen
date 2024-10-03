@@ -8,8 +8,8 @@ void main() {
   group('Verify Password View', () {
     testWidgets("Show UI components for Verify Password correctly",
         (WidgetTester tester) async {
-      await tester
-          .pumpWidget(TestMaterialAppWidget(route: VerificationView.route));
+      await tester.pumpWidget(
+          const TestMaterialAppWidget(route: VerificationView.route));
 
       expect(find.byType(AuthView), findsOneWidget);
 

@@ -1,10 +1,9 @@
-
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
 enum ToastType { error, success, normal }
 
 class Toast {
-  static void show({
+  static void _show({
     required BuildContext context,
     required String message,
     Duration duration = const Duration(seconds: 2),
@@ -64,11 +63,14 @@ class Toast {
 
     overlayState.insert(overlayEntry);
 
-    Future.delayed(duration, () {
-      if (overlayEntry.mounted) {
-        overlayEntry.remove();
-      }
-    });
+    Future.delayed(
+      duration,
+      () {
+        if (overlayEntry.mounted) {
+          overlayEntry.remove();
+        }
+      },
+    );
   }
 }
 
@@ -91,7 +93,7 @@ void showToast({
       break;
   }
 
-  Toast.show(
+  Toast._show(
     context: context,
     message: message,
     backgroundColor: backgroundColor,

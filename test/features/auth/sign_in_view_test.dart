@@ -12,7 +12,7 @@ void main() {
         "Show UI components for Sign In correctly",
         (WidgetTester tester) async {
           await tester
-              .pumpWidget(TestMaterialAppWidget(route: SignInView.route));
+              .pumpWidget(const TestMaterialAppWidget(route: SignInView.route));
 
           expect(find.byType(AuthView), findsOneWidget);
 

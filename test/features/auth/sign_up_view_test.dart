@@ -8,7 +8,8 @@ void main() {
   group('Sign Up View', () {
     testWidgets("Show UI components for Sign Up correctly",
         (WidgetTester tester) async {
-      await tester.pumpWidget(TestMaterialAppWidget(route: SignUpView.route));
+      await tester
+          .pumpWidget(const TestMaterialAppWidget(route: SignUpView.route));
 
       expect(find.byType(AuthView), findsOneWidget);
 

@@ -57,7 +57,7 @@ void main() {
     testWidgets("Navigate To Set Reminder in Bottom Sheet",
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        ProviderScope(
+        const ProviderScope(
           child: TestMaterialAppWidget(
             route: SkinCareGoalView.route,
           ),

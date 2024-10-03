@@ -8,8 +8,8 @@ void main() {
   group('Reset Password View', () {
     testWidgets("Show UI components for Reset Password correctly",
         (WidgetTester tester) async {
-      await tester
-          .pumpWidget(TestMaterialAppWidget(route: ResetPasswordView.route));
+      await tester.pumpWidget(
+          const TestMaterialAppWidget(route: ResetPasswordView.route));
 
       expect(find.byType(AuthView), findsOneWidget);
 

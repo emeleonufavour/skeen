@@ -11,7 +11,7 @@ void main() {
         "NavBar UI components show correctly",
         (WidgetTester tester) async {
           await tester.pumpWidget(
-            ProviderScope(
+            const ProviderScope(
               child: TestMaterialAppWidget(
                 route: NavBarView.route,
               ),

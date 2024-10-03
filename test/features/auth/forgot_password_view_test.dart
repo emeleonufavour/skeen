@@ -7,8 +7,8 @@ void main() {
   group('Forgot Password View', () {
     testWidgets("Show UI components for Forgot Password correctly",
         (WidgetTester tester) async {
-      await tester
-          .pumpWidget(TestMaterialAppWidget(route: ForgotPasswordView.route));
+      await tester.pumpWidget(
+          const TestMaterialAppWidget(route: ForgotPasswordView.route));
 
       expect(find.byType(AuthView), findsOneWidget);
 

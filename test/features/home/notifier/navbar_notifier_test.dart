@@ -25,7 +25,7 @@ void main() {
     testWidgets('NavBarView should render correctly',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        ProviderScope(
+        const ProviderScope(
           child: TestMaterialAppWidget(
             route: NavBarView.route,
           ),
@@ -40,7 +40,7 @@ void main() {
     testWidgets('NavBarView should have correct number of _Tile widgets',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        ProviderScope(
+        const ProviderScope(
           child: TestMaterialAppWidget(
             route: NavBarView.route,
           ),
@@ -53,7 +53,7 @@ void main() {
     testWidgets('Tapping _Tile should change current index',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        ProviderScope(
+        const ProviderScope(
           child: TestMaterialAppWidget(
             route: NavBarView.route,
           ),
@@ -72,7 +72,7 @@ void main() {
     testWidgets('FloatingActionButton should change current index to 2',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        ProviderScope(
+        const ProviderScope(
           child: TestMaterialAppWidget(
             route: NavBarView.route,
           ),

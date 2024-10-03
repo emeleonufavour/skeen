@@ -78,7 +78,7 @@ class AuthView extends StatelessWidget {
                   ..onTap = () => !isSignIn!
                       ? goReplace(SignInView.route)
                       : goReplace(SignUpView.route),
-                fontWeight2: w500,
+                fontWeight2: w600,
                 fontWeight: w400,
               ),
             ),
