@@ -27,6 +27,7 @@ class AuthView extends ConsumerWidget {
       context: context,
       provider: googleAuthProvider,
       ref: ref,
+      onSuccess: () => clearPath(MedicalHistoryView.route),
     );
 
     return BaseScaffold(

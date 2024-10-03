@@ -5,11 +5,14 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
   final PositionNotifier _positionNotifier;
 
   SkinGoalsNotifier(this._positionNotifier, this._sessionManager)
-      : super(SkinGoalsState(
+      : super(
+          SkinGoalsState(
             routines: [],
             healthGoal:
                 SkinGoalState(category: SkinGoalCategory.health, goals: []),
-            visibleList: [])) {
+            visibleList: [],
+          ),
+        ) {
     loadSavedState();
   }
 

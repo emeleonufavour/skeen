@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-class SplashView extends StatefulWidget {
+class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
 
   static const String route = '/splash_view';
 
   @override
-  State<SplashView> createState() => _SplashViewState();
+  ConsumerState<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView>
+class _SplashViewState extends ConsumerState<SplashView>
     with SingleTickerProviderStateMixin {
   late AnimationController _expandController;
   late Animation<double> _expandAnimation;
@@ -25,6 +25,10 @@ class _SplashViewState extends State<SplashView>
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.watch(authStatusProvider.notifier).getAuthStatus();
+    });
+
     textLength = traqa.length;
     _index = -1;
     isForward = true;
@@ -86,6 +90,13 @@ class _SplashViewState extends State<SplashView>
   }
 
   void _initScaleAnimation() {
+    final isLoggedIn = ref.watch(authStatusProvider);
+    final sessionManger = ref.read(sessionManagerProvider);
+
+    final isOnboard = sessionManger.getBool(isOnboardKey);
+
+    AppLogger.logWarning('IS LOGGED IN: $isLoggedIn IS ONBOARD: $isOnboard');
+
     _expandController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
@@ -106,7 +117,15 @@ class _SplashViewState extends State<SplashView>
     _expandAnimation.addStatusListener(
       (status) {
         if (status == AnimationStatus.completed) {
-          clearPath(OnboardingView.route);
+          if (isOnboard == true) {
+            if (isLoggedIn == true) {
+              clearPath(NavBarView.route);
+            } else {
+              clearPath(SignInView.route);
+            }
+          } else {
+            clearPath(OnboardingView.route);
+          }
         }
       },
     );

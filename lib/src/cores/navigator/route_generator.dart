@@ -36,6 +36,8 @@ class RouteGenerator {
         return pageRoute(ResetPasswordView());
       case SplashView.route:
         return pageRoute(const SplashView());
+      case MedicalHistoryView.route:
+        return pageRoute(const MedicalHistoryView());
 
       default:
         return errorRoute();

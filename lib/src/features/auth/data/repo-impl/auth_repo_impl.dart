@@ -34,11 +34,6 @@ class AuthRepoImpl extends AuthRepository with RepositoryErrorHandler {
   }
 
   @override
-  Future<Either<Failure, bool>> isUserLoggedIn() async {
-    return callAction(() => _authDataSource.isLoggedIn());
-  }
-
-  @override
   Future<Either<Failure, AuthResultEntity>> signInWithGoogle() async {
     return callAction(() => _authDataSource.signInWithGoogle());
   }

@@ -88,4 +88,12 @@ class SessionManager {
   Future<void> deleteStoredBuiltInType(String key) async {
     await _localCache.delete(key);
   }
+
+  Future<void> storeBool(String key, bool value) async {
+    await _localCache.put(key, value);
+  }
+
+  bool? getBool(String key) {
+    return _localCache.get(key) as bool?;
+  }
 }

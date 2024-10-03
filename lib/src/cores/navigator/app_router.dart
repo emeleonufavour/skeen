@@ -42,6 +42,7 @@ void goBack([Object? result]) {
     return navigator.pop(result);
   } else {
     AppLogger.logWarning(
-        "YOU ARE ATTEMPTING TO POP A SCREEN THAT HAS NO SCREEN BEFORE IT!");
+      "YOU ARE ATTEMPTING TO POP A SCREEN THAT HAS NO SCREEN BEFORE IT!",
+    );
   }
 }

@@ -31,6 +31,7 @@ class SignInNotifier extends Notifier<AppState<AuthResultEntity>>
         notifyOnError(error: l, state_: state);
       },
       (r) {
+        ref.read(authStatusProvider.notifier).setAuthStatus(true);
         notifyOnSuccess(data: r, state_: state);
       },
     );

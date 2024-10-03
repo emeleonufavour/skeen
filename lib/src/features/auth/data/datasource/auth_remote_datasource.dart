@@ -19,8 +19,6 @@ abstract interface class AuthRemoteDataSource {
   Future<void> forgotPassword(String email);
 
   Future<void> logOut();
-
-  Future<bool> isLoggedIn();
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -83,22 +81,17 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     );
   }
 
-  @override
-  Future<bool> isLoggedIn() async {
-    final res = _firebaseHelper.currentUserId != null ||
-        _firebaseHelper.currentUserId == '';
-    return res;
-  }
-
   Future<void> _saveUser({
     required User user,
     SignUpParamsModel? params,
+    bool isEmailAuth = true,
   }) async {
     _firebaseHelper.userCollectionRef().doc(user.uid).set({
       'user_id': user.uid,
       'email': user.email,
       'fullname': params?.fullName ?? user.displayName,
       'createdAt': _firebaseHelper.timestamp,
+      'auth_type': isEmailAuth,
     });
   }
 
@@ -119,7 +112,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     final UserCredential userDetailsResponse =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-    await _saveUser(user: userDetailsResponse.user!);
+    await _saveUser(
+      user: userDetailsResponse.user!,
+      isEmailAuth: false,
+    );
 
     return const AuthResultModel(
       message: 'Google sign in successful!',

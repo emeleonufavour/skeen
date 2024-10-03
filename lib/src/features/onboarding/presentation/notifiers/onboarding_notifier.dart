@@ -1,14 +1,18 @@
 import '../../onboarding.dart';
 
-final onboardingProvider =
-    StateNotifierProvider<OnboardingNotifier, int>((ref) {
-  return OnboardingNotifier();
-});
+final onboardingProvider = StateNotifierProvider<OnboardingNotifier, int>(
+  (ref) {
+    final sessionManager = ref.read(sessionManagerProvider);
+    return OnboardingNotifier(sessionManager);
+  },
+);
 
 class OnboardingNotifier extends StateNotifier<int> {
-  OnboardingNotifier() : super(0);
+  OnboardingNotifier(this.sessionManager) : super(0);
+  final SessionManager sessionManager;
 
   void setPage(int page) => state = page;
+
   void nextPage() {
     if (state < 2) {
       state++;
@@ -20,4 +24,10 @@ class OnboardingNotifier extends StateNotifier<int> {
       state--;
     }
   }
+
+  void setUserOnboardStatusToTrue() async {
+    await sessionManager.storeBool(isOnboardKey, true);
+  }
 }
+
+const isOnboardKey = "is_onboard";

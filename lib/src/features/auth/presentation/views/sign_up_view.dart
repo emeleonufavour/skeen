@@ -20,6 +20,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
       context: context,
       provider: signUpProvider,
       ref: ref,
+      onSuccess: () => clearPath(MedicalHistoryView.route),
     );
 
     return Form(
@@ -32,11 +33,13 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
           TextFieldWidget(
             textController: _fullName,
             hintText: "Full name",
+            keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
             validator: (v) => v!.validateFullName,
           ),
           TextFieldWidget(
             textController: _email,
+            keyboardType: TextInputType.emailAddress,
             hintText: "Email",
             validator: (v) => v!.validateEmail,
             textInputAction: TextInputAction.next,
@@ -45,6 +48,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
             textController: _password,
             hintText: 'Password',
             isPassword: true,
+            keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
             onSubmit: (_) {
               if (key.currentState?.validate() ?? false) {
