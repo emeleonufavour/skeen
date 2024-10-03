@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:myskin_flutterbytes/src/cores/shared/scaffold_widget.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class HelpView extends StatelessWidget {
   const HelpView({super.key});

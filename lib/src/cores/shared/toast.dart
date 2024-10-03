@@ -1,4 +1,5 @@
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 enum ToastType { error, success, normal }
 

@@ -1,4 +1,4 @@
-import 'package:flutter_svg/svg.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/cores/shared/toast.dart';
 import 'package:myskin_flutterbytes/src/features/track_product/scan_product.dart';
 
@@ -66,7 +66,7 @@ Map<String, bool> checkDateDifference(DateTime targetDate, int daysDifference) {
 }
 
 class AddProductBottomSheet extends ConsumerStatefulWidget {
-  AddProductBottomSheet({super.key});
+  const AddProductBottomSheet({super.key});
 
   @override
   _AddProductBottomSheetState createState() => _AddProductBottomSheetState();
@@ -218,7 +218,7 @@ void showAddProductBottomSheet(BuildContext context) {
               ),
               child: SizedBox(
                   height: constraints.maxHeight,
-                  child: AddProductBottomSheet())));
+                  child: const AddProductBottomSheet())));
     },
   );
 }

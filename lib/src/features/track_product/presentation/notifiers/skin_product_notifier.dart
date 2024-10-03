@@ -1,4 +1,4 @@
-import 'package:get_it/get_it.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
 
 import '../../scan_product.dart';
@@ -24,7 +24,7 @@ enum ExpiryReminder {
 
 final skinCareProductProvider =
     StateNotifierProvider<ProductNotifier, List<SkinCareProduct>>((ref) {
-  final SessionManager sessionManager = GetIt.I<SessionManager>();
+  final SessionManager sessionManager = ref.read(sessionManagerProvider);
   return ProductNotifier(sessionManager);
 });
 
