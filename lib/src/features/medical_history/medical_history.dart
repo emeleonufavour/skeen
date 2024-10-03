@@ -1,0 +1,1 @@
+export 'presentation/views/medical_history_view.dart';

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-
-import '../../../scan_product.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 final FocusNode productItemFocusNode =
     FocusNode(debugLabel: 'Product Item Delete Button');

@@ -3,10 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
-import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_camera.dart';
-
-import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_view.dart';
-
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

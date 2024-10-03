@@ -12,7 +12,20 @@
           "package_name": "com.skeen.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "925058384844-9vcitve99eitoa49nq8973raj4g1c2nn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skeen.app",
+            "certificate_hash": "2ecb94d0661aea0b986ba03291357fdf18ab6886"
+          }
+        },
+        {
+          "client_id": "925058384844-13v5u0hb62im9q7k6gldc1h0cvhkpdkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyANfN00Np1LnUcgE7ncxZYUb83IWZAIx3U"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925058384844-13v5u0hb62im9q7k6gldc1h0cvhkpdkl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "925058384844-i7qi45niqvk5pckvmubh3rie9g61dg0p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myskinFlutterbytes"
+              }
+            }
+          ]
         }
       }
     }

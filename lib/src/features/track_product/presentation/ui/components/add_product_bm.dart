@@ -1,5 +1,6 @@
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/track_product/scan_product.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/track_product/track_product.dart';
 
 bool isDateInFuture(DateTime date) {
   DateTime currentDate = DateTime.now();
@@ -68,7 +69,8 @@ class AddProductBottomSheet extends ConsumerStatefulWidget {
   const AddProductBottomSheet({super.key});
 
   @override
-  _AddProductBottomSheetState createState() => _AddProductBottomSheetState();
+  ConsumerState<AddProductBottomSheet> createState() =>
+      _AddProductBottomSheetState();
 }
 
 class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {

@@ -1,1 +1,1 @@
-export 'firebase_auth_exception.dart';
+export 'firebase_exception.dart';

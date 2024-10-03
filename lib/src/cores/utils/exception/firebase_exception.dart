@@ -60,3 +60,7 @@ class CustomFirebaseException extends BaseFailures {
     }
   }
 }
+
+class NoGoogleAccountChosenException implements Exception {
+  const NoGoogleAccountChosenException();
+}

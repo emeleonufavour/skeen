@@ -1,9 +1,11 @@
 export 'auth/auth.dart';
 export 'chat_bot/chat_bot.dart';
+export 'history/history.dart';
 export 'home/home.dart';
+export 'medical_history/medical_history.dart';
 export 'nav_bar/nav_bar.dart';
 export 'onboarding/onboarding.dart';
-export 'skin_goal/skin_goal.dart';
-export 'history/history.dart';
-export 'splash/splash.dart';
 export 'report/report.dart';
+export 'skin_goal/skin_goal.dart';
+export 'splash/splash.dart';
+export 'track_product/track_product.dart';

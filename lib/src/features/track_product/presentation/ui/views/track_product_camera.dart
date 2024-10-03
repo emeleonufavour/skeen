@@ -1,6 +1,6 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-
-import '../../../scan_product.dart';
+import 'package:camera/camera.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 final imagePickerProvider = Provider((ref) => ImagePicker());
 

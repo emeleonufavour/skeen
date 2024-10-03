@@ -12,6 +12,12 @@ mixin RepositoryErrorHandler {
     try {
       final result = await action();
       return Right(result);
+    } on NoGoogleAccountChosenException {
+      return Either.left(
+        const BaseFailures(
+          message: 'User cancelled operation',
+        ),
+      );
     } on FirebaseAuthException catch (e, s) {
       AppLogger.log('$e $s', tag: 'FirebaseAuthException:');
       return Either.left(CustomFirebaseException(e.code));

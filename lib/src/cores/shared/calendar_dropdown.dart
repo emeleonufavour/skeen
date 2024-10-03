@@ -1,7 +1,7 @@
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:intl/intl.dart' show DateFormat;
-import 'package:myskin_flutterbytes/src/features/track_product/scan_product.dart';
+import 'package:myskin_flutterbytes/src/features/track_product/track_product.dart';
 
 import '../cores.dart';
 

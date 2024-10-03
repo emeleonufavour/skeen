@@ -1,4 +1,4 @@
-import 'package:myskin_flutterbytes/src/features/track_product/scan_product.dart';
+import 'package:myskin_flutterbytes/src/features/track_product/track_product.dart';
 
 class SkinCareProduct {
   String name;

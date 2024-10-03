@@ -1,6 +1,5 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
-import '../../scan_product.dart';
 
 enum ExpiryReminder {
   oneWeekBefore("1 week before"),

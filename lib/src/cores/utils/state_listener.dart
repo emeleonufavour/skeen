@@ -29,6 +29,9 @@ class StateListener {
         } else if (current.status == StateStatus.failure) {
           onError?.call();
           if (current.failure != null) {
+            if (current.failure!.message == 'User cancelled operation') {
+              return;
+            }
             onErrorWithData?.call(current.failure!.message);
             showToast(
               context: context,

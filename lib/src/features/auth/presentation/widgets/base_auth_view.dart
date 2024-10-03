@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-class AuthView extends StatelessWidget {
+class AuthView extends ConsumerWidget {
   final String heading;
   final String description;
   final List<Widget> contents;
@@ -20,7 +20,15 @@ class AuthView extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final googleAuthNotifier = ref.read(googleAuthProvider.notifier);
+
+    StateListener.listen<AuthResultEntity>(
+      context: context,
+      provider: googleAuthProvider,
+      ref: ref,
+    );
+
     return BaseScaffold(
       useSingleScroll: false,
       resizeToAvoidInsets: false,
@@ -53,6 +61,7 @@ class AuthView extends StatelessWidget {
             const OrWidget(),
             kfs32.verticalSpace,
             Button.withBorderLine(
+              onTap: googleAuthNotifier.execute,
               color: Theme.of(context).scaffoldBackgroundColor,
               borderColor: Palette.borderColor,
               child: Row(
