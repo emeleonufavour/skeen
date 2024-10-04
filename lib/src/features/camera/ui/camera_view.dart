@@ -43,7 +43,10 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
                     else
                       FloatingActionButton(
                         onPressed: () => _takePicture(controller),
-                        child: const Icon(Icons.camera),
+                        child: const Icon(
+                          Icons.camera,
+                          color: Colors.white,
+                        ),
                       ),
                   ],
                 ),

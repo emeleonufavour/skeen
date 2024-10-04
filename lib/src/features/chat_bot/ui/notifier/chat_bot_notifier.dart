@@ -1,4 +1,6 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
+import '../../../../cores/shared/toast.dart';
+import '../../../../cores/utils/internet_connectivity.dart';
 import '../../chat_bot.dart';
 
 const String geminiApiKey = String.fromEnvironment('API_KEY');
@@ -13,18 +15,36 @@ final chatBotProvider =
     apiKey: geminiApiKey,
   );
   ChatSession chat = model.startChat();
-  return ChatBotNotifier(disappearNotifier, model, chat);
+
+  return ChatBotNotifier(
+      disappearNotifier, model, chat, navigatorKey.currentContext!);
 });
 
 class ChatBotNotifier extends StateNotifier<ChatBotState> {
   final DisappearNotifier disappearNotifier;
   final GenerativeModel model;
   final ChatSession chat;
-  ChatBotNotifier(this.disappearNotifier, this.model, this.chat)
+  final BuildContext context;
+
+  ChatBotNotifier(this.disappearNotifier, this.model, this.chat, this.context)
       : super(ChatBotState(messages: [], isLoading: false));
 
   Future<void> sendMessage(String message) async {
     state = state.copyWith(isLoading: true);
+
+    bool hasInternet = await InternetConnectivity.hasConnection();
+
+    if (!hasInternet && context.mounted) {
+      showToast(
+        context: context,
+        message:
+            "No internet connection. Please check your connection and try again.",
+        type: ToastType.error,
+      );
+      state = state.copyWith(isLoading: false);
+      return;
+    }
+
     if (state.messages.isEmpty) {
       disappearNotifier.toggle();
     }
@@ -47,7 +67,13 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
       }
     } catch (e) {
       AppLogger.log(e.toString());
-      // Handle error
+      if (context.mounted) {
+        showToast(
+          context: context,
+          message: "Failed to send message. Please try again.",
+          type: ToastType.error,
+        );
+      }
     } finally {
       state = state.copyWith(isLoading: false);
     }

@@ -100,6 +100,12 @@ class ChatBotView extends ConsumerWidget {
                 _sendMessage(ref);
               }),
         ]),
+        if (chatBotState.isLoading)
+          const Positioned(
+            bottom: 80,
+            right: 20,
+            child: CircularProgressIndicator(),
+          ),
       ]),
       useSingleScroll: false,
     );
