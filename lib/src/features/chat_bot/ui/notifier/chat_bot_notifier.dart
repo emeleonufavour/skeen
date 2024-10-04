@@ -22,19 +22,18 @@ final chatBotProvider =
   );
   ChatSession chat = model.startChat();
 
-  return ChatBotNotifier(disappearNotifier, model, chat,
-      navigatorKey.currentContext!, sessionManager);
+  return ChatBotNotifier(disappearNotifier, model, chat, sessionManager);
 });
 
 class ChatBotNotifier extends StateNotifier<ChatBotState> {
   final DisappearNotifier disappearNotifier;
   final GenerativeModel model;
   final ChatSession chat;
-  final BuildContext context;
+
   final SessionManager _sessionManager;
 
-  ChatBotNotifier(this.disappearNotifier, this.model, this.chat, this.context,
-      this._sessionManager)
+  ChatBotNotifier(
+      this.disappearNotifier, this.model, this.chat, this._sessionManager)
       : super(ChatBotState(messages: [], isLoading: false)) {
     _loadChatHistory();
   }
@@ -66,8 +65,12 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
     disappearNotifier.reset();
   }
 
-  Future<void> sendMessage(String message) async {
+  Future<void> sendMessage(String message, BuildContext context) async {
     state = state.copyWith(isLoading: true);
+
+    if (state.messages.isEmpty) {
+      disappearNotifier.toggle();
+    }
 
     bool hasInternet = await InternetConnectivity.hasConnection();
 
@@ -80,10 +83,6 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
       );
       state = state.copyWith(isLoading: false);
       return;
-    }
-
-    if (state.messages.isEmpty) {
-      disappearNotifier.toggle();
     }
 
     List<ChatBubble> updatedMessages = [
@@ -108,7 +107,7 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
       if (context.mounted) {
         showToast(
           context: context,
-          message: "Failed to send message. Please try again.",
+          message: "I am unable to send your message at the moment",
           type: ToastType.error,
         );
       }

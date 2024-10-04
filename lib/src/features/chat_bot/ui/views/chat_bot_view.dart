@@ -26,9 +26,11 @@ class ChatBotView extends ConsumerWidget {
     }
   }
 
-  void _sendMessage(WidgetRef ref) {
+  void _sendMessage(WidgetRef ref, BuildContext context) {
     if (textController.text.isNotEmpty) {
-      ref.read(chatBotProvider.notifier).sendMessage(textController.text);
+      ref
+          .read(chatBotProvider.notifier)
+          .sendMessage(textController.text, context);
       textController.clear();
       _textFieldFocus.unfocus();
       _scrollDown();
@@ -124,11 +126,11 @@ class ChatBotView extends ConsumerWidget {
               controller: textController,
               focusNode: _textFieldFocus,
               onFieldSubmitted: (v) {
-                _sendMessage(ref);
+                _sendMessage(ref, context);
                 textController.clear();
               },
               sendAction: () {
-                _sendMessage(ref);
+                _sendMessage(ref, context);
               }),
         ]),
         if (chatBotState.isLoading)
