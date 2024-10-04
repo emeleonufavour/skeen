@@ -15,7 +15,7 @@ class AnimatedIntroText extends StatelessWidget {
     return AnimatedPositioned(
         top: hasMoved ? -200 : 20,
         curve: Curves.easeInOut,
-        duration: duration2s,
+        duration: const Duration(milliseconds: 1000),
         child: child);
   }
 }

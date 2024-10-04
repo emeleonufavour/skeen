@@ -104,7 +104,7 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
         await _saveChatHistory();
       }
     } catch (e) {
-      AppLogger.log(e.toString());
+      AppLogger.log(e.toString(), tag: "ChatBotNotifier.sendMessage");
       if (context.mounted) {
         showToast(
           context: context,

@@ -13,15 +13,17 @@ class ChatBotView extends ConsumerWidget {
   final ScrollController _scrollController = ScrollController();
 
   void _scrollDown() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(
-          milliseconds: 750,
+    if (_scrollController.hasClients) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(
+            milliseconds: 750,
+          ),
+          curve: Curves.easeOutCirc,
         ),
-        curve: Curves.easeOutCirc,
-      ),
-    );
+      );
+    }
   }
 
   void _sendMessage(WidgetRef ref) {
@@ -43,42 +45,40 @@ class ChatBotView extends ConsumerWidget {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 15.w),
-            child: Container(
-                padding: EdgeInsets.all(kfsVeryTiny.h),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Palette.lightGrey),
-                    shape: BoxShape.circle),
-                child: IconButton(
-                  icon: SvgPicture.asset(Assets.arrowClock),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text("Clear Chat History"),
-                        content: const Text(
-                            "Are you sure you want to clear all chat history?"),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text("Cancel"),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              ref.read(chatBotProvider.notifier).clearChat();
-                              Navigator.pop(context);
-                              showToast(
-                                context: context,
-                                message: "Chat history cleared",
-                                type: ToastType.success,
-                              );
-                            },
-                            child: const Text("Clear"),
-                          ),
-                        ],
+            child: IconButton(
+              icon: const Icon(
+                Icons.delete,
+                color: Palette.grey,
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Clear Chat History"),
+                    content: const Text(
+                        "Are you sure you want to clear all chat history?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Cancel"),
                       ),
-                    );
-                  },
-                )),
+                      TextButton(
+                        onPressed: () {
+                          ref.read(chatBotProvider.notifier).clearChat();
+                          Navigator.pop(context);
+                          showToast(
+                            context: context,
+                            message: "Chat history cleared",
+                            type: ToastType.success,
+                          );
+                        },
+                        child: const Text("Clear"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -132,10 +132,18 @@ class ChatBotView extends ConsumerWidget {
               }),
         ]),
         if (chatBotState.isLoading)
-          const Positioned(
-            bottom: 80,
-            right: 20,
-            child: CircularProgressIndicator(),
+          Positioned(
+            top: 20,
+            right: MediaQuery.sizeOf(context).width / 2 - 50,
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    shape: BoxShape.circle),
+                child: const CircularProgressIndicator(
+                  strokeWidth: 1,
+                  color: Palette.white,
+                )),
           ),
       ]),
       useSingleScroll: false,
