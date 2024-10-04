@@ -22,6 +22,8 @@ class Assets {
   static String faceCream = _pngAsset('face_cream');
   static String veggies = _pngAsset('veggies');
   static String woman = _pngAsset('woman');
+  static String manDrinking = _pngAsset("man_drinking");
+  static String womanSun = _pngAsset("woman_sun");
   static String level1 = _pngAsset("level_one");
   static String level2 = _pngAsset("level_two");
   static String level3 = _pngAsset("level_three");
