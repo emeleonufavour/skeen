@@ -1,17 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-import '../../../home/data/model/scan_product_state.dart';
 import '../../../skin_goal/data/models/skin_goals_state.dart';
 import '../../../skin_goal/ui/notifier/skin_goals_notifier.dart';
 import '../../data/domain/repository/scan_product_repo.dart';
 import '../../data/domain/repository/scan_product_repo_impl.dart';
+import '../../data/model/scan_product_state.dart';
 
 final productScannerRepositoryProvider =
     Provider<ProductScannerRepository>((ref) {
   final model = GenerativeModel(
     model: 'gemini-1.5-flash-latest',
-    apiKey: "YOUR_API_KEY",
+    apiKey: "",
   );
   return ProductScannerRepositoryImpl(model);
 });

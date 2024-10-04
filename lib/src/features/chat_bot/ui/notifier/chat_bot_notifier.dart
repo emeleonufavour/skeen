@@ -107,7 +107,7 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
       if (context.mounted) {
         showToast(
           context: context,
-          message: "I am unable to send your message at the moment",
+          message: "Failed to deliver message",
           type: ToastType.error,
         );
       }
