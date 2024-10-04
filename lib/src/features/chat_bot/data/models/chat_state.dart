@@ -12,4 +12,20 @@ class ChatBotState {
       isLoading: isLoading ?? this.isLoading,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'messages': messages.map((message) => message.toJson()).toList(),
+      'isLoading': isLoading,
+    };
+  }
+
+  factory ChatBotState.fromJson(Map<String, dynamic> json) {
+    return ChatBotState(
+      messages: (json['messages'] as List)
+          .map((message) => ChatBubble.fromJson(message))
+          .toList(),
+      isLoading: json['isLoading'],
+    );
+  }
 }

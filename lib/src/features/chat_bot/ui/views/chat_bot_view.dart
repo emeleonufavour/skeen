@@ -1,5 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:myskin_flutterbytes/src/features/home/data/model/gemma_response.dart';
+import '../../../../cores/shared/toast.dart';
 import '../../chat_bot.dart';
 
 class ChatBotView extends ConsumerWidget {
@@ -47,7 +48,37 @@ class ChatBotView extends ConsumerWidget {
                 decoration: BoxDecoration(
                     border: Border.all(color: Palette.lightGrey),
                     shape: BoxShape.circle),
-                child: SvgPicture.asset(Assets.arrowClock)),
+                child: IconButton(
+                  icon: SvgPicture.asset(Assets.arrowClock),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Clear Chat History"),
+                        content: const Text(
+                            "Are you sure you want to clear all chat history?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("Cancel"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              ref.read(chatBotProvider.notifier).clearChat();
+                              Navigator.pop(context);
+                              showToast(
+                                context: context,
+                                message: "Chat history cleared",
+                                type: ToastType.success,
+                              );
+                            },
+                            child: const Text("Clear"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                )),
           ),
         ],
       ),

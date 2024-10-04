@@ -1,7 +1,12 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
 import '../../../../cores/shared/toast.dart';
 import '../../../../cores/utils/internet_connectivity.dart';
 import '../../chat_bot.dart';
+
+final sessionManagerProvider = Provider<SessionManager>((ref) {
+  return SessionManager();
+});
 
 const String geminiApiKey = String.fromEnvironment('API_KEY');
 String introText =
@@ -10,14 +15,15 @@ String introText =
 final chatBotProvider =
     StateNotifierProvider<ChatBotNotifier, ChatBotState>((ref) {
   final disappearNotifier = ref.read(disappearProvider.notifier);
+  final sessionManager = ref.read(sessionManagerProvider);
   GenerativeModel model = GenerativeModel(
     model: 'gemini-1.5-flash-latest',
     apiKey: geminiApiKey,
   );
   ChatSession chat = model.startChat();
 
-  return ChatBotNotifier(
-      disappearNotifier, model, chat, navigatorKey.currentContext!);
+  return ChatBotNotifier(disappearNotifier, model, chat,
+      navigatorKey.currentContext!, sessionManager);
 });
 
 class ChatBotNotifier extends StateNotifier<ChatBotState> {
@@ -25,9 +31,40 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
   final GenerativeModel model;
   final ChatSession chat;
   final BuildContext context;
+  final SessionManager _sessionManager;
 
-  ChatBotNotifier(this.disappearNotifier, this.model, this.chat, this.context)
-      : super(ChatBotState(messages: [], isLoading: false));
+  ChatBotNotifier(this.disappearNotifier, this.model, this.chat, this.context,
+      this._sessionManager)
+      : super(ChatBotState(messages: [], isLoading: false)) {
+    _loadChatHistory();
+  }
+
+  String CHAT_HISTORY_KEY = 'chat_history';
+
+  Future<void> _loadChatHistory() async {
+    final cachedMessages = _sessionManager.getObjectList<ChatBubble>(
+      CHAT_HISTORY_KEY,
+      (json) => ChatBubble.fromJson(json),
+    );
+    if (cachedMessages != null && cachedMessages.isNotEmpty) {
+      state = state.copyWith(messages: cachedMessages);
+      disappearNotifier.toggle();
+    }
+  }
+
+  Future<void> _saveChatHistory() async {
+    await _sessionManager.storeObjectList<ChatBubble>(
+      CHAT_HISTORY_KEY,
+      state.messages,
+      (obj) => obj.toJson(),
+    );
+  }
+
+  Future<void> clearChat() async {
+    await _sessionManager.deleteStoredBuiltInType(CHAT_HISTORY_KEY);
+    state = ChatBotState(messages: [], isLoading: false);
+    disappearNotifier.reset();
+  }
 
   Future<void> sendMessage(String message) async {
     state = state.copyWith(isLoading: true);
@@ -64,6 +101,7 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
           ...updatedMessages,
         ];
         state = state.copyWith(messages: updatedMessages);
+        await _saveChatHistory();
       }
     } catch (e) {
       AppLogger.log(e.toString());

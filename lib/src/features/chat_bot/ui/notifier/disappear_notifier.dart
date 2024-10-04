@@ -6,6 +6,10 @@ class DisappearNotifier extends StateNotifier<bool> {
   void toggle() {
     state = !state;
   }
+
+  void reset() {
+    state = false;
+  }
 }
 
 final disappearProvider = StateNotifierProvider<DisappearNotifier, bool>((ref) {
