@@ -2,6 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
+import '../features/settings/presentation/views/help_view.dart';
+import '../features/settings/presentation/views/settings_view.dart';
+
 class SkeenApp extends StatefulWidget {
   const SkeenApp({super.key});
 
@@ -23,7 +26,7 @@ class _SkeenAppState extends State<SkeenApp> {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: NavBarView.route,
+        initialRoute: SettingsView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: navigatorKey,

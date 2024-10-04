@@ -1,5 +1,5 @@
 import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/features/home/data/gemma_response.dart';
+import 'package:myskin_flutterbytes/src/features/home/data/model/gemma_response.dart';
 import '../../chat_bot.dart';
 
 class ChatBotView extends ConsumerWidget {

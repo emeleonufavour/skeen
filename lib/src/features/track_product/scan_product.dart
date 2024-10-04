@@ -4,11 +4,10 @@ export 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart
 export 'package:image_picker/image_picker.dart';
 export 'package:myskin_flutterbytes/src/features/track_product/presentation/notifiers/barcode_scanner_notifier.dart';
 export 'package:myskin_flutterbytes/src/features/track_product/presentation/notifiers/skin_product_notifier.dart';
-export 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/painter/camera_background_overlay.dart';
+export 'package:myskin_flutterbytes/src/features/camera/ui/painter/camera_background_overlay.dart';
 export 'package:flutter/material.dart';
 export 'package:myskin_flutterbytes/src/cores/shared/text_widget.dart';
 export 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/components/add_product_bm.dart';
 export 'package:myskin_flutterbytes/src/features/skin_goal/skin_goal.dart';
 export 'package:myskin_flutterbytes/src/features/auth/presentation/components/textfield_widget.dart';
 export 'package:myskin_flutterbytes/src/features/track_product/data/models/skincare_product.dart';
-export 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_camera.dart';

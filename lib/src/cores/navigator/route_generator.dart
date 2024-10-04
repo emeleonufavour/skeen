@@ -8,8 +8,11 @@ import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signin_vie
 import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/signup_view.dart';
 import 'package:myskin_flutterbytes/src/features/auth/presentation/ui/verification_view.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
-import 'package:myskin_flutterbytes/src/features/home/data/gemma_response.dart';
-import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_camera.dart';
+import 'package:myskin_flutterbytes/src/features/home/data/model/gemma_response.dart';
+import 'package:myskin_flutterbytes/src/features/settings/presentation/views/edit_profile_view.dart';
+import 'package:myskin_flutterbytes/src/features/settings/presentation/views/help_view.dart';
+import 'package:myskin_flutterbytes/src/features/settings/presentation/views/notification_view.dart';
+import 'package:myskin_flutterbytes/src/features/settings/presentation/views/settings_view.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/history/views/history_view.dart';
 import 'package:myskin_flutterbytes/src/features/onboarding/presentation/views/onboarding_view.dart';
@@ -17,6 +20,7 @@ import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/v
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
 
 import '../../features/auth/presentation/ui/reset_password.dart';
+import '../../features/camera/ui/camera_view.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -48,6 +52,15 @@ class RouteGenerator {
         return pageRoute(VerificationView());
       case ResetPasswordView.route:
         return pageRoute(ResetPasswordView());
+      case SettingsView.route:
+        return pageRoute(SettingsView());
+      case EditProfileView.route:
+        return pageRoute(EditProfileView());
+      case NotificationSettingsView.route:
+        return pageRoute(NotificationSettingsView());
+      case HelpSettingsView.route:
+        return pageRoute(HelpSettingsView());
+
       default:
         return errorRoute();
     }

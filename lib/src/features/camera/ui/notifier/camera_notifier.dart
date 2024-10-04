@@ -1,5 +1,5 @@
 import 'package:permission_handler/permission_handler.dart';
-import '../../scan_product.dart';
+import '../../../track_product/scan_product.dart';
 
 final cameraControllerProvider =
     FutureProvider.autoDispose<CameraController>((ref) async {
@@ -13,7 +13,8 @@ final cameraControllerProvider =
     throw Exception('No cameras available');
   }
 
-  final controller = CameraController(cameras[0], ResolutionPreset.max);
+  final controller =
+      CameraController(cameras[0], ResolutionPreset.max, enableAudio: false);
   await controller.initialize();
 
   return controller;

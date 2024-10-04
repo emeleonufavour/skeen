@@ -1,6 +1,12 @@
-import '../../../scan_product.dart';
+import 'package:camera/camera.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myskin_flutterbytes/src/cores/shared/toast.dart';
 
-final imagePickerProvider = Provider((ref) => ImagePicker());
+import '../../../cores/cores.dart';
+import '../../chat_bot/ui/views/chat_bot_view.dart';
+import '../../scan_product/presentation/notifier/scan_product_notifier.dart';
+import 'notifier/camera_notifier.dart';
+import 'painter/camera_background_overlay.dart';
 
 class CameraScreen extends ConsumerStatefulWidget {
   static const String route = 'camera_screen';
@@ -12,7 +18,6 @@ class CameraScreen extends ConsumerStatefulWidget {
 
 class _CameraScreenState extends ConsumerState<CameraScreen> {
   bool _isScanning = false;
-  CameraController? cameraController;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,6 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
     return Scaffold(
       body: cameraControllerAsyncValue.when(
         data: (controller) {
-          cameraController = controller;
           return Stack(
             fit: StackFit.expand,
             children: [
@@ -34,10 +38,13 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FloatingActionButton(
-                      onPressed: () => _takePicture(controller),
-                      child: const Icon(Icons.camera),
-                    ),
+                    if (_isScanning)
+                      const CircularProgressIndicator()
+                    else
+                      FloatingActionButton(
+                        onPressed: () => _takePicture(controller),
+                        child: const Icon(Icons.camera),
+                      ),
                   ],
                 ),
               )
@@ -58,17 +65,42 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
     try {
       final image = await controller.takePicture();
       if (!mounted) return;
+
+      final productScannerNotifier =
+          ref.read(productScannerNotifierProvider.notifier);
+      await productScannerNotifier.scanProduct(image.path);
+
+      final scanResult = ref.read(productScannerNotifierProvider).scanResult;
+
+      if (scanResult != null && mounted) {
+        goTo(ChatBotView.route, arguments: scanResult);
+      } else {
+        if (mounted) {
+          showToast(
+              context: context,
+              message: "I am unable to process your picture",
+              type: ToastType.error);
+        }
+      }
     } catch (e) {
       AppLogger.logError('Error taking picture with Camera: $e',
           tag: "CameraScreen");
+      if (mounted) {
+        showToast(
+            context: context,
+            message: "I am unable to process your picture",
+            type: ToastType.error);
+      }
     } finally {
-      setState(() => _isScanning = false);
+      if (mounted) {
+        setState(() => _isScanning = false);
+      }
     }
   }
 
   @override
   void dispose() {
-    cameraController?.dispose();
+    ref.read(cameraControllerProvider).value?.dispose();
     super.dispose();
   }
 }

@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 
-class NotificationView extends ConsumerWidget {
-  const NotificationView({super.key});
+class NotificationSettingsView extends ConsumerWidget {
+  const NotificationSettingsView({super.key});
 
-  final route = "notification_view";
+  static const String route = "notification_view";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

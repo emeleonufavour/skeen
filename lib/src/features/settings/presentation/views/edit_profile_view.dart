@@ -5,6 +5,8 @@ import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 class EditProfileView extends ConsumerWidget {
   const EditProfileView({super.key});
 
+  static const String route = "edit_profile_view";
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BaseScaffold(

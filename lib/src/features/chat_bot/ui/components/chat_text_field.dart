@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import '../../../camera/ui/camera_view.dart';
 import '../../chat_bot.dart';
 
 class ChatTextField extends StatelessWidget {

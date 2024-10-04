@@ -6,7 +6,7 @@ import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
 
-  final route = 'settings_view';
+  static const route = 'settings_view';
   final name = 'Alexa Nurul';
 
   @override
