@@ -8,10 +8,12 @@ final googleAuthProvider =
 class GoogleAuthNotifier extends Notifier<AppState<AuthResultEntity>>
     with NotifierHelper<AuthResultEntity> {
   late final AuthRepository _authRepository;
+  late final SessionManager _sessionManager;
 
   @override
   AppState<AuthResultEntity> build() {
     _authRepository = ref.read(authRepositoryProvider);
+    _sessionManager = ref.read(sessionManagerProvider);
 
     return AppState.initial();
   }
@@ -26,7 +28,7 @@ class GoogleAuthNotifier extends Notifier<AppState<AuthResultEntity>>
         notifyOnError(error: l, state_: state);
       },
       (r) {
-        ref.read(authStatusProvider.notifier).setAuthStatus(true);
+        _sessionManager.storeBool(isLoggedInKey, true);
         notifyOnSuccess(data: r, state_: state);
       },
     );

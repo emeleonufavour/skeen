@@ -6,11 +6,12 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
-import 'package:myskin_flutterbytes/src/features/track_product/presentation/ui/views/track_product_camera.dart';
-import '../../../track_product/presentation/ui/views/track_product_view.dart';
 
+/// Okay, from gallery, when you pick images from gallery
 Future<GemmaResponse?> pickAndScanImage(
-    GenerativeModel model, SkinGoalsState skinGoals) async {
+  GenerativeModel model,
+  SkinGoalsState skinGoals,
+) async {
   try {
     final ImagePicker picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -18,8 +19,7 @@ Future<GemmaResponse?> pickAndScanImage(
     if (pickedFile != null) {
       final res = await _processImage(pickedFile.path, model, skinGoals);
       return res;
-    } else {
-    }
+    } else {}
   } catch (e) {
     AppLogger.log('Error picking or scanning image: $e');
   } finally {
@@ -28,8 +28,12 @@ Future<GemmaResponse?> pickAndScanImage(
   return null;
 }
 
+/// Take a picture and process image
 Future<GemmaResponse?> _processImage(
-    String imagePath, GenerativeModel model, SkinGoalsState skinGoals) async {
+  String imagePath,
+  GenerativeModel model,
+  SkinGoalsState skinGoals,
+) async {
   final inputImage = InputImage.fromFilePath(imagePath);
   final List<String> goals =
       (skinGoals.healthGoal).goals!.map((goal) => goal.name).toList();

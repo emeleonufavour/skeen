@@ -5,6 +5,7 @@ class LoadingWidget extends StatelessWidget {
   static Future<void> show(BuildContext context) {
     return showAdaptiveDialog(
       context: context,
+      barrierColor: Palette.transparent,
       barrierDismissible: false,
       builder: (context) => const LoadingWidget(),
     );

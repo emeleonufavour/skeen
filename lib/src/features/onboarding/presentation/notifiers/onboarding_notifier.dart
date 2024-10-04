@@ -31,3 +31,4 @@ class OnboardingNotifier extends StateNotifier<int> {
 }
 
 const isOnboardKey = "is_onboard";
+const isLoggedInKey = "is_logged_in";

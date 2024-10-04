@@ -96,6 +96,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
         children: [
           Center(
             child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 setState(() {
                   _isDropDown = !_isDropDown;

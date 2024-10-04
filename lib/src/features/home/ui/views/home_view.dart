@@ -11,6 +11,7 @@ class HomeView extends StatelessWidget {
       padding: EdgeInsets.zero,
       body: Column(
         children: [
+          kGlobalPadding.verticalSpace,
           const HomeAppBar(
             name: 'Alexa Nurul',
           ),

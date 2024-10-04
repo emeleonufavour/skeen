@@ -1,6 +1,5 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-
 class SkinGoalBottomSheet extends ConsumerWidget {
   final PageController _pageController = PageController();
   SkinGoalBottomSheet({super.key});
@@ -8,6 +7,7 @@ class SkinGoalBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PageView(
+      physics: const NeverScrollableScrollPhysics(),
       controller: _pageController,
       onPageChanged: (int page) {
         ref.read(skinGoalBottomSheetProvider.notifier).setPage(page);
@@ -16,7 +16,7 @@ class SkinGoalBottomSheet extends ConsumerWidget {
         SetSkinGoalView(
           controller: _pageController,
         ),
-        SetGoalReminderView(controller: _pageController),
+        SetRoutineReminder(controller: _pageController),
       ],
     );
   }

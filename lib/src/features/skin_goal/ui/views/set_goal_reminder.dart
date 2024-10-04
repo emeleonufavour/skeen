@@ -3,9 +3,9 @@ import 'package:myskin_flutterbytes/src/features/features.dart';
 
 List<String> days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-class SetGoalReminderView extends ConsumerWidget {
+class SetRoutineReminder extends ConsumerWidget {
   final PageController controller;
-  const SetGoalReminderView({required this.controller, super.key});
+  const SetRoutineReminder({required this.controller, super.key});
   final _borderRadius = 12.0;
 
   @override

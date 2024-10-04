@@ -25,10 +25,6 @@ class _SplashViewState extends ConsumerState<SplashView>
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.watch(authStatusProvider.notifier).getAuthStatus();
-    });
-
     textLength = traqa.length;
     _index = -1;
     isForward = true;
@@ -90,10 +86,10 @@ class _SplashViewState extends ConsumerState<SplashView>
   }
 
   void _initScaleAnimation() {
-    final isLoggedIn = ref.watch(authStatusProvider);
     final sessionManger = ref.read(sessionManagerProvider);
 
     final isOnboard = sessionManger.getBool(isOnboardKey);
+    final isLoggedIn = sessionManger.getBool(isLoggedInKey);
 
     AppLogger.logWarning('IS LOGGED IN: $isLoggedIn IS ONBOARD: $isOnboard');
 
