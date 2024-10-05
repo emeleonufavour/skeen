@@ -5,7 +5,6 @@ import '../../../../cores/cores.dart';
 import '../../../chat_bot/ui/views/chat_bot_view.dart';
 import '../../../scan_product/presentation/notifier/scan_product_notifier.dart';
 import '../notifier/camera_ctr_notifier.dart';
-import '../notifier/camera_notifier.dart';
 import '../painter/camera_background_overlay.dart';
 
 class CameraScreen extends ConsumerStatefulWidget {
@@ -18,24 +17,34 @@ class CameraScreen extends ConsumerStatefulWidget {
 
 class _CameraScreenState extends ConsumerState<CameraScreen>
     with WidgetsBindingObserver {
+  bool _isScanning = false;
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  Future<void> _disposeCamera() async {
+    final controller = ref.read(cameraControllerProvider).valueOrNull;
+    if (controller != null) {
+      try {
+        await controller.dispose();
+      } catch (e) {
+        print('Error disposing camera: $e');
+      } finally {
+        if (mounted) {
+          ref.invalidate(cameraControllerProvider);
+        }
+      }
+    }
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive) {
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
       _disposeCamera();
-    }
-  }
-
-  Future<void> _disposeCamera() async {
-    try {
-      ref.invalidate(cameraControllerProvider);
-    } catch (e) {
-      AppLogger.logError('Error disposing camera: $e');
     }
   }
 
@@ -43,69 +52,88 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
   Widget build(BuildContext context) {
     final cameraControllerAsyncValue = ref.watch(cameraControllerProvider);
 
-    StateListener.listen<String?>(
-      context: context,
-      ref: ref,
-      provider: cameraNotifierProvider,
-      onSuccessWithData: (scanResult) {
-        goTo(ChatBotView.route, arguments: scanResult);
-      },
-      onErrorWithData: (errorMessage) {
-        showToast(
-          context: context,
-          message: errorMessage,
-          type: ToastType.error,
-        );
-      },
-    );
-
-    return PopScope(
-      onPopInvokedWithResult: (didPop, _) async {
-        if (didPop) {
-          await _disposeCamera();
-        }
-      },
-      child: Scaffold(
-        body: cameraControllerAsyncValue.when(
-          data: (controller) {
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                CameraPreview(controller),
-                CustomPaint(painter: CameraBackgroundOverlay()),
-                Positioned(
-                  bottom: 32,
-                  left: 0,
-                  right: 0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+    return Scaffold(
+      body: cameraControllerAsyncValue.when(
+        data: (controller) {
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              CameraPreview(controller),
+              CustomPaint(painter: CameraBackgroundOverlay()),
+              Positioned(
+                bottom: 32,
+                left: 0,
+                right: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (_isScanning)
+                      const CircularProgressIndicator()
+                    else
                       FloatingActionButton(
-                        onPressed: () => ref
-                            .read(cameraNotifierProvider.notifier)
-                            .takePicture(controller),
+                        onPressed: () => _takePicture(controller),
                         child: const Icon(
                           Icons.camera,
                           color: Colors.white,
                         ),
                       ),
-                    ],
-                  ),
-                )
-              ],
-            );
-          },
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, stack) => Center(child: Text('Error: $error')),
-        ),
+                  ],
+                ),
+              )
+            ],
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error: $error')),
       ),
     );
+  }
+
+  Future<void> _takePicture(CameraController controller) async {
+    if (_isScanning) return;
+
+    setState(() => _isScanning = true);
+
+    try {
+      final image = await controller.takePicture();
+      if (!mounted) return;
+
+      final productScannerNotifier =
+          ref.read(productScannerNotifierProvider.notifier);
+      await productScannerNotifier.scanProduct(image.path);
+
+      final scanResult = ref.read(productScannerNotifierProvider).scanResult;
+
+      if (scanResult != null && mounted) {
+        goTo(ChatBotView.route, arguments: scanResult);
+      } else {
+        if (mounted) {
+          showToast(
+              context: context,
+              message: "I am unable to process your picture",
+              type: ToastType.error);
+        }
+      }
+    } catch (e) {
+      AppLogger.logError('Error taking picture with Camera: $e',
+          tag: "CameraScreen");
+      if (mounted) {
+        showToast(
+            context: context,
+            message: "I am unable to process your picture",
+            type: ToastType.error);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isScanning = false);
+      }
+    }
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _disposeCamera();
+
     super.dispose();
   }
 }

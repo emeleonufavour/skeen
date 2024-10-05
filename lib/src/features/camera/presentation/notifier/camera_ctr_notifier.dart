@@ -3,6 +3,8 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../features.dart';
 
+final isCameraActiveProvider = StateProvider<bool>((ref) => true);
+
 final cameraControllerProvider =
     FutureProvider.autoDispose<CameraController>((ref) async {
   final status = await Permission.camera.request();
@@ -17,29 +19,21 @@ final cameraControllerProvider =
 
   final controller = CameraController(
     cameras[0],
-    ResolutionPreset.medium,
+    ResolutionPreset.low,
     enableAudio: false,
-    imageFormatGroup: ImageFormatGroup.bgra8888,
+    imageFormatGroup: ImageFormatGroup.jpeg,
   );
 
-  bool isDisposed = false;
-
   ref.onDispose(() async {
-    isDisposed = true;
     try {
       await controller.dispose();
     } catch (e) {
-      AppLogger.logWarning('Error disposing camera controller: $e');
+      print('Error disposing camera controller: $e');
     }
   });
 
   try {
     await controller.initialize();
-    if (isDisposed) {
-      await controller.dispose();
-      throw Exception('Camera was disposed during initialization');
-    }
-
     return controller;
   } catch (e) {
     await controller.dispose();
