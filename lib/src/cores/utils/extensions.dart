@@ -93,3 +93,58 @@ extension NameInitials on String {
     return initials.substring(0, initials.length.clamp(0, 3));
   }
 }
+
+extension ValidatingExtensions on String {
+  String? validateAnyField({String? field}) {
+    if (toString().isEmpty) {
+      return '$field field is required ';
+    } else {
+      return null;
+    }
+  }
+
+  String? get validatePhoneNumber {
+    if (isEmpty) {
+      return 'Phone number is required';
+    }
+
+    final pattern = RegExp(r'^\+?[0-9]{8,}$');
+
+    if (pattern.hasMatch(this)) {
+      return null;
+    } else {
+      return 'Invalid phone number';
+    }
+  }
+
+  String? get validateFullName {
+    if (toString().isEmpty) {
+      return 'Full Name is required';
+    }
+
+    final RegExp pattern =
+        RegExp(r'^[a-zA-Z]+(?:\.[a-zA-Z]+)* [a-zA-Z]+(?:\.[a-zA-Z]+)*$');
+
+    if (pattern.hasMatch(this)) {
+      return null;
+    } else {
+      return 'Full Name should contain at least 2 words';
+    }
+  }
+
+  String? get validateEmail {
+    if (toString().isEmpty) {
+      return 'Email is required';
+    }
+
+    final pattern = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    );
+
+    if (pattern.hasMatch(this)) {
+      return null;
+    } else {
+      return 'Invalid email';
+    }
+  }
+}

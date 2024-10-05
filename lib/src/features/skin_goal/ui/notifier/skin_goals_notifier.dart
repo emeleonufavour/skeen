@@ -1,22 +1,18 @@
-import 'package:get_it/get_it.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goal_state.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/data/models/skin_goals_state.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_goal_tab_bar_position.dart';
-import '../../../../cores/utils/session_manager.dart';
-import '../../data/models/goal.dart';
-import 'set_skin_goal_notifier.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
   final SessionManager _sessionManager;
   final PositionNotifier _positionNotifier;
 
   SkinGoalsNotifier(this._positionNotifier, this._sessionManager)
-      : super(SkinGoalsState(
+      : super(
+          SkinGoalsState(
             routines: [],
             healthGoal:
                 SkinGoalState(category: SkinGoalCategory.health, goals: []),
-            visibleList: [])) {
+            visibleList: [],
+          ),
+        ) {
     loadSavedState();
   }
 
@@ -42,10 +38,9 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
   }
 
   void addSkinRoutine(SkinGoalState skinRoutine) {
-    final newRoutines = [...state.routines, skinRoutine];
+    state.routines.add(skinRoutine);
     state = state.copyWith(
-      routines: newRoutines,
-      visibleList: newRoutines,
+      visibleList: state.routines,
     );
     _positionNotifier.moveRight();
   }
@@ -62,7 +57,6 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
     AppLogger.log("Health => ${state.healthGoal}");
   }
 
-  // TODO: Fix Provider bug that happens here we open Bottom Sheet
   void showOnlySkinHealthGoals() async {
     try {
       state = state.copyWith(visibleList: [state.healthGoal]);
@@ -176,8 +170,10 @@ class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
 }
 
 final skinGoalsNotifier =
-    StateNotifierProvider<SkinGoalsNotifier, SkinGoalsState>((ref) {
-  PositionNotifier position = ref.read(positionProvider.notifier);
-  final SessionManager sessionManager = GetIt.I<SessionManager>();
-  return SkinGoalsNotifier(position, sessionManager);
-});
+    StateNotifierProvider<SkinGoalsNotifier, SkinGoalsState>(
+  (ref) {
+    PositionNotifier position = ref.read(positionProvider.notifier);
+    final sessionManger = ref.read(sessionManagerProvider);
+    return SkinGoalsNotifier(position, sessionManger);
+  },
+);

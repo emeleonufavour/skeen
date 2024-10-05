@@ -1,5 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
 import '../features/settings/presentation/views/help_view.dart';
@@ -26,7 +24,7 @@ class _SkeenAppState extends State<SkeenApp> {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: NavBarView.route,
+        initialRoute: SplashView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: navigatorKey,

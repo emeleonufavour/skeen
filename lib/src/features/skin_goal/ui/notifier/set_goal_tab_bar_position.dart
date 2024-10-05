@@ -1,6 +1,4 @@
-import 'package:get_it/get_it.dart';
-import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 final tabBarWidth = 335.w;
 
@@ -32,6 +30,6 @@ class PositionNotifier extends StateNotifier<double> {
 }
 
 final positionProvider = StateNotifierProvider<PositionNotifier, double>((ref) {
-  final SessionManager sessionManager = GetIt.I<SessionManager>();
-  return PositionNotifier(sessionManager);
+  final sessionManger = ref.read(sessionManagerProvider);
+  return PositionNotifier(sessionManger);
 });

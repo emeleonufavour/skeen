@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
-import '../../features/auth/auth.dart';
+final notificationServiceProvider = Provider<LocalNotificationService>(
+  (ref) => LocalNotificationService(),
+);
 
 class LocalNotificationService {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

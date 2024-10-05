@@ -1,12 +1,10 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
-import '../../../../cores/shared/toast.dart';
 import '../../../../cores/utils/internet_connectivity.dart';
+import '../../../../cores/utils/toast.dart';
+import '../../../features.dart';
 import '../../chat_bot.dart';
-
-final sessionManagerProvider = Provider<SessionManager>((ref) {
-  return SessionManager();
-});
 
 const String geminiApiKey = String.fromEnvironment('API_KEY');
 String introText =

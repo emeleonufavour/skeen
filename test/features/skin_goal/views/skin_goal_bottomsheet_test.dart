@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 import '../../../model/test_material_app.dart';
 
@@ -58,7 +57,7 @@ void main() {
     testWidgets("Navigate To Set Reminder in Bottom Sheet",
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        ProviderScope(
+        const ProviderScope(
           child: TestMaterialAppWidget(
             route: SkinCareGoalView.route,
           ),

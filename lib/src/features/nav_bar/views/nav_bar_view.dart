@@ -1,8 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
-import 'package:myskin_flutterbytes/src/features/report/views/report_view.dart';
 
 class NavBarView extends ConsumerWidget {
   const NavBarView({super.key});
@@ -100,6 +96,7 @@ class NavBarView extends ConsumerWidget {
 
 class Tile extends StatelessWidget {
   const Tile({
+    super.key,
     required this.isSelected,
     required this.image,
     required this.title,

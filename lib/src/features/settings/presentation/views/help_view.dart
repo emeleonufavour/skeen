@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 import 'package:myskin_flutterbytes/src/features/settings/presentation/components/faq_component.dart';
+
+import '../../../onboarding/onboarding.dart';
 
 List<Map<String, String>> faqs = [
   {

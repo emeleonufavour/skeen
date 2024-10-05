@@ -2,16 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
-const LOCAL_CACHE_BOX = "local_cache";
+const localCacheBox = "local_cache";
+
+final sessionManagerProvider = Provider<SessionManager>(
+  (ref) => SessionManager(),
+);
 
 class SessionManager {
   final secureStorage = const FlutterSecureStorage();
   late final Box _localCache;
 
   SessionManager() {
-    _localCache = Hive.box(LOCAL_CACHE_BOX);
+    _localCache = Hive.box(localCacheBox);
   }
 
   Future<void> storeBuiltInType(String key, String value) async {
@@ -55,12 +59,15 @@ class SessionManager {
       await _localCache.put(listKey, jsonString);
     } catch (e) {
       AppLogger.logError(
-          "Error trying to store List of Objects in cached memory");
+        "Error trying to store List of Objects in cached memory",
+      );
     }
   }
 
   List<T>? getObjectList<T>(
-      String listKey, T Function(Map<String, dynamic>) fromJson) {
+    String listKey,
+    T Function(Map<String, dynamic>) fromJson,
+  ) {
     try {
       String? jsonString = _localCache.get(listKey);
       if (jsonString != null) {
@@ -71,7 +78,8 @@ class SessionManager {
       }
     } catch (e) {
       AppLogger.logError(
-          "Error trying to get List of Objects from cached memory");
+        "Error trying to get List of Objects from cached memory",
+      );
     }
 
     return null;
@@ -79,5 +87,13 @@ class SessionManager {
 
   Future<void> deleteStoredBuiltInType(String key) async {
     await _localCache.delete(key);
+  }
+
+  Future<void> storeBool(String key, bool value) async {
+    await _localCache.put(key, value);
+  }
+
+  bool? getBool(String key) {
+    return _localCache.get(key) as bool?;
   }
 }

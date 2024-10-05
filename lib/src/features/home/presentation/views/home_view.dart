@@ -1,4 +1,3 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,6 +11,7 @@ class HomeView extends StatelessWidget {
       padding: EdgeInsets.zero,
       body: Column(
         children: [
+          kGlobalPadding.verticalSpace,
           const HomeAppBar(
             name: 'Alexa Nurul',
           ),

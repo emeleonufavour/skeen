@@ -1,7 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import '../../skin_goal.dart';
-import '../../ui/notifier/set_skin_goal_notifier.dart';
-import 'goal.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class SkinGoalState {
   final SkinGoalCategory category;

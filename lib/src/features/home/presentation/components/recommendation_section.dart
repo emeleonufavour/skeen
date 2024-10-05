@@ -1,7 +1,4 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
-
-import '../../../../cores/shared/shimmer_effect.dart';
 
 class RecommendationSection extends StatelessWidget {
   const RecommendationSection({super.key});
@@ -18,16 +15,16 @@ class RecommendationSection extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              // ShimmerEffect(
-              //   child: Container(
-              //     width: screenWidth * .4,
-              //     margin: const EdgeInsets.only(right: 16),
-              //     decoration: BoxDecoration(
-              //       color: Colors.white,
-              //       borderRadius: BorderRadius.circular(16),
-              //     ),
-              //   ),
-              // ),
+              ShimmerEffect(
+                child: Container(
+                  width: screenWidth * .4,
+                  margin: const EdgeInsets.only(right: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+              ),
               // RecommendationBox(
               //   tagColor: Palette.bg4,
               //   tagName: "Product",

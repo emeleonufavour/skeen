@@ -22,7 +22,7 @@ class GoalTabBar extends ConsumerWidget {
       child: Stack(children: [
         AnimatedPositioned(
           left: position,
-          duration: duration,
+          duration: duration300,
           child: Container(
             width: tabBarWidth / 2,
             height: 37.h,

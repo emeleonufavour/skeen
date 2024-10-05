@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+import 'package:myskin_flutterbytes/src/cores/shared/shared.dart';
 
 class EditProfileView extends ConsumerWidget {
   const EditProfileView({super.key});
@@ -12,14 +12,15 @@ class EditProfileView extends ConsumerWidget {
     return BaseScaffold(
       body: Column(
         children: [
-          CircleAvatar(),
+          const CircleAvatar(),
           TextFieldWidget(
               textController: TextEditingController(), hintText: "hintText"),
           TextFieldWidget(
               textController: TextEditingController(), hintText: "hintText"),
-          PasswordTextfield(
-              textController: TextEditingController(),
-              showPasswordStrength: false),
+          TextFieldWidget(
+            textController: TextEditingController(),
+            isPassword: false,
+          ),
           Button(
             onTap: () {},
             text: "Save",

@@ -1,6 +1,5 @@
 import 'package:camera/camera.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myskin_flutterbytes/src/cores/shared/toast.dart';
 
 import '../../../cores/cores.dart';
 import '../../chat_bot/ui/views/chat_bot_view.dart';

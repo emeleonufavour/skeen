@@ -1,4 +1,4 @@
-import '../cores.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class DropDownWidget extends StatelessWidget {
   final String? label;
@@ -57,7 +57,6 @@ class _CustomDropdown extends StatefulWidget {
   final String? initialValue;
 
   const _CustomDropdown({
-    super.key,
     required this.hintText,
     required this.dropDownList,
     required this.onChanged,
@@ -85,7 +84,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       width: double.maxFinite,
-      duration: duration,
+      duration: duration300,
       height: _isDropDown
           ? (_unitHeight * widget.dropDownList.length) + 58.h
           : 58.h,
@@ -97,6 +96,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
         children: [
           Center(
             child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 setState(() {
                   _isDropDown = !_isDropDown;
@@ -196,7 +196,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
             crossFadeState: _isDropDown
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
-            duration: duration,
+            duration: duration300,
           ),
         ],
       ),

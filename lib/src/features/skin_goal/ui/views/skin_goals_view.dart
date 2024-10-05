@@ -1,10 +1,4 @@
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/components/goal_tab_bar.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/components/skin_goal_list_item.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_skin_goal_notifier.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
-
-import '../../skin_goal.dart';
-import '../notifier/set_goal_tab_bar_position.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class SkinCareGoalView extends ConsumerStatefulWidget {
   const SkinCareGoalView({super.key});

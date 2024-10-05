@@ -42,7 +42,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       width: double.maxFinite,
-      duration: duration,
+      duration: duration300,
       child: Column(
         children: [
           Center(
@@ -88,7 +88,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
             crossFadeState: _isDropDown
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
-            duration: duration,
+            duration: duration300,
           )
         ],
       ).padding(horizontal: kfsVeryTiny.w),

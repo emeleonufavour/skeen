@@ -1,4 +1,4 @@
-import '../../chat_bot.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class AnimatedIntroText extends StatelessWidget {
   final Widget child;

@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/set_skin_goal_notifier.dart';
-import '../../skin_goal.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 List<String> days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-class SetGoalReminderView extends ConsumerWidget {
+class SetRoutineReminder extends ConsumerWidget {
   final PageController controller;
-  const SetGoalReminderView({required this.controller, super.key});
+  const SetRoutineReminder({required this.controller, super.key});
   final _borderRadius = 12.0;
 
   @override
@@ -23,7 +22,7 @@ class SetGoalReminderView extends ConsumerWidget {
             icon: const Icon(CupertinoIcons.back),
             onPressed: () {
               controller.previousPage(
-                duration: duration,
+                duration: duration300,
                 curve: Curves.easeInOut,
               );
               ref.read(skinGoalBottomSheetProvider.notifier).previousPage();
@@ -84,7 +83,7 @@ class SetGoalReminderView extends ConsumerWidget {
         ).padding(bottom: 15.h),
 
         AnimatedContainer(
-          duration: duration,
+          duration: duration300,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(12)),
               border: Border.all(width: 1.h, color: Palette.lightGrey)),

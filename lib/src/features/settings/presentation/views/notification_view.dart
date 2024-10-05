@@ -1,4 +1,6 @@
 import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class NotificationSettingsView extends ConsumerWidget {
   const NotificationSettingsView({super.key});

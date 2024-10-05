@@ -1,10 +1,4 @@
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/notifier/skin_goals_notifier.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/widget/goal_content.dart';
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/widget/routine_content.dart';
-
-import '../../skin_goal.dart';
-import '../notifier/set_skin_goal_notifier.dart';
-import '../widget/category_button.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 final routineTextProvider = StateProvider<String>((ref) => '');
 

@@ -1,7 +1,6 @@
-import 'package:flutter_svg/svg.dart';
-import 'package:myskin_flutterbytes/src/features/home/data/model/gemma_response.dart';
-import '../../../../cores/shared/toast.dart';
-import '../../chat_bot.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
+
+import '../../../home/data/model/gemma_response.dart';
 
 class ChatBotView extends ConsumerWidget {
   ChatBotView({this.response, super.key});

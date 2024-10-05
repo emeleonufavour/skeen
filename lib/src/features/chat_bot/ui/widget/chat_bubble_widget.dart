@@ -1,4 +1,4 @@
-import '../../chat_bot.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class ChatBubbleWidget extends StatelessWidget {
   final ChatBubble bubble;
@@ -9,16 +9,16 @@ class ChatBubbleWidget extends StatelessWidget {
     return Align(
       alignment: bubble.isServer ? Alignment.centerLeft : Alignment.centerRight,
       child: AnimatedContainer(
-        duration: duration,
+        duration: duration300,
         child: CustomPaint(
           painter: ChatBubblePainter(
-              color: bubble.isServer ? Colors.grey : Colors.blue,
-              alignment:
-                  bubble.isServer ? Alignment.topLeft : Alignment.topRight,
-              tail: bubble.tail,
-              radius: bubble.text == "" ? 12 : 15,
-              text: "",
-              context: context),
+            color: bubble.isServer ? Colors.grey : Colors.blue,
+            alignment: bubble.isServer ? Alignment.topLeft : Alignment.topRight,
+            tail: bubble.tail,
+            radius: bubble.text == "" ? 12 : 15,
+            text: "",
+            context: context,
+          ),
           child: Container(
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width * .6,

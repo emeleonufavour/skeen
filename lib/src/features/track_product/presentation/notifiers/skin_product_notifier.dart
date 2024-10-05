@@ -1,7 +1,5 @@
-import 'package:get_it/get_it.dart';
-import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
-import '../../scan_product.dart';
 
 enum ExpiryReminder {
   oneWeekBefore("1 week before"),
@@ -24,7 +22,7 @@ enum ExpiryReminder {
 
 final skinCareProductProvider =
     StateNotifierProvider<ProductNotifier, List<SkinCareProduct>>((ref) {
-  final SessionManager sessionManager = GetIt.I<SessionManager>();
+  final SessionManager sessionManager = ref.read(sessionManagerProvider);
   return ProductNotifier(sessionManager);
 });
 

@@ -1,4 +1,4 @@
-import '../history.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({super.key});
@@ -8,7 +8,6 @@ class HistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: const SAppBar(title: "History"),
       appBar: AppBar(),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
