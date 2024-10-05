@@ -1,6 +1,5 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-
 enum ExpiryReminder {
   oneWeekBefore("1 week before"),
   twoWeeksBefore("2 weeks before"),
@@ -23,14 +22,18 @@ enum ExpiryReminder {
 final skinCareProductProvider =
     StateNotifierProvider<ProductNotifier, List<SkinCareProduct>>((ref) {
   final SessionManager sessionManager = ref.read(sessionManagerProvider);
-  return ProductNotifier(sessionManager);
+  final LocalNotificationService notificationService =
+      ref.read(notificationServiceProvider);
+  return ProductNotifier(sessionManager, notificationService);
 });
 
 final textProvider = StateProvider<String>((ref) => '');
 
 class ProductNotifier extends StateNotifier<List<SkinCareProduct>> {
   final SessionManager _sessionManager;
-  ProductNotifier(this._sessionManager) : super([]) {
+  final LocalNotificationService _notificationService;
+
+  ProductNotifier(this._sessionManager, this._notificationService) : super([]) {
     _initializeState();
   }
 
@@ -58,11 +61,47 @@ class ProductNotifier extends StateNotifier<List<SkinCareProduct>> {
 
   Future<void> addProduct(SkinCareProduct product) async {
     try {
-      state = [...state, product];
+      final newState = [...state, product];
+      setState(newState);
       await _sessionManager.storeObjectList<SkinCareProduct>(
           _listKey, state, (obj) => obj.toJson());
+
+      await _scheduleNotification(product, state.length - 1);
     } catch (e) {
-      AppLogger.logError("Error adding product $e");
+      AppLogger.logError("Error adding product: $e");
+    }
+  }
+
+  Future<void> _scheduleNotification(
+      SkinCareProduct product, int productId) async {
+    const String notificationTitle = 'Product Expiry Reminder';
+    final String notificationBody = '${product.name} will expire soon!';
+
+    switch (product.expiryReminder) {
+      case ExpiryReminder.oneWeekBefore:
+        await _notificationService.scheduleOneWeekBefore(
+          id: productId,
+          title: notificationTitle,
+          body: notificationBody,
+          targetDate: product.expiryDate,
+        );
+        break;
+      case ExpiryReminder.twoWeeksBefore:
+        await _notificationService.scheduleTwoWeeksBefore(
+          id: productId,
+          title: notificationTitle,
+          body: notificationBody,
+          targetDate: product.expiryDate,
+        );
+        break;
+      case ExpiryReminder.oneMonthBefore:
+        await _notificationService.scheduleOneMonthBefore(
+          id: productId,
+          title: notificationTitle,
+          body: notificationBody,
+          targetDate: product.expiryDate,
+        );
+        break;
     }
   }
 
@@ -74,11 +113,12 @@ class ProductNotifier extends StateNotifier<List<SkinCareProduct>> {
 
       final newProductsList = List<SkinCareProduct>.from(state)
         ..removeAt(index);
-
       setState(newProductsList);
 
       await _sessionManager.storeObjectList<SkinCareProduct>(
           _listKey, state, (obj) => obj.toJson());
+
+      await _notificationService.cancelNotificationById(index);
     } catch (e, stackTrace) {
       AppLogger.logWarning('Error deleting SkinProduct: $e',
           tag: "ProductNotifier");
