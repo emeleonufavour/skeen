@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:myskin_flutterbytes/src/cores/cores.dart';
 
 class Button extends StatefulWidget {
@@ -143,21 +144,65 @@ class Button extends StatefulWidget {
   State<Button> createState() => _ButtonState();
 }
 
-class _ButtonState extends State<Button> {
+class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 150),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.9).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double defaultHeight = kfs56;
 
-    return SizedBox(
-      height: widget.useHeightOrWidth == false
-          ? null
-          : widget.height ?? defaultHeight,
-      width: widget.width,
-      child: TextButton(
-        onPressed: widget.onTap,
-        style: getButtonStyle(),
-        child: widget.child ?? getButtonChild(),
-      ),
+    return AnimatedBuilder(
+      animation: _scaleAnimation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _scaleAnimation.value,
+          child: SizedBox(
+            height: widget.useHeightOrWidth == false
+                ? null
+                : widget.height ?? defaultHeight,
+            width: widget.width,
+            child: GestureDetector(
+              onTapDown: (TapDownDetails details) async {
+                HapticFeedback.lightImpact();
+                _animationController.forward();
+              },
+              onTapUp: (TapUpDetails details) async {
+                _animationController.reverse();
+              },
+              onTapCancel: () async {
+                _animationController.reverse();
+              },
+              child: TextButton(
+                onPressed: widget.onTap,
+                style: getButtonStyle(),
+                child: widget.child ?? getButtonChild(),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
