@@ -19,6 +19,8 @@ class LocalNotificationService {
 
   Future<void> initializeNotifications() async {
     tz.initializeTimeZones();
+    final String currentTimeZone = DateTime.now().timeZoneName;
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/launcher_icon');
     const DarwinInitializationSettings initializationSettingsIOS =
@@ -33,6 +35,48 @@ class LocalNotificationService {
       iOS: initializationSettingsIOS,
     );
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  Future<void> scheduleDailyNotification(DateTime selectedTime) async {
+    AppLogger.log("Scheduling notification for ${selectedTime.toString()}",
+        tag: "NotificationService");
+    if (selectedTime.isBefore(DateTime.now())) {
+      selectedTime = selectedTime.add(const Duration(days: 1));
+    }
+    final tz.TZDateTime scheduledTime =
+        tz.TZDateTime.from(selectedTime, tz.local);
+
+    try {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        "notification title",
+        "notification body",
+        scheduledTime,
+        _notificationDetails(),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+
+      debugPrint('Notification scheduled successfully');
+    } catch (e) {
+      debugPrint('Error scheduling notification: $e');
+    }
+  }
+
+  NotificationDetails _notificationDetails() {
+    return NotificationDetails(
+      android: AndroidNotificationDetails(
+        'your_channel_id',
+        'your_channel_name',
+        channelDescription: 'your_channel_description',
+        importance: Importance.max,
+        priority: Priority.high,
+        showWhen: false,
+      ),
+      // iOS: IOSNotificationDetails(),
+    );
   }
 
   Future<void> requestPermissions() async {
@@ -86,101 +130,84 @@ class LocalNotificationService {
         .show(0, title, body, notificationDetails, payload: payload);
   }
 
-  Future<void> scheduleDaily(
-      int id, String title, String body, TimeOfDay time) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      _nextInstanceOfTime(time),
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'daily_notification_channel',
-          'Daily Notifications',
-          importance: Importance.max,
-          priority: Priority.high,
-        ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-    );
+  Future<void> scheduleWeeklyNotification(DateTime selectedTime) async {
+    AppLogger.log(
+        "Scheduling weekly notification for ${selectedTime.toString()}",
+        tag: "NotificationService");
+
+    tz.TZDateTime scheduledTime = _nextInstanceOfWeekday(selectedTime);
+
+    try {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        1, // Different ID from daily notifications
+        "Weekly Notification Title",
+        "Weekly Notification Body",
+        scheduledTime,
+        _notificationDetails(),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+      );
+
+      debugPrint('Weekly notification scheduled successfully');
+    } catch (e) {
+      debugPrint('Error scheduling weekly notification: $e');
+    }
   }
 
-  Future<void> scheduleWeekly(
-      int id, String title, String body, TimeOfDay time, int day) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      _nextInstanceOfWeekday(time, day),
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'weekly_notification_channel',
-          'Weekly Notifications',
-          importance: Importance.max,
-          priority: Priority.high,
-        ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
-    );
-  }
+  tz.TZDateTime _nextInstanceOfWeekday(DateTime selectedTime) {
+    tz.TZDateTime scheduledDate = tz.TZDateTime.from(selectedTime, tz.local);
 
-  Future<void> scheduleMonthly(
-      int id, String title, String body, TimeOfDay time, int day) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      _nextInstanceOfMonthlyDay(time, day),
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'monthly_notification_channel',
-          'Monthly Notifications',
-          importance: Importance.max,
-          priority: Priority.high,
-        ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
-    );
-  }
-
-  tz.TZDateTime _nextInstanceOfTime(TimeOfDay time) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      time.hour,
-      time.minute,
-    );
     if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
+      scheduledDate = scheduledDate.add(const Duration(days: 7));
     }
+
     return scheduledDate;
   }
 
-  tz.TZDateTime _nextInstanceOfWeekday(TimeOfDay time, int day) {
-    tz.TZDateTime scheduledDate = _nextInstanceOfTime(time);
-    while (scheduledDate.weekday != day) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
+  Future<void> scheduleMonthlyNotification(DateTime selectedTime) async {
+    AppLogger.log(
+        "Scheduling monthly notification for ${selectedTime.toString()}",
+        tag: "NotificationService");
+
+    tz.TZDateTime scheduledTime = _nextInstanceOfMonthlyDate(selectedTime);
+
+    try {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        2, // Different ID from daily and weekly notifications
+        "Monthly Notification Title",
+        "Monthly Notification Body",
+        scheduledTime,
+        _notificationDetails(),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
+      );
+
+      debugPrint('Monthly notification scheduled successfully');
+    } catch (e) {
+      debugPrint('Error scheduling monthly notification: $e');
     }
-    return scheduledDate;
   }
 
-  tz.TZDateTime _nextInstanceOfMonthlyDay(TimeOfDay time, int day) {
-    tz.TZDateTime scheduledDate = _nextInstanceOfTime(time);
-    while (scheduledDate.day != day) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
+  tz.TZDateTime _nextInstanceOfMonthlyDate(DateTime selectedTime) {
+    tz.TZDateTime scheduledDate = tz.TZDateTime.from(selectedTime, tz.local);
+
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = tz.TZDateTime(
+        tz.local,
+        scheduledDate.year + (scheduledDate.month == 12 ? 1 : 0),
+        scheduledDate.month < 12 ? scheduledDate.month + 1 : 1,
+        scheduledDate.day,
+        scheduledDate.hour,
+        scheduledDate.minute,
+      );
     }
+
     return scheduledDate;
   }
 

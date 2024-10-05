@@ -141,44 +141,66 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
   }
 
   Future<void> _scheduleNotifications() async {
+    final now = DateTime.now();
+
     switch (state.frequency!.toLowerCase()) {
       case 'daily':
-        AppLogger.log("Scheduling daily");
+        AppLogger.log("Scheduling daily", tag: "Skin routine");
         for (var time in state.reminderTimes!) {
           AppLogger.log("Scheduling daily at $time");
-          await _notificationService.scheduleDaily(
-            state.category.hashCode,
-            'Skin Routine Reminder',
-            'Time for your ${state.routineName} routine!',
-            time,
+
+          await _notificationService.scheduleDailyNotification(
+            DateTime(
+              now.year,
+              now.month,
+              now.day,
+              time.hour,
+              time.minute,
+            ),
           );
         }
         break;
+
       case 'weekly':
+        AppLogger.log("Scheduling weekly", tag: "Skin routine");
         for (int i = 0; i < 7; i++) {
           if (state.selectedDays![i]) {
             for (var time in state.reminderTimes!) {
-              await _notificationService.scheduleWeekly(
-                state.category.hashCode + i,
-                'Skin Routine Reminder',
-                'Time for your ${state.routineName} routine!',
-                time,
-                i + 1,
+              AppLogger.log("Scheduling weekly for day ${i + 1} at $time");
+
+              // Create a DateTime for the next occurrence of this weekday
+              final scheduledTime = DateTime(
+                now.year,
+                now.month,
+                now.day,
+                time.hour,
+                time.minute,
               );
+
+              await _notificationService
+                  .scheduleWeeklyNotification(scheduledTime);
             }
           }
         }
         break;
+
       case 'monthly':
+        AppLogger.log("Scheduling monthly", tag: "Skin routine");
         if (state.startDate != null) {
           for (var time in state.reminderTimes!) {
-            await _notificationService.scheduleMonthly(
-              state.category.hashCode,
-              'Skin Routine Reminder',
-              'Time for your ${state.routineName} routine!',
-              time,
+            AppLogger.log(
+                "Scheduling monthly for day ${state.startDate!.day} at $time");
+
+            final scheduledTime = DateTime(
+              now.year,
+              now.month,
               state.startDate!.day,
+              time.hour,
+              time.minute,
             );
+
+            await _notificationService
+                .scheduleMonthlyNotification(scheduledTime);
           }
         }
         break;

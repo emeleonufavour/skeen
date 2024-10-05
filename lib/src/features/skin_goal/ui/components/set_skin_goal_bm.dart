@@ -6,18 +6,26 @@ class SkinGoalBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PageView(
-      physics: const NeverScrollableScrollPhysics(),
-      controller: _pageController,
-      onPageChanged: (int page) {
-        ref.read(skinGoalBottomSheetProvider.notifier).setPage(page);
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
       },
-      children: [
-        SetSkinGoalView(
-          controller: _pageController,
-        ),
-        SetRoutineReminder(controller: _pageController),
-      ],
+      child: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        onPageChanged: (int page) {
+          ref.read(skinGoalBottomSheetProvider.notifier).setPage(page);
+        },
+        children: [
+          SetSkinGoalView(
+            controller: _pageController,
+          ),
+          SetRoutineReminder(controller: _pageController),
+        ],
+      ),
     );
   }
 }
