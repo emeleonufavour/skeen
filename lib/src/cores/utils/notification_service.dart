@@ -5,6 +5,9 @@ import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
+import '../../model/notification_content.dart';
+import '../../model/notification_id.dart';
+
 final notificationServiceProvider = Provider<LocalNotificationService>(
   (ref) => LocalNotificationService(),
 );
@@ -20,7 +23,7 @@ class LocalNotificationService {
   Future<void> initializeNotifications() async {
     tz.initializeTimeZones();
     final String currentTimeZone = DateTime.now().timeZoneName;
-    tz.setLocalLocation(tz.getLocation(currentTimeZone));
+    tz.setLocalLocation(tz.local);
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/launcher_icon');
     const DarwinInitializationSettings initializationSettingsIOS =
@@ -37,45 +40,63 @@ class LocalNotificationService {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> scheduleDailyNotification(DateTime selectedTime) async {
-    AppLogger.log("Scheduling notification for ${selectedTime.toString()}",
-        tag: "NotificationService");
-    if (selectedTime.isBefore(DateTime.now())) {
-      selectedTime = selectedTime.add(const Duration(days: 1));
-    }
-    final tz.TZDateTime scheduledTime =
-        tz.TZDateTime.from(selectedTime, tz.local);
+  String _getDayName(int weekday) {
+    final days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
+    return days[weekday - 1];
+  }
+
+  Future<void> scheduleDailyNotification(
+    DateTime scheduledTime, {
+    required SkinGoalCategory category,
+    required String routineName,
+    required int timeIndex,
+  }) async {
+    final int notificationId = NotificationIds.generate(
+      category: category,
+      timeIndex: timeIndex,
+    );
 
     try {
       await flutterLocalNotificationsPlugin.zonedSchedule(
-        0,
-        "notification title",
-        "notification body",
-        scheduledTime,
-        _notificationDetails(),
+        notificationId,
+        NotificationContent.getTitle(routineName),
+        NotificationContent.getBody(routineName, 'daily'),
+        tz.TZDateTime.from(scheduledTime, tz.local),
+        _routineNotificationDetails(),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
       );
 
-      debugPrint('Notification scheduled successfully');
+      AppLogger.log(
+          'Daily notification scheduled for $routineName at ${scheduledTime.toString()} with ID $notificationId',
+          tag: 'NotificationService');
     } catch (e) {
-      debugPrint('Error scheduling notification: $e');
+      AppLogger.logError('Error scheduling daily notification: $e',
+          tag: 'NotificationService');
     }
   }
 
-  NotificationDetails _notificationDetails() {
-    return NotificationDetails(
+  NotificationDetails _routineNotificationDetails() {
+    return const NotificationDetails(
       android: AndroidNotificationDetails(
-        'your_channel_id',
-        'your_channel_name',
-        channelDescription: 'your_channel_description',
+        'skincare_routine_channel',
+        'Skincare Routines',
+        channelDescription: 'Notifications for skincare routine reminders',
         importance: Importance.max,
         priority: Priority.high,
         showWhen: false,
       ),
-      // iOS: IOSNotificationDetails(),
+      iOS: DarwinNotificationDetails(),
     );
   }
 
@@ -130,29 +151,38 @@ class LocalNotificationService {
         .show(0, title, body, notificationDetails, payload: payload);
   }
 
-  Future<void> scheduleWeeklyNotification(DateTime selectedTime) async {
-    AppLogger.log(
-        "Scheduling weekly notification for ${selectedTime.toString()}",
-        tag: "NotificationService");
-
-    tz.TZDateTime scheduledTime = _nextInstanceOfWeekday(selectedTime);
+  Future<void> scheduleWeeklyNotification(
+    DateTime scheduledTime, {
+    required SkinGoalCategory category,
+    required String routineName,
+    required int timeIndex,
+    required int dayIndex,
+  }) async {
+    final int notificationId = NotificationIds.generate(
+      category: category,
+      timeIndex: timeIndex,
+      dayIndex: dayIndex,
+    );
 
     try {
       await flutterLocalNotificationsPlugin.zonedSchedule(
-        1, // Different ID from daily notifications
-        "Weekly Notification Title",
-        "Weekly Notification Body",
-        scheduledTime,
-        _notificationDetails(),
+        notificationId,
+        NotificationContent.getTitle(routineName),
+        NotificationContent.getBody(routineName, 'weekly'),
+        tz.TZDateTime.from(scheduledTime, tz.local),
+        _routineNotificationDetails(),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
       );
 
-      debugPrint('Weekly notification scheduled successfully');
+      AppLogger.log(
+          'Weekly notification scheduled for $routineName on ${_getDayName(scheduledTime.weekday)} at ${scheduledTime.toString()} with ID $notificationId',
+          tag: 'NotificationService');
     } catch (e) {
-      debugPrint('Error scheduling weekly notification: $e');
+      AppLogger.logError('Error scheduling weekly notification: $e',
+          tag: 'NotificationService');
     }
   }
 
@@ -167,29 +197,36 @@ class LocalNotificationService {
     return scheduledDate;
   }
 
-  Future<void> scheduleMonthlyNotification(DateTime selectedTime) async {
-    AppLogger.log(
-        "Scheduling monthly notification for ${selectedTime.toString()}",
-        tag: "NotificationService");
-
-    tz.TZDateTime scheduledTime = _nextInstanceOfMonthlyDate(selectedTime);
+  Future<void> scheduleMonthlyNotification(
+    DateTime scheduledTime, {
+    required SkinGoalCategory category,
+    required String routineName,
+    required int timeIndex,
+  }) async {
+    final int notificationId = NotificationIds.generate(
+      category: category,
+      timeIndex: timeIndex,
+    );
 
     try {
       await flutterLocalNotificationsPlugin.zonedSchedule(
-        2, // Different ID from daily and weekly notifications
-        "Monthly Notification Title",
-        "Monthly Notification Body",
-        scheduledTime,
-        _notificationDetails(),
+        notificationId,
+        NotificationContent.getTitle(routineName),
+        NotificationContent.getBody(routineName, 'monthly'),
+        tz.TZDateTime.from(scheduledTime, tz.local),
+        _routineNotificationDetails(),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
       );
 
-      debugPrint('Monthly notification scheduled successfully');
+      AppLogger.log(
+          'Monthly notification scheduled for $routineName on day ${scheduledTime.day} at ${scheduledTime.toString()} with ID $notificationId',
+          tag: 'NotificationService');
     } catch (e) {
-      debugPrint('Error scheduling monthly notification: $e');
+      AppLogger.logError('Error scheduling monthly notification: $e',
+          tag: 'NotificationService');
     }
   }
 
@@ -291,5 +328,44 @@ class LocalNotificationService {
       targetDate: targetDate,
       reminderPeriod: const Duration(days: 30),
     );
+  }
+
+  Future<List<PendingNotificationRequest>> getPendingNotifications() async {
+    try {
+      final List<PendingNotificationRequest> pendingNotifications =
+          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+
+      AppLogger.log(
+          'Found ${pendingNotifications.length} pending notifications',
+          tag: 'NotificationService');
+
+      return pendingNotifications;
+    } catch (e) {
+      AppLogger.logError('Error getting pending notifications: $e',
+          tag: 'NotificationService');
+      return [];
+    }
+  }
+
+  Future<void> cancelNotificationById(int id) async {
+    try {
+      await flutterLocalNotificationsPlugin.cancel(id);
+      AppLogger.log('Cancelled notification with ID: $id',
+          tag: 'NotificationService');
+    } catch (e) {
+      AppLogger.logError('Error cancelling notification with ID $id: $e',
+          tag: 'NotificationService');
+    }
+  }
+
+  Future<void> cancelAllNotifications() async {
+    try {
+      await flutterLocalNotificationsPlugin.cancelAll();
+      AppLogger.log('All notifications cancelled successfully',
+          tag: 'NotificationService');
+    } catch (e) {
+      AppLogger.logError('Error cancelling all notifications: $e',
+          tag: 'NotificationService');
+    }
   }
 }
