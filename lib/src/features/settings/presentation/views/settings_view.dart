@@ -20,6 +20,7 @@ class SettingsView extends ConsumerWidget {
           fontWeight: w600,
           fontSize: 16.sp,
         ),
+        centerTitle: true,
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: kfsMedium, top: kfsMedium),

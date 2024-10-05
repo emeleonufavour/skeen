@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 import 'package:myskin_flutterbytes/src/features/home/data/model/gemma_response.dart';
 import 'package:myskin_flutterbytes/src/features/settings/presentation/views/app_icon.dart';
 import 'package:myskin_flutterbytes/src/features/settings/presentation/views/edit_profile_view.dart';
@@ -24,8 +22,7 @@ class RouteGenerator {
       case ChatBotView.route:
         final param = args as GemmaResponse?;
         return pageRoute(ChatBotView(response: param));
-      case HistoryView.route:
-        return pageRoute(const HistoryView());
+
       case CameraScreen.route:
         return pageRoute(const CameraScreen());
       case SignUpView.route:

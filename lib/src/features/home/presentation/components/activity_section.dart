@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
-import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
-
-import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
 import '../../../camera/presentation/views/camera_view.dart';
-import '../../../chat_bot/chat_bot.dart';
 import '../../../features.dart';
 import '../../../scan_product/presentation/notifier/scan_product_notifier.dart';
 import '../../../scan_product/presentation/widget/scan_options_dialog.dart';
-import '../../../track_product/presentation/ui/views/track_product_view.dart';
 import '../../data/model/gemma_response.dart';
-import '../../home.dart';
 
 class ActivitySection extends ConsumerWidget {
   const ActivitySection({super.key});

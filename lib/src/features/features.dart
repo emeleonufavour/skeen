@@ -1,6 +1,5 @@
 export 'auth/auth.dart';
 export 'chat_bot/chat_bot.dart';
-export 'history/history.dart';
 export 'home/home.dart';
 export 'medical_history/medical_history.dart';
 export 'nav_bar/nav_bar.dart';

@@ -1,14 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:myskin_flutterbytes/src/cores/utils/session_manager.dart';
-import '../../../../cores/utils/internet_connectivity.dart';
-import '../../../../cores/utils/toast.dart';
 import '../../../features.dart';
-import '../../chat_bot.dart';
 
 const String geminiApiKey = String.fromEnvironment('API_KEY');
 String introText =
-    "Welcome! 👋 I'm here to help with all your skincare needs. You can ask me about your skin test results, get personalized product recommendations, or even scan the barcode of your skincare products to learn more about them. How can I assist you today?";
+    "Welcome! 👋 I'm here to help with all your skincare needs. How can I assist you today?";
 
 final chatBotProvider =
     StateNotifierProvider<ChatBotNotifier, ChatBotState>((ref) {

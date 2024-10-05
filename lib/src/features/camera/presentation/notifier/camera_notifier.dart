@@ -1,8 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:myskin_flutterbytes/src/features/home/data/model/gemma_response.dart';
-
-import '../../../features.dart';
-import '../../../scan_product/presentation/notifier/scan_product_notifier.dart';
+import '../../camera.dart';
 
 final cameraNotifierProvider =
     NotifierProvider<CameraNotifier, AppState<String?>>(CameraNotifier.new);
@@ -31,7 +28,7 @@ class CameraNotifier extends Notifier<AppState<String?>>
         // notifyOnSuccess(data: scanResult!);
       } else {
         notifyOnError(
-          error: BaseFailures(message: "Unable to process your picture"),
+          error: const BaseFailures(message: "Unable to process your picture"),
           state_: state,
         );
       }
@@ -39,7 +36,7 @@ class CameraNotifier extends Notifier<AppState<String?>>
       AppLogger.logError('Error taking picture with Camera: $e',
           tag: "CameraScreen");
       notifyOnError(
-        error: BaseFailures(message: "Unable to process your picture"),
+        error: const BaseFailures(message: "Unable to process your picture"),
         state_: state,
       );
     }

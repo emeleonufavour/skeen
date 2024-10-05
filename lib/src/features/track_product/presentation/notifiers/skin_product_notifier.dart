@@ -1,23 +1,6 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-enum ExpiryReminder {
-  oneWeekBefore("1 week before"),
-  twoWeeksBefore("2 weeks before"),
-  oneMonthBefore("1 month before");
-
-  final String value;
-  const ExpiryReminder(this.value);
-
-  String toJson() {
-    return value;
-  }
-
-  static ExpiryReminder fromJson(String jsonValue) {
-    return ExpiryReminder.values.firstWhere((e) => e.value == jsonValue,
-        orElse: () => throw ArgumentError(
-            "Invalid string for ExpiryReminder: $jsonValue"));
-  }
-}
+import '../../domain/entities/expiry_reminder.dart';
 
 final skinCareProductProvider =
     StateNotifierProvider<ProductNotifier, List<SkinCareProduct>>((ref) {

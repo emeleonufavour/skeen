@@ -2,6 +2,8 @@ import 'package:myskin_flutterbytes/src/cores/cores.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
 import 'package:myskin_flutterbytes/src/features/track_product/track_product.dart';
 
+import '../../../domain/entities/expiry_reminder.dart';
+
 bool isDateInFuture(DateTime date) {
   DateTime currentDate = DateTime.now();
 
@@ -94,7 +96,6 @@ class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
     super.dispose();
   }
 
-  // Add validation methods
   void validateProductName(String value) {
     if (value.trim().isEmpty) {
       setState(() {
@@ -123,7 +124,6 @@ class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
     }
   }
 
-  // Add a method to validate all fields
   bool validateAllFields() {
     validateProductName(_controller.text);
     validateExpiryDate(expiryDate);

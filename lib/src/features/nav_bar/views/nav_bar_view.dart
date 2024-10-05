@@ -1,4 +1,5 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/settings/presentation/views/settings_view.dart';
 
 class NavBarView extends ConsumerWidget {
   const NavBarView({super.key});
@@ -9,7 +10,7 @@ class NavBarView extends ConsumerWidget {
     const ReportView(),
     Container(color: Colors.yellow),
     Container(color: Colors.blue),
-    Container(color: Colors.purple),
+    const SettingsView(),
   ];
 
   @override

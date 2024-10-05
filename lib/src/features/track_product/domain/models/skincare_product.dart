@@ -1,5 +1,7 @@
 import 'package:myskin_flutterbytes/src/features/track_product/track_product.dart';
 
+import '../entities/expiry_reminder.dart';
+
 class SkinCareProduct {
   String name;
   DateTime expiryDate;

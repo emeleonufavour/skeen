@@ -10,3 +10,4 @@ export 'data/models/chat_state.dart';
 export 'ui/components/chat_app_bar.dart';
 export 'ui/notifier/chat_bot_notifier.dart';
 export 'ui/views/chat_bot_view.dart';
+export '../../cores/utils/internet_connectivity.dart';

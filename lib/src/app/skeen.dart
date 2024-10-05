@@ -1,8 +1,5 @@
 import 'package:myskin_flutterbytes/src/features/features.dart';
 
-import '../features/settings/presentation/views/help_view.dart';
-import '../features/settings/presentation/views/settings_view.dart';
-
 class SkeenApp extends StatefulWidget {
   const SkeenApp({super.key});
 

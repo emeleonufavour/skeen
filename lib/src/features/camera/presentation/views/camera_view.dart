@@ -1,11 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../cores/cores.dart';
-import '../../../chat_bot/ui/views/chat_bot_view.dart';
-import '../../../scan_product/presentation/notifier/scan_product_notifier.dart';
-import '../notifier/camera_ctr_notifier.dart';
-import '../painter/camera_background_overlay.dart';
+import '../../camera.dart';
 
 class CameraScreen extends ConsumerStatefulWidget {
   static const String route = 'camera_screen';
@@ -24,13 +20,13 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
     WidgetsBinding.instance.addObserver(this);
   }
 
-  Future<void> _disposeCamera() async {
+  Future<void> disposeCamera() async {
     final controller = ref.read(cameraControllerProvider).valueOrNull;
     if (controller != null) {
       try {
         await controller.dispose();
       } catch (e) {
-        print('Error disposing camera: $e');
+        AppLogger.logError('Error disposing camera: $e', tag: "DisposeCamera");
       } finally {
         if (mounted) {
           ref.invalidate(cameraControllerProvider);
@@ -44,7 +40,7 @@ class _CameraScreenState extends ConsumerState<CameraScreen>
     if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
-      _disposeCamera();
+      disposeCamera();
     }
   }
 

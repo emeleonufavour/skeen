@@ -28,7 +28,8 @@ final cameraControllerProvider =
     try {
       await controller.dispose();
     } catch (e) {
-      print('Error disposing camera controller: $e');
+      AppLogger.logError('Error disposing camera controller: $e',
+          tag: "DisposeCamera");
     }
   });
 
