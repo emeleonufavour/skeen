@@ -1,3 +1,5 @@
+import 'package:flutter_svg/svg.dart';
+
 import '../../onboarding.dart';
 
 List<OnboardingContentModel> _onboardingContent = [
