@@ -45,15 +45,6 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   build_runner: ^2.4.12
 
-  flutter_native_splash: ^2.3.6
-  flutter_launcher_icons: ^0.14.1
-
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  remove_alpha_ios: true
-  image_path: "assets/images/app_icon.png"
-
 
 flutter:
 
