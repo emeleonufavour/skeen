@@ -35,7 +35,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
             hintText: "Full name",
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
-            validator: (v) => v!.validateFullName,
+            // validator: (v) => v!.validateFullName,
           ),
           TextFieldWidget(
             textController: _email,

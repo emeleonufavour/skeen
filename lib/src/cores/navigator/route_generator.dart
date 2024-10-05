@@ -10,7 +10,7 @@ import 'package:myskin_flutterbytes/src/features/settings/presentation/views/hel
 import 'package:myskin_flutterbytes/src/features/settings/presentation/views/notification_view.dart';
 import 'package:myskin_flutterbytes/src/features/settings/presentation/views/settings_view.dart';
 import 'package:myskin_flutterbytes/src/features/features.dart';
-import '../../features/camera/ui/camera_view.dart';
+import '../../features/camera/presentation/views/camera_view.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

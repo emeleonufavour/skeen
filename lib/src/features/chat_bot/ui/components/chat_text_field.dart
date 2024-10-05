@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../camera/ui/camera_view.dart';
+import '../../../camera/presentation/views/camera_view.dart';
 import '../../../features.dart';
 import '../../chat_bot.dart';
 

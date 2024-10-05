@@ -5,7 +5,7 @@ import 'package:myskin_flutterbytes/src/features/auth/auth.dart';
 import 'package:myskin_flutterbytes/src/features/chat_bot/ui/views/chat_bot_view.dart';
 
 import 'package:myskin_flutterbytes/src/features/skin_goal/ui/views/skin_goals_view.dart';
-import '../../../camera/ui/camera_view.dart';
+import '../../../camera/presentation/views/camera_view.dart';
 import '../../../chat_bot/chat_bot.dart';
 import '../../../features.dart';
 import '../../../scan_product/presentation/notifier/scan_product_notifier.dart';

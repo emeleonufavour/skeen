@@ -1,44 +1,111 @@
-import 'package:myskin_flutterbytes/src/cores/cores.dart';
+import 'package:camera/camera.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CameraBackgroundOverlay extends CustomPainter {
+import '../../../../cores/cores.dart';
+import '../../../chat_bot/ui/views/chat_bot_view.dart';
+import '../../../scan_product/presentation/notifier/scan_product_notifier.dart';
+import '../notifier/camera_ctr_notifier.dart';
+import '../notifier/camera_notifier.dart';
+import '../painter/camera_background_overlay.dart';
+
+class CameraScreen extends ConsumerStatefulWidget {
+  static const String route = 'camera_screen';
+
+  const CameraScreen({super.key});
   @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.black.withOpacity(0.3)
-      ..style = PaintingStyle.fill;
+  ConsumerState<CameraScreen> createState() => _CameraScreenState();
+}
 
-    final borderPaint = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4.0;
+class _CameraScreenState extends ConsumerState<CameraScreen>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
 
-    final scanAreaWidth = screenWidth * 0.9;
-    final scanAreaHeight = screenHeight * 0.7;
-    final scanAreaLeft = (screenWidth - scanAreaWidth) / 2;
-    final scanAreaTop = (screenHeight - scanAreaHeight) / 2;
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.inactive) {
+      _disposeCamera();
+    }
+  }
 
-    // Grey background
-    canvas.drawRect(Rect.fromLTWH(0, 0, screenWidth, screenHeight), paint);
+  Future<void> _disposeCamera() async {
+    try {
+      ref.invalidate(cameraControllerProvider);
+    } catch (e) {
+      AppLogger.logError('Error disposing camera: $e');
+    }
+  }
 
-    // transparent area
-    final scanRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(scanAreaLeft, scanAreaTop, scanAreaWidth, scanAreaHeight),
-      const Radius.circular(20),
+  @override
+  Widget build(BuildContext context) {
+    final cameraControllerAsyncValue = ref.watch(cameraControllerProvider);
+
+    StateListener.listen<String?>(
+      context: context,
+      ref: ref,
+      provider: cameraNotifierProvider,
+      onSuccessWithData: (scanResult) {
+        goTo(ChatBotView.route, arguments: scanResult);
+      },
+      onErrorWithData: (errorMessage) {
+        showToast(
+          context: context,
+          message: errorMessage,
+          type: ToastType.error,
+        );
+      },
     );
 
-    canvas.drawRRect(
-      scanRect,
-      Paint()..blendMode = BlendMode.clear,
-    );
-
-    canvas.drawRRect(
-      scanRect,
-      borderPaint,
+    return PopScope(
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) {
+          await _disposeCamera();
+        }
+      },
+      child: Scaffold(
+        body: cameraControllerAsyncValue.when(
+          data: (controller) {
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                CameraPreview(controller),
+                CustomPaint(painter: CameraBackgroundOverlay()),
+                Positioned(
+                  bottom: 32,
+                  left: 0,
+                  right: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FloatingActionButton(
+                        onPressed: () => ref
+                            .read(cameraNotifierProvider.notifier)
+                            .takePicture(controller),
+                        child: const Icon(
+                          Icons.camera,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          },
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, stack) => Center(child: Text('Error: $error')),
+        ),
+      ),
     );
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _disposeCamera();
+    super.dispose();
   }
 }
