@@ -8,6 +8,7 @@ class AuthView extends ConsumerWidget {
   final void Function()? mainButtonAction;
   final String mainButtonText;
   final bool? isSignIn;
+  final bool? shouldResize;
 
   const AuthView({
     required this.heading,
@@ -16,6 +17,7 @@ class AuthView extends ConsumerWidget {
     required this.mainButtonAction,
     required this.mainButtonText,
     this.isSignIn,
+    this.shouldResize,
     super.key,
   });
 
@@ -32,7 +34,7 @@ class AuthView extends ConsumerWidget {
 
     return BaseScaffold(
       useSingleScroll: false,
-      resizeToAvoidInsets: false,
+      resizeToAvoidInsets: shouldResize ?? false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

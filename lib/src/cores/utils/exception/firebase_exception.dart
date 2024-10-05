@@ -45,8 +45,10 @@ class CustomFirebaseException extends BaseFailures {
         return "Password should be at least 6 characters.";
       case "INVALID_LOGIN_CREDENTIALS":
         return "Wrong email/password combination";
+
       case "invalid-credential":
-        return "Wrong email/password combination";
+        return "You account doesn't exist on our database";
+
       case " UNAVAILABLE: Channel shutdownNow invoked":
       case "network-request-failed":
       case "cloud_firestore/unavailable":

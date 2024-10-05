@@ -33,13 +33,16 @@ class RouteGenerator {
       case SignInView.route:
         return pageRoute(const SignInView());
       case ForgotPasswordView.route:
-        return pageRoute(ForgotPasswordView());
+        return pageRoute(const ForgotPasswordView());
       case OnboardingView.route:
         return pageRoute(const OnboardingView());
       case ScanProductView.route:
         return pageRoute(const ScanProductView());
       case VerificationView.route:
-        return pageRoute(VerificationView());
+        final mail = args as String;
+        return pageRoute(
+          VerificationView(mail: mail),
+        );
       case ResetPasswordView.route:
         return pageRoute(ResetPasswordView());
       case SplashView.route:
@@ -48,13 +51,13 @@ class RouteGenerator {
         return pageRoute(const MedicalHistoryView());
 
       case SettingsView.route:
-        return pageRoute(SettingsView());
+        return pageRoute(const SettingsView());
       case EditProfileView.route:
-        return pageRoute(EditProfileView());
+        return pageRoute(const EditProfileView());
       case NotificationSettingsView.route:
-        return pageRoute(NotificationSettingsView());
+        return pageRoute(const NotificationSettingsView());
       case HelpSettingsView.route:
-        return pageRoute(HelpSettingsView());
+        return pageRoute(const HelpSettingsView());
 
       default:
         return errorRoute();

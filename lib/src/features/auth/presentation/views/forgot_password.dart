@@ -21,27 +21,35 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
       context: context,
       provider: forgotPasswordProvider,
       ref: ref,
-      onSuccess: () => goTo(VerificationView.route),
+      onSuccess: () => goTo(
+        VerificationView.route,
+        arguments: _email.text,
+      ),
     );
-    return AuthView(
-      heading: "Forgot password",
-      description:
-          "Enter your email address to receive a password verification code.",
-      contents: [
-        TextFieldWidget(
-          textController: _email,
-          keyboardType: TextInputType.emailAddress,
-          hintText: "Email",
-          validator: (v) => v!.validateEmail,
-          textInputAction: TextInputAction.done,
-        ),
-      ],
-      mainButtonAction: () {
-        if (key.currentState?.validate() ?? false) {
-          forgotPasswordNotifier.execute(_email.text);
-        }
-      },
-      mainButtonText: "Submit",
+
+    return Form(
+      key: key,
+      child: AuthView(
+        heading: "Forgot password",
+        shouldResize: true,
+        description:
+            "Enter your email address to receive a password verification code.",
+        contents: [
+          TextFieldWidget(
+            textController: _email,
+            keyboardType: TextInputType.emailAddress,
+            hintText: "Email",
+            validator: (v) => v!.validateEmail,
+            textInputAction: TextInputAction.done,
+          ),
+        ],
+        mainButtonAction: () {
+          if (key.currentState?.validate() ?? false) {
+            forgotPasswordNotifier.execute(_email.text);
+          }
+        },
+        mainButtonText: "Submit",
+      ),
     );
   }
 

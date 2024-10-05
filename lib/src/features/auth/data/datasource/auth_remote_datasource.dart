@@ -73,7 +73,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
     final User user = userCredential.user!;
 
-    await _saveUser(user: user, params: signUpForm);
+    // await _saveUser(user: user, params: signUpForm);
 
     return const AuthResultModel(
       success: true,
@@ -112,10 +112,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     final UserCredential userDetailsResponse =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-    await _saveUser(
-      user: userDetailsResponse.user!,
-      isEmailAuth: false,
-    );
+    // await _saveUser(
+    //   user: userDetailsResponse.user!,
+    //   isEmailAuth: false,
+    // );
 
     return const AuthResultModel(
       message: 'Google sign in successful!',
