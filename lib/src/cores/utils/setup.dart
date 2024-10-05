@@ -22,6 +22,9 @@ class Setup {
     await localNotificationService.initializeNotifications();
     await localNotificationService.requestPermissions();
 
+    // await localNotificationService.showSimpleNotification(
+    //     title: "title", body: "body", payload: "");
+
     SystemChrome.setPreferredOrientations(
       [
         DeviceOrientation.portraitUp,

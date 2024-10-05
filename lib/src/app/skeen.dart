@@ -24,7 +24,7 @@ class _SkeenAppState extends State<SkeenApp> {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: SettingsView.route,
+        initialRoute: NavBarView.route,
         theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: navigatorKey,
