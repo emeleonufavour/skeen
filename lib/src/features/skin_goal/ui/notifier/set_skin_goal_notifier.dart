@@ -142,68 +142,106 @@ class SetSkinGoalNotifier extends StateNotifier<SkinGoalState> {
 
   Future<void> _scheduleNotifications() async {
     final now = DateTime.now();
+    try {
+      await _notificationService.cancelAllNotifications();
 
-    switch (state.frequency!.toLowerCase()) {
-      case 'daily':
-        AppLogger.log("Scheduling daily", tag: "Skin routine");
-        for (var time in state.reminderTimes!) {
-          AppLogger.log("Scheduling daily at $time");
-
-          await _notificationService.scheduleDailyNotification(
-            DateTime(
+      switch (state.frequency!.toLowerCase()) {
+        case 'daily':
+          AppLogger.log("Scheduling daily notifications", tag: "Skin routine");
+          for (int i = 0; i < state.reminderTimes!.length; i++) {
+            TimeOfDay time = state.reminderTimes![i];
+            final DateTime scheduledTime = DateTime(
               now.year,
               now.month,
               now.day,
               time.hour,
               time.minute,
-            ),
-          );
-        }
-        break;
+            );
 
-      case 'weekly':
-        AppLogger.log("Scheduling weekly", tag: "Skin routine");
-        for (int i = 0; i < 7; i++) {
-          if (state.selectedDays![i]) {
-            for (var time in state.reminderTimes!) {
-              AppLogger.log("Scheduling weekly for day ${i + 1} at $time");
+            await _notificationService.scheduleDailyNotification(
+              scheduledTime,
+              category: state.category,
+              routineName: state.routineName!,
+              timeIndex: i,
+            );
+          }
+          break;
 
-              // Create a DateTime for the next occurrence of this weekday
-              final scheduledTime = DateTime(
+        case 'weekly':
+          AppLogger.log("Scheduling weekly notifications", tag: "Skin routine");
+          for (int weekday = 0; weekday < 7; weekday++) {
+            if (state.selectedDays![weekday]) {
+              for (int i = 0; i < state.reminderTimes!.length; i++) {
+                TimeOfDay time = state.reminderTimes![i];
+                DateTime scheduledTime = DateTime(
+                  now.year,
+                  now.month,
+                  now.day,
+                  time.hour,
+                  time.minute,
+                );
+
+                int daysUntilWeekday = weekday + 1 - scheduledTime.weekday;
+                if (daysUntilWeekday <= 0) daysUntilWeekday += 7;
+                scheduledTime =
+                    scheduledTime.add(Duration(days: daysUntilWeekday));
+
+                await _notificationService.scheduleWeeklyNotification(
+                  scheduledTime,
+                  category: state.category,
+                  routineName: state.routineName!,
+                  timeIndex: i,
+                  dayIndex: weekday,
+                );
+              }
+            }
+          }
+          break;
+
+        case 'monthly':
+          AppLogger.log("Scheduling monthly notifications",
+              tag: "Skin routine");
+          if (state.startDate != null) {
+            for (int i = 0; i < state.reminderTimes!.length; i++) {
+              TimeOfDay time = state.reminderTimes![i];
+              DateTime scheduledTime = DateTime(
                 now.year,
                 now.month,
-                now.day,
+                state.startDate!.day,
                 time.hour,
                 time.minute,
               );
 
-              await _notificationService
-                  .scheduleWeeklyNotification(scheduledTime);
+              if (scheduledTime.isBefore(now)) {
+                scheduledTime = DateTime(
+                  scheduledTime.year,
+                  scheduledTime.month + 1,
+                  state.startDate!.day,
+                  time.hour,
+                  time.minute,
+                );
+              }
+
+              await _notificationService.scheduleMonthlyNotification(
+                scheduledTime,
+                category: state.category,
+                routineName: state.routineName!,
+                timeIndex: i,
+              );
             }
           }
-        }
-        break;
-
-      case 'monthly':
-        AppLogger.log("Scheduling monthly", tag: "Skin routine");
-        if (state.startDate != null) {
-          for (var time in state.reminderTimes!) {
-            AppLogger.log(
-                "Scheduling monthly for day ${state.startDate!.day} at $time");
-
-            final scheduledTime = DateTime(
-              now.year,
-              now.month,
-              state.startDate!.day,
-              time.hour,
-              time.minute,
-            );
-
-            await _notificationService
-                .scheduleMonthlyNotification(scheduledTime);
-          }
-        }
-        break;
+          break;
+      }
+      final pendingNotifications =
+          await _notificationService.getPendingNotifications();
+      AppLogger.log(
+          'Successfully scheduled ${pendingNotifications.length} notifications',
+          tag: 'Skin routine');
+    } catch (e) {
+      AppLogger.logError(
+        'Error during notification scheduling: $e',
+        tag: 'Skin routine',
+      );
     }
   }
 }

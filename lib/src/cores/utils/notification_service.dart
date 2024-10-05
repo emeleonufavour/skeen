@@ -22,16 +22,11 @@ class LocalNotificationService {
 
   Future<void> initializeNotifications() async {
     tz.initializeTimeZones();
-    final String currentTimeZone = DateTime.now().timeZoneName;
     tz.setLocalLocation(tz.local);
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/launcher_icon');
     const DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings(
-            // requestAlertPermission: false,
-            // requestBadgePermission: false,
-            // requestSoundPermission: false,
-            );
+        DarwinInitializationSettings();
     const InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
@@ -51,39 +46,6 @@ class LocalNotificationService {
       'Sunday'
     ];
     return days[weekday - 1];
-  }
-
-  Future<void> scheduleDailyNotification(
-    DateTime scheduledTime, {
-    required SkinGoalCategory category,
-    required String routineName,
-    required int timeIndex,
-  }) async {
-    final int notificationId = NotificationIds.generate(
-      category: category,
-      timeIndex: timeIndex,
-    );
-
-    try {
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        notificationId,
-        NotificationContent.getTitle(routineName),
-        NotificationContent.getBody(routineName, 'daily'),
-        tz.TZDateTime.from(scheduledTime, tz.local),
-        _routineNotificationDetails(),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time,
-      );
-
-      AppLogger.log(
-          'Daily notification scheduled for $routineName at ${scheduledTime.toString()} with ID $notificationId',
-          tag: 'NotificationService');
-    } catch (e) {
-      AppLogger.logError('Error scheduling daily notification: $e',
-          tag: 'NotificationService');
-    }
   }
 
   NotificationDetails _routineNotificationDetails() {
@@ -151,6 +113,39 @@ class LocalNotificationService {
         .show(0, title, body, notificationDetails, payload: payload);
   }
 
+  Future<void> scheduleDailyNotification(
+    DateTime scheduledTime, {
+    required SkinGoalCategory category,
+    required String routineName,
+    required int timeIndex,
+  }) async {
+    final int notificationId = NotificationIds.generate(
+      category: category,
+      timeIndex: timeIndex,
+    );
+
+    try {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        notificationId,
+        NotificationContent.getTitle(routineName),
+        NotificationContent.getBody(routineName, 'daily'),
+        tz.TZDateTime.from(scheduledTime, tz.local),
+        _routineNotificationDetails(),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+
+      AppLogger.log(
+          'Daily notification scheduled for $routineName at ${scheduledTime.toString()} with ID $notificationId',
+          tag: 'NotificationService');
+    } catch (e) {
+      AppLogger.logError('Error scheduling daily notification: $e',
+          tag: 'NotificationService');
+    }
+  }
+
   Future<void> scheduleWeeklyNotification(
     DateTime scheduledTime, {
     required SkinGoalCategory category,
@@ -186,17 +181,6 @@ class LocalNotificationService {
     }
   }
 
-  tz.TZDateTime _nextInstanceOfWeekday(DateTime selectedTime) {
-    tz.TZDateTime scheduledDate = tz.TZDateTime.from(selectedTime, tz.local);
-
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 7));
-    }
-
-    return scheduledDate;
-  }
-
   Future<void> scheduleMonthlyNotification(
     DateTime scheduledTime, {
     required SkinGoalCategory category,
@@ -228,24 +212,6 @@ class LocalNotificationService {
       AppLogger.logError('Error scheduling monthly notification: $e',
           tag: 'NotificationService');
     }
-  }
-
-  tz.TZDateTime _nextInstanceOfMonthlyDate(DateTime selectedTime) {
-    tz.TZDateTime scheduledDate = tz.TZDateTime.from(selectedTime, tz.local);
-
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = tz.TZDateTime(
-        tz.local,
-        scheduledDate.year + (scheduledDate.month == 12 ? 1 : 0),
-        scheduledDate.month < 12 ? scheduledDate.month + 1 : 1,
-        scheduledDate.day,
-        scheduledDate.hour,
-        scheduledDate.minute,
-      );
-    }
-
-    return scheduledDate;
   }
 
   Future<void> scheduleReminderBefore({

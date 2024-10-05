@@ -5,6 +5,7 @@ class TextFieldWidget extends StatefulWidget {
   final TextEditingController? textController;
   final String? hintText;
   final Widget? suffixIcon;
+  final String? errorText;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
@@ -21,6 +22,7 @@ class TextFieldWidget extends StatefulWidget {
     this.textInputAction,
     this.onSubmit,
     this.hintText,
+    this.errorText,
     this.onPasswordValidityChanged,
     this.maxLines,
     this.suffixIcon,
@@ -63,6 +65,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               obscureText: value && widget.isPassword,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: kfsMedium.w),
+                errorText: widget.errorText,
                 suffixIcon: widget.isPassword == true
                     ? suffixWidget(value)
                     : widget.suffixIcon ?? const SizedBox.shrink(),
