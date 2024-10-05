@@ -99,108 +99,119 @@ class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
       );
     });
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextWidget(
-          "Add product",
-          fontWeight: w500,
-          fontSize: kfsMedium.sp,
-        ).padding(vertical: 20.h),
-        Expanded(
-            child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextWidget(
-                    "Product name",
-                    fontWeight: w500,
-                    fontSize: kfsTiny.sp,
-                  ).padding(bottom: 5.h),
-                  TextFieldWidget(
-                    textController: _controller,
-                    hintText: "Product name",
-                    onChanged: (value) =>
-                        ref.read(textProvider.notifier).state = value,
-                  ).padding(bottom: 14.h),
-                  TextWidget(
-                    "When does this product expire?",
-                    fontWeight: w500,
-                    fontSize: kfsTiny.sp,
-                  ).padding(bottom: 5.h),
-                  CalendarDropdown(
-                      text: "Expiration date",
-                      onDateSelected: (v) {
-                        expiryDate = v;
-                      }).padding(bottom: 14.h),
-                  // TextWidget(
-                  //   "When did you start using this product?",
-                  //   fontWeight: w500,
-                  //   fontSize: kfsTiny.sp,
-                  // ).padding(bottom: 5.h),
-                  // CalendarDropdown(text: "Start date", onDateSelected: (v) {})
-                  //     .padding(bottom: 14.h),
-                  TextWidget(
-                    "When should we remind you before it expires?",
-                    fontWeight: w500,
-                    fontSize: kfsTiny.sp,
-                  ).padding(bottom: 5.h),
-                  DropDownWidget(
-                      text: "a",
-                      dropDownList: [
-                        ExpiryReminder.oneWeekBefore.value,
-                        ExpiryReminder.twoWeeksBefore.value,
-                        ExpiryReminder.oneMonthBefore.value
-                      ],
-                      hintText: "Set reminder",
-                      initialValue: expiryReminder?.value,
-                      onChanged: (v) {
-                        if (v != null) {
-                          bool validReminder = isReminderValid(
-                              ExpiryReminder.fromJson(v), expiryDate, context);
-                          AppLogger.log("$validReminder", tag: "Product BM");
-                          if (validReminder) {
-                            expiryReminder = ExpiryReminder.fromJson(v);
+    return GestureDetector(
+      onTap: () {
+        AppLogger.log("Tapped Add product bm");
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextWidget(
+            "Add product",
+            fontWeight: w500,
+            fontSize: kfsMedium.sp,
+          ).padding(vertical: 20.h),
+          Expanded(
+              child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextWidget(
+                      "Product name",
+                      fontWeight: w500,
+                      fontSize: kfsTiny.sp,
+                    ).padding(bottom: 5.h),
+                    TextFieldWidget(
+                      textController: _controller,
+                      hintText: "Product name",
+                      onChanged: (value) =>
+                          ref.read(textProvider.notifier).state = value,
+                    ).padding(bottom: 14.h),
+                    TextWidget(
+                      "When does this product expire?",
+                      fontWeight: w500,
+                      fontSize: kfsTiny.sp,
+                    ).padding(bottom: 5.h),
+                    CalendarDropdown(
+                        text: "Expiration date",
+                        onDateSelected: (v) {
+                          expiryDate = v;
+                        }).padding(bottom: 14.h),
+                    // TextWidget(
+                    //   "When did you start using this product?",
+                    //   fontWeight: w500,
+                    //   fontSize: kfsTiny.sp,
+                    // ).padding(bottom: 5.h),
+                    // CalendarDropdown(text: "Start date", onDateSelected: (v) {})
+                    //     .padding(bottom: 14.h),
+                    TextWidget(
+                      "When should we remind you before it expires?",
+                      fontWeight: w500,
+                      fontSize: kfsTiny.sp,
+                    ).padding(bottom: 5.h),
+                    DropDownWidget(
+                        text: "a",
+                        dropDownList: [
+                          ExpiryReminder.oneWeekBefore.value,
+                          ExpiryReminder.twoWeeksBefore.value,
+                          ExpiryReminder.oneMonthBefore.value
+                        ],
+                        hintText: "Set reminder",
+                        initialValue: expiryReminder?.value,
+                        onChanged: (v) {
+                          if (v != null) {
+                            bool validReminder = isReminderValid(
+                                ExpiryReminder.fromJson(v),
+                                expiryDate,
+                                context);
+                            AppLogger.log("$validReminder", tag: "Product BM");
+                            if (validReminder) {
+                              expiryReminder = ExpiryReminder.fromJson(v);
+                            }
                           }
-                        }
-                      },
-                      onTapped: (v) {}),
-                  60.h.verticalSpace,
-                ],
+                        },
+                        onTapped: (v) {}),
+                    60.h.verticalSpace,
+                  ],
+                ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Button(
-                text: "Save",
-                onTap: () {
-                  if (_controller.text.isNotEmpty &&
-                      expiryDate != null &&
-                      expiryReminder != null) {
-                    ref.read(skinCareProductProvider.notifier).addProduct(
-                        SkinCareProduct(
-                            name: _controller.text,
-                            expiryDate: expiryDate!,
-                            expiryReminder: expiryReminder!));
-                    ref.read(textProvider.notifier).state = '';
-                    goBack();
-                  } else {
-                    AppLogger.log("show toast", tag: "Add product bm");
-                    showToast(
-                        context: context,
-                        message: "You have not set everything quite right",
-                        type: ToastType.error);
-                  }
-                },
-              ),
-            ).padding(bottom: 15.h)
-          ],
-        )),
-      ],
-    ).padding(horizontal: 17.w);
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Button(
+                  text: "Save",
+                  onTap: () {
+                    if (_controller.text.isNotEmpty &&
+                        expiryDate != null &&
+                        expiryReminder != null) {
+                      ref.read(skinCareProductProvider.notifier).addProduct(
+                          SkinCareProduct(
+                              name: _controller.text,
+                              expiryDate: expiryDate!,
+                              expiryReminder: expiryReminder!));
+                      ref.read(textProvider.notifier).state = '';
+                      goBack();
+                    } else {
+                      AppLogger.log("show toast", tag: "Add product bm");
+                      showToast(
+                          context: context,
+                          message: "You have not set everything quite right",
+                          type: ToastType.error);
+                    }
+                  },
+                ),
+              ).padding(bottom: 15.h)
+            ],
+          )),
+        ],
+      ).padding(horizontal: 17.w),
+    );
   }
 }
 

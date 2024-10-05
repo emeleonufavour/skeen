@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myskin_flutterbytes/src/cores/shared/shared.dart';
+import 'package:myskin_flutterbytes/src/features/features.dart';
+import 'package:myskin_flutterbytes/src/features/home/presentation/components/activity_section.dart';
 
 class EditProfileView extends ConsumerWidget {
   const EditProfileView({super.key});
@@ -12,19 +14,39 @@ class EditProfileView extends ConsumerWidget {
     return BaseScaffold(
       body: Column(
         children: [
-          const CircleAvatar(),
-          TextFieldWidget(
-              textController: TextEditingController(), hintText: "hintText"),
-          TextFieldWidget(
-              textController: TextEditingController(), hintText: "hintText"),
-          TextFieldWidget(
-            textController: TextEditingController(),
-            isPassword: false,
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const CircleAvatar(),
+                  TextFieldWidget(
+                      textController: TextEditingController(),
+                      hintText: "hintText"),
+                  TextFieldWidget(
+                      textController: TextEditingController(),
+                      hintText: "hintText"),
+                  TextFieldWidget(
+                    textController: TextEditingController(),
+                    hintText: 'Password',
+                    isPassword: true,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    onSubmit: (_) {},
+                    shouldShowPasswordValidator: true,
+                  ),
+                ].separate(12
+                    .h
+                    .verticalSpace), // Assuming .separate is from shared package
+              ),
+            ),
           ),
-          Button(
-            onTap: () {},
-            text: "Save",
-          )
+          Padding(
+            padding: const EdgeInsets.all(16.0), // Add padding to the button
+            child: Button(
+              onTap: () {},
+              text: "Save",
+            ),
+          ),
         ],
       ),
       useSingleScroll: false,

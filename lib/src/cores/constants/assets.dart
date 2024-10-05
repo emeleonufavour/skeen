@@ -29,6 +29,9 @@ class Assets {
   static String woman = _pngAsset('woman');
   static String manDrinking = _pngAsset("man_drinking");
   static String womanSun = _pngAsset("woman_sun");
+  static String normalAppIcon = _pngAsset("normal_app_icon");
+  static String blackAppIcon = _pngAsset("black_app_icon");
+  static String whiteAppIcon = _pngAsset("white_app_icon");
   static String level1 = _pngAsset("level_one");
   static String level2 = _pngAsset("level_two");
   static String level3 = _pngAsset("level_three");
