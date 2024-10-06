@@ -19,6 +19,8 @@ class OnboardingView extends ConsumerWidget {
       Assets.onboarding3,
     ];
 
+    final onboardStatus = ref.read(onboardingProvider.notifier);
+
     return BaseScaffold(
       useSingleScroll: false,
       padding: EdgeInsets.zero,
@@ -69,7 +71,11 @@ class OnboardingView extends ConsumerWidget {
               OnboardingTracker(currentIndex: index),
               const Spacer(),
               Button(
-                onTap: () => clearPath(SignUpView.route),
+                onTap: () {
+                  onboardStatus.setUserOnboardStatusToTrue();
+
+                  clearPath(SignUpView.route);
+                },
                 text: 'Get Started',
               ).padding(horizontal: 18.w),
               18.h.verticalSpace,

@@ -30,6 +30,7 @@ class _SplashViewState extends ConsumerState<SplashView>
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         ref.read(authStateNotifier.notifier).execute();
+        ref.read(onboardingProvider.notifier).getOnboardStatus();
       },
     );
 
@@ -94,7 +95,12 @@ class _SplashViewState extends ConsumerState<SplashView>
   }
 
   void _initScaleAnimation() {
-    final isLoggedIn = ref.watch(authStateNotifier);
+    final isLoggedIn = ref.watch(authStateNotifier).data;
+    final isOnboard = ref.watch(onboardingProvider).isOnboard;
+
+    AppLogger.logWarning(
+      'IS USER LOGGED IN: $isLoggedIn and is Onboard: $isOnboard',
+    );
 
     _expandController = AnimationController(
       vsync: this,
@@ -116,8 +122,12 @@ class _SplashViewState extends ConsumerState<SplashView>
     _expandAnimation.addStatusListener(
       (status) {
         if (status == AnimationStatus.completed) {
-          if (isLoggedIn.data == true) {
-            clearPath(NavBarView.route);
+          if (isOnboard == true) {
+            if (isLoggedIn == true) {
+              clearPath(NavBarView.route);
+            } else {
+              clearPath(SignInView.route);
+            }
           } else {
             clearPath(OnboardingView.route);
           }
