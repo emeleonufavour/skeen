@@ -21,6 +21,8 @@ abstract interface class AuthRemoteDataSource {
   Future<void> forgotPassword(String email);
 
   Future<void> logOut();
+
+  Future<bool> isLoggedIn();
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -123,5 +125,12 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       message: 'Google sign in successful!',
       success: true,
     );
+  }
+
+  @override
+  Future<bool> isLoggedIn() async {
+    final res = _firebaseHelper.currentUserId != null ||
+        _firebaseHelper.currentUserId == '';
+    return res;
   }
 }

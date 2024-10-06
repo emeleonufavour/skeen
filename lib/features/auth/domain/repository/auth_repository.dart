@@ -24,4 +24,6 @@ abstract class AuthRepository {
   Future<Either<Failure, void>> forgotPassword(String email);
 
   Future<Either<Failure, AuthResultEntity>> signInWithGoogle();
+
+  Future<Either<Failure, bool>> isLoggedIn();
 }

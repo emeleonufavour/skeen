@@ -5,6 +5,7 @@ export 'firebase_helper.dart';
 export 'logger.dart';
 export 'notifier_helper.dart';
 export 'password_validator.dart';
+export 'session_manager.dart';
 export 'setup.dart';
 export 'sizer.dart';
 export 'state_listener.dart';

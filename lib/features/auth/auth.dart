@@ -6,6 +6,7 @@ export 'data/repo-impl/auth_repo_impl.dart';
 export 'domain/entity/auth_result_entity.dart';
 export 'domain/entity/user_entity.dart';
 export 'domain/repository/auth_repository.dart';
+export 'presentation/notifiers/auth_state_notifier.dart';
 export 'presentation/notifiers/forget_password_notifier.dart';
 export 'presentation/notifiers/google_auth_notifier.dart';
 export 'presentation/notifiers/logout_notifier.dart';

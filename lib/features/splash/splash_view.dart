@@ -27,6 +27,12 @@ class _SplashViewState extends ConsumerState<SplashView>
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(authStateNotifier.notifier).execute();
+      },
+    );
+
     textLength = traqa.length;
     _index = -1;
     isForward = true;
@@ -88,6 +94,8 @@ class _SplashViewState extends ConsumerState<SplashView>
   }
 
   void _initScaleAnimation() {
+    final isLoggedIn = ref.watch(authStateNotifier);
+
     _expandController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
@@ -108,7 +116,11 @@ class _SplashViewState extends ConsumerState<SplashView>
     _expandAnimation.addStatusListener(
       (status) {
         if (status == AnimationStatus.completed) {
-          clearPath(OnboardingView.route);
+          if (isLoggedIn.data == true) {
+            clearPath(NavBarView.route);
+          } else {
+            clearPath(OnboardingView.route);
+          }
         }
       },
     );
