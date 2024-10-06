@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 String userCollection = "users";
+String tipsAndTricksCollection = "tips_and_trick";
 
 class FirebaseHelper {
   Timestamp get timestamp => Timestamp.now();
@@ -23,5 +24,9 @@ class FirebaseHelper {
     required String userId,
   }) {
     return userCollectionRef().doc(userId).collection('medical_history');
+  }
+
+  CollectionReference<Map<String, dynamic>> tipsAndTricksRef() {
+    return FirebaseFirestore.instance.collection(tipsAndTricksCollection);
   }
 }

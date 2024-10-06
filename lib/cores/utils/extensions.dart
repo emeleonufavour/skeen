@@ -92,6 +92,14 @@ extension NameInitials on String {
 
     return initials.substring(0, initials.length.clamp(0, 3));
   }
+
+  String get toTitleCase {
+    return split(' ')
+        .map((word) => word.isNotEmpty
+            ? '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}'
+            : '')
+        .join(' ');
+  }
 }
 
 extension ValidatingExtensions on String {

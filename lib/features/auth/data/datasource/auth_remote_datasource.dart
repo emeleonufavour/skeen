@@ -55,6 +55,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         message: "Unable to login user with this credential",
       );
     }
+
     return const AuthResultModel(
       success: true,
       message: 'Login successful!',
@@ -77,6 +78,9 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
     final User user = userCredential.user!;
 
+    await user.updateDisplayName(signUpForm.fullName);
+    await user.updatePassword(signUpForm.password);
+
     await _saveUser(user: user, params: signUpForm);
 
     return const AuthResultModel(
@@ -93,7 +97,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     _firebaseHelper.userCollectionRef().doc(user.uid).set({
       'user_id': user.uid,
       'email': user.email,
-      'fullname': params?.fullName ?? user.displayName,
+      'full_name': params?.fullName ?? user.displayName,
       'createdAt': _firebaseHelper.timestamp,
       'auth_type': isEmailAuth ? 'emailPassword' : 'google',
     });

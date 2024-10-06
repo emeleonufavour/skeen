@@ -7,7 +7,7 @@ class NavBarView extends ConsumerWidget {
 
   static const String route = '/nav_bar';
   static final pages = [
-    Container(color: Colors.yellow),
+    const HomeView(),
     Container(color: Colors.yellow),
     Container(color: Colors.yellow),
     Container(color: Colors.blue),
@@ -19,6 +19,7 @@ class NavBarView extends ConsumerWidget {
     final currentIndex = ref.watch(navNotifier);
     return BaseScaffold(
       padding: EdgeInsets.zero,
+      safeAreaTop: false,
       body: IndexedStack(
         index: currentIndex,
         children: pages,
@@ -37,44 +38,32 @@ class NavBarView extends ConsumerWidget {
           ],
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Tile(
-                  isSelected: currentIndex == 0,
-                  image: Assets.home,
-                  title: 'Home',
-                  onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(0),
-                ),
-                const Spacer(),
-                Tile(
-                  isSelected: currentIndex == 1,
-                  image: Assets.log,
-                  title: 'Reports',
-                  onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(1),
-                ),
-              ],
-            ).expand(),
-            (screenWidth * .2).horizontalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Tile(
-                  isSelected: currentIndex == 3,
-                  image: Assets.chatBot,
-                  title: 'Chat bot',
-                  onTap: () {},
-                ),
-                const Spacer(),
-                Tile(
-                  isSelected: currentIndex == 4,
-                  onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(4),
-                  title: 'Settings',
-                  image: Assets.gear,
-                ),
-              ],
-            ).expand(),
+            Tile(
+              isSelected: currentIndex == 0,
+              image: Assets.home,
+              title: 'Home',
+              onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(0),
+            ),
+            Tile(
+              isSelected: currentIndex == 1,
+              image: Assets.log,
+              title: 'Reports',
+              onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(1),
+            ),
+            Tile(
+              isSelected: currentIndex == 3,
+              image: Assets.chatBot,
+              title: 'Chat bot',
+              onTap: () {},
+            ),
+            Tile(
+              isSelected: currentIndex == 4,
+              onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(4),
+              title: 'Settings',
+              image: Assets.gear,
+            )
           ],
         ).padding(horizontal: kfsExtraLarge.w, vertical: 0),
       ),

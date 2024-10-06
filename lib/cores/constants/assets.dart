@@ -20,6 +20,7 @@ class Assets {
   static String log = _svgAsset("log");
   static String chatBot = _svgAsset("chat_box");
   static String gear = _svgAsset("gear");
+  static String bell = _svgAsset("bell");
 
   static String poppins = "Poppins";
 }

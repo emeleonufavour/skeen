@@ -1,0 +1,10 @@
+export 'data/datasource/home_datasource.dart';
+export 'data/model/tips_and_trick_model.dart';
+export 'data/repo_impl/home_repo_impl.dart';
+export 'domain/entity/tips_and_tricks_entity.dart';
+export 'domain/repository/home_repository.dart';
+export 'presentation/notifier/get_tips_and_trick_notifier.dart';
+export 'presentation/notifier/get_user_notifier.dart';
+export 'presentation/views/home_view.dart';
+export 'presentation/widgets/home_app_bar.dart';
+export 'presentation/widgets/tips_and_trick_widget.dart';
