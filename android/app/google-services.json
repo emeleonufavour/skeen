@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "19827522913",
+    "project_id": "skeen-fd7c8",
+    "storage_bucket": "skeen-fd7c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19827522913:android:2bcbaace2ea50aed395920",
+        "android_client_info": {
+          "package_name": "com.skeen.hack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19827522913-qj2t084a1husn9d9piuj1ce9d70v2674.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skeen.hack",
+            "certificate_hash": "2ecb94d0661aea0b986ba03291357fdf18ab6886"
+          }
+        },
+        {
+          "client_id": "19827522913-rg290u3ec5507958gn98l4q0hs6okr1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCctpTnKE1vvn2uEH6zQf80-9byZKTG2h0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19827522913-rg290u3ec5507958gn98l4q0hs6okr1t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19827522913-dc6vk33d3avb91o8ikj4j0n51i41626i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skeen.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

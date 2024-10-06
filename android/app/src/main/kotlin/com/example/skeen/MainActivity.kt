@@ -1,4 +1,4 @@
-package com.example.skeen
+package com.skeen.hack
 
 import io.flutter.embedding.android.FlutterActivity
 

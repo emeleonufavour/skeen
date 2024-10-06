@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeen/cores/cores.dart';
+import 'package:skeen/features/splash/splash.dart';
 
 class SkeenApp extends StatelessWidget {
   const SkeenApp({super.key});
@@ -9,10 +11,10 @@ class SkeenApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Skeen',
         debugShowCheckedModeBanner: false,
-        initialRoute: NavBarView.route,
-        theme: AppTheme.lightTheme,
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: navigatorKey,
+        theme: SkeenTheme.theme,
+        initialRoute: SplashView.route,
         builder: (context, child) {
           final mediaQueryData = MediaQuery.of(context);
           final scale = mediaQueryData.textScaler.clamp(
@@ -25,7 +27,11 @@ class SkeenApp extends StatelessWidget {
               textScaler: scale,
               devicePixelRatio: pixelRatio,
             ),
-            child: child!,
+            child: Overlay(
+              initialEntries: [
+                OverlayEntry(builder: (context) => child!),
+              ],
+            ),
           );
         },
       ),

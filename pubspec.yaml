@@ -14,7 +14,26 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
+
+  # State management solution
   flutter_riverpod: ^2.5.1
+
+  # Images rendering
+  flutter_svg: ^2.0.10+1
+  extended_image: ^8.3.1
+
+  # Functional Programming
+  fpdart: ^1.1.0
+
+  # Firebase Services
+  firebase_core: ^2.30.0
+  firebase_auth: ^4.19.2
+  google_sign_in: ^6.2.1
+  cloud_firestore: ^4.15.5
+
+  # Slider
+  carousel_slider: ^5.0.0
+
 
 dev_dependencies:
   flutter_test:
