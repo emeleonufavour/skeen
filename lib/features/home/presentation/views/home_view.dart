@@ -30,12 +30,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
       body: Column(
         children: [
           HomeAppBar(name: userDetails?.fullName ?? ''),
-          kGlobalPadding.verticalSpace,
           const TipsAndTrickWidget(),
-        ],
+          const SkeenActivities(),
+        ].separate(kGlobalPadding.verticalSpace),
       ),
       padding: EdgeInsets.zero,
-      useSingleScroll: true,
+      useSingleScroll: false,
     );
   }
 }

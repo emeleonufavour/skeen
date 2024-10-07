@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:skeen/cores/cores.dart';
 
@@ -11,10 +12,20 @@ final sessionManagerProvider = Provider<SessionManager>(
 );
 
 class SessionManager {
+  final secureStorage = const FlutterSecureStorage();
+
   late final Box _localCache;
 
   SessionManager() {
     _localCache = Hive.box(localCacheBox);
+  }
+
+  Future<void> storeBuiltInType(String key, String value) async {
+    await secureStorage.write(key: key, value: value);
+  }
+
+  Future<String?> getCachedBuiltInType(String key) async {
+    return await secureStorage.read(key: key);
   }
 
   Future<void> storeObject<T>(

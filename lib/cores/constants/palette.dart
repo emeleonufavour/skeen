@@ -25,7 +25,4 @@ class Palette {
   static const Color bg5 = Color(0xff07C33C);
 
   static const Color dividerColor = Color(0xffD9D9D9);
-
-  static const Color lightGrey = Color(0xffF1F1F1);
-  static const Color grey = Color(0xff999999);
 }

@@ -41,6 +41,12 @@ class RouteGenerator {
       case NavBarView.route:
         return pageRoute(const NavBarView());
 
+      case CameraView.route:
+        return pageRoute(const CameraView());
+
+      case SkincareGoalsView.route:
+        return pageRoute(const SkincareGoalsView());
+
       default:
         return errorRoute();
     }

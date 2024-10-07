@@ -35,6 +35,8 @@ void preCacheAssetImages(BuildContext context) {
     Assets.medicalHistory,
     Assets.checkSelected,
     Assets.checkUnSelected,
+    Assets.arrowLeft,
+    Assets.add,
   ];
 
   for (String image in images) {

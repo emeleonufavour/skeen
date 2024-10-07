@@ -156,3 +156,9 @@ extension ValidatingExtensions on String {
     }
   }
 }
+
+bool isDateInFuture(DateTime date) {
+  DateTime currentDate = DateTime.now();
+
+  return date.isAfter(currentDate);
+}

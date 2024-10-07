@@ -7,4 +7,5 @@ export 'presentation/notifier/get_tips_and_trick_notifier.dart';
 export 'presentation/notifier/get_user_notifier.dart';
 export 'presentation/views/home_view.dart';
 export 'presentation/widgets/home_app_bar.dart';
+export 'presentation/widgets/skeen_activities.dart';
 export 'presentation/widgets/tips_and_trick_widget.dart';

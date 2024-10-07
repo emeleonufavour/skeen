@@ -1,6 +1,10 @@
 export 'auth/auth.dart';
+export 'home/home.dart';
 export 'medical_history/medical_history.dart';
 export 'nav_bar/nav_bar.dart';
+export 'notifications/notifications.dart';
 export 'onboarding/onboarding.dart';
+export 'scan_products/scan_products.dart';
+export 'skincare_goals/skincare_goals.dart';
 export 'splash/splash_view.dart';
-export 'home/home.dart';
+export 'chat_bot/chat_bot.dart';

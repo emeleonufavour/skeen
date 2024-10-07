@@ -28,14 +28,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.all(8),
             margin: const EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
-                border: Border.all(color: Palette.lightGrey),
+                border: Border.all(color: Palette.borderColor),
                 shape: BoxShape.circle),
             child: const IconButton(
-                onPressed: goBack,
-                icon: Icon(
-                  CupertinoIcons.back,
-                  color: Colors.black,
-                )),
+              onPressed: goBack,
+              icon: Icon(
+                CupertinoIcons.back,
+                color: Colors.black,
+              ),
+            ),
           ),
       centerTitle: centerTitle ?? true,
       title: TextWidget(

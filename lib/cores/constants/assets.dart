@@ -21,6 +21,18 @@ class Assets {
   static String chatBot = _svgAsset("chat_box");
   static String gear = _svgAsset("gear");
   static String bell = _svgAsset("bell");
+  static String scanBarcode = _svgAsset('scan_barcode');
+
+  static String lotus = _svgAsset("lotus");
+  static String flower = _svgAsset("flower");
+
+  static String camera = _svgAsset("camera");
+  static String gallery = _svgAsset("gallery");
+
+  static String arrowLeft = _svgAsset("arrow_left");
+  static String add = _svgAsset("add");
+
+  static String sendIcon = _svgAsset('send_icon');
 
   static String poppins = "Poppins";
 }
