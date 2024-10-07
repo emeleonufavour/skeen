@@ -14,10 +14,12 @@ class TextFieldWidget extends StatefulWidget {
   final bool shouldShowPasswordValidator;
   final void Function(bool)? onPasswordValidityChanged;
   final TextInputAction? textInputAction;
+  final String? errorText;
   final void Function(String)? onSubmit;
 
   const TextFieldWidget({
     this.textController,
+    this.errorText,
     this.textInputAction,
     this.onSubmit,
     this.hintText,
@@ -62,6 +64,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               maxLines: widget.isPassword ? 1 : widget.maxLines,
               obscureText: value && widget.isPassword,
               decoration: InputDecoration(
+                errorText: widget.errorText,
                 suffixIcon: widget.isPassword == true
                     ? suffixWidget(value)
                     : widget.suffixIcon ?? const SizedBox.shrink(),

@@ -110,6 +110,7 @@ class _CameraViewState extends ConsumerState<CameraView>
           goBack();
           return;
         }
+        
         goTo(ChatBotView.route, arguments: scanResult);
       } else {
         goBack();

@@ -28,9 +28,11 @@ class ChatBotView extends ConsumerWidget {
 
   void _sendMessage(WidgetRef ref, BuildContext context) {
     if (textController.text.isNotEmpty) {
-      ref
-          .read(chatBotProvider.notifier)
-          .sendMessage(textController.text, context);
+      ref.read(chatBotProvider.notifier).sendMessage(
+            textController.text,
+            context,
+            response,
+          );
       textController.clear();
       _textFieldFocus.unfocus();
       _scrollDown();
@@ -82,14 +84,12 @@ class ChatBotView extends ConsumerWidget {
           ),
         ],
       ),
-      body: Stack(children: [
-        AnimatedIntroText(
-          hasMoved: shouldDisappear,
-          child: Align(
-            alignment: Alignment.topCenter,
+      body: Stack(
+        children: [
+          AnimatedIntroText(
+            hasMoved: shouldDisappear,
             child: Container(
-              width: 299.w,
-              margin: EdgeInsets.symmetric(horizontal: 15.w),
+              width: screenWidth * .8,
               padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
@@ -99,43 +99,47 @@ class ChatBotView extends ConsumerWidget {
                     ? introText
                     : (response!.ingredients.isEmpty
                         ? "The image you gave me does not contain ingredients"
-                        : "Here is my suggestion ${response!.suggestion}"),
+                        : response!.suggestion),
                 fontSize: kfsVeryTiny,
                 fontWeight: w400,
                 textColor: Palette.white,
               ),
             ),
           ),
-        ),
-        Column(children: [
-          chatBotState.messages.isEmpty
-              ? ListView().expand()
-              : Expanded(
-                  child: ListView.builder(
-                      controller: _scrollController,
-                      reverse: true,
-                      itemCount: chatBotState.messages.length,
-                      itemBuilder: (context, index) {
-                        return ChatBubbleWidget(
-                                bubble: chatBotState.messages[index])
-                            .padding(bottom: 5.h);
-                      })),
-          ChatTextField(
-              controller: textController,
-              focusNode: _textFieldFocus,
-              onFieldSubmitted: (v) {
-                _sendMessage(ref, context);
-                textController.clear();
-              },
-              sendAction: () {
-                _sendMessage(ref, context);
-              }),
-        ]),
-        if (chatBotState.isLoading)
-          Positioned(
-            top: 20,
-            right: MediaQuery.sizeOf(context).width / 2 - 50,
-            child: Container(
+          Column(
+            children: [
+              chatBotState.messages.isEmpty
+                  ? ListView().expand()
+                  : Expanded(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        reverse: true,
+                        itemCount: chatBotState.messages.length,
+                        itemBuilder: (context, index) {
+                          return ChatBubbleWidget(
+                            bubble: chatBotState.messages[index],
+                          ).padding(bottom: 5.h);
+                        },
+                      ),
+                    ),
+              ChatTextField(
+                controller: textController,
+                focusNode: _textFieldFocus,
+                onFieldSubmitted: (v) {
+                  _sendMessage(ref, context);
+                  textController.clear();
+                },
+                sendAction: () {
+                  _sendMessage(ref, context);
+                },
+              ),
+            ],
+          ),
+          if (chatBotState.isLoading)
+            Positioned(
+              top: 20,
+              right: MediaQuery.sizeOf(context).width / 2 - 50,
+              child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
@@ -143,9 +147,12 @@ class ChatBotView extends ConsumerWidget {
                 child: const CircularProgressIndicator(
                   strokeWidth: 1,
                   color: Palette.white,
-                )),
-          ),
-      ]),
+                ),
+              ),
+            ),
+        ],
+      ).padding(horizontal: kfsExtraLarge),
+      padding: EdgeInsets.zero,
       useSingleScroll: false,
     );
   }

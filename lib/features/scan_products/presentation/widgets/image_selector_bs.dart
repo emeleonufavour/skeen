@@ -108,10 +108,13 @@ class _SelectImageOptionsBSState extends ConsumerState<SelectImageOptionsBS> {
           }
           return;
         } else {
+          goBack();
+
           if (scanResult.suggestion.isEmpty) {
             GemmaResponse newScanResult = scanResult.copyWith(
-                suggestion:
-                    "I have no suggestion at this time. Perhaps you should set a Skin Goal. Go to Home page, check the list of activities and choose Skincare goals.");
+              suggestion:
+                  "I have no suggestion at this time. Perhaps you should set a Skin Goal. Go to Home page, check the list of activities and choose Skincare goals.",
+            );
             goTo(ChatBotView.route, arguments: newScanResult);
           } else {
             goTo(ChatBotView.route, arguments: scanResult);

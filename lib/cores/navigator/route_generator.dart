@@ -59,6 +59,9 @@ class RouteGenerator {
       case HelpSettingsView.route:
         return pageRoute(const HelpSettingsView());
 
+      case TrackProductView.route:
+        return pageRoute(const TrackProductView());
+
       default:
         return errorRoute();
     }

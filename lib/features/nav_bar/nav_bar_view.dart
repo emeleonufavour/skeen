@@ -11,7 +11,7 @@ class NavBarView extends ConsumerWidget {
     Container(color: Colors.yellow),
     Container(color: Colors.yellow),
     Container(color: Colors.blue),
-    Container(color: Colors.yellow),
+    const SettingsView(),
   ];
 
   @override

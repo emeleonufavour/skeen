@@ -61,10 +61,22 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
     _ref.read(disappearProvider.notifier).reset();
   }
 
-  Future<void> sendMessage(String message, BuildContext context) async {
+  Future<void> sendMessage(
+    String message,
+    BuildContext context,
+    GemmaResponse? response,
+  ) async {
     state = state.copyWith(isLoading: true);
 
+    String? prompt;
+
     if (state.messages.isEmpty) {
+      if (response != null) {
+        prompt =
+            'This is the context of the whole conversation, engage the person based obn questions asked that relates to'
+            ' skincare products with these ingredients ${response.ingredients}. No yapping.';
+      }
+
       _ref.read(disappearProvider.notifier).toggle();
     }
 
@@ -86,7 +98,8 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
     state = state.copyWith(messages: updatedMessages);
 
     try {
-      final response = await chat.sendMessage(Content.text(message));
+      final response =
+          await chat.sendMessage(Content.text('${prompt ?? ''} $message'));
       final text = response.text;
       if (text != null) {
         updatedMessages = [

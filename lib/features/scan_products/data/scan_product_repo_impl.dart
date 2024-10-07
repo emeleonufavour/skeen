@@ -54,12 +54,36 @@ class ProductScannerRepositoryImpl implements ProductScannerRepository {
       final text = response.text;
 
       if (text != null) {
+        // String jsonString =
+        //     text.replaceAll('```json', '').replaceAll('```', '').trim();
+        // Map<String, dynamic> jsonObject = jsonDecode(jsonString);
+        // AppLogger.logWarning("JSON: $jsonString", tag: "scanProductImage");
+        // AppLogger.log(
+        //   "Gemme response: ${GemmaResponse.fromJson(jsonObject)}",
+        //   tag: "scanProductImage",
+        // );
+
         String jsonString =
             text.replaceAll('```json', '').replaceAll('```', '').trim();
+
+        AppLogger.log(
+          "Response JSON String: $jsonString",
+          tag: "scanProductImage",
+        );
+
         Map<String, dynamic> jsonObject = jsonDecode(jsonString);
+
         AppLogger.logWarning("JSON: $jsonString", tag: "scanProductImage");
-        AppLogger.log("Gemme response: ${GemmaResponse.fromJson(jsonObject)}",
-            tag: "scanProductImage");
+
+        if (jsonObject['ingredients'] is String) {
+          jsonObject['ingredients'] = jsonDecode(jsonObject['ingredients']);
+        }
+
+        AppLogger.log(
+          "Gemma response: ${GemmaResponse.fromJson(jsonObject)}",
+          tag: "scanProductImage",
+        );
+
         return GemmaResponse.fromJson(jsonObject);
       }
     } catch (e, s) {

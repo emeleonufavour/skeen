@@ -13,7 +13,7 @@ class AnimatedIntroText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
-      top: hasMoved ? -200 : 20,
+      top: hasMoved ? -200 : 10,
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 1000),
       child: child,

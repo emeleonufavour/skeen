@@ -9,3 +9,4 @@ export 'scan_products/scan_products.dart';
 export 'settings/settings.dart';
 export 'skincare_goals/skincare_goals.dart';
 export 'splash/splash_view.dart';
+export 'track_product/track_product.dart';
