@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:skeen/cores/cores.dart';
 import 'package:skeen/features/features.dart';
 import 'package:skeen/features/scan_products/data/scan_product_repo_impl.dart';
 
@@ -38,6 +39,8 @@ class ProductScannerNotifier extends StateNotifier<ProductScannerState> {
         imagePath,
         goals,
       );
+      AppLogger.log("Result: $result",
+          tag: "ProductScannerNotifier.scanProduct");
       state = state.copyWith(
         isLoading: false,
         scanResult: result,

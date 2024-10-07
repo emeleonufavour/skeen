@@ -34,4 +34,18 @@ class GemmaResponse {
   String toString() {
     return 'GemmaResponse(status: $status, code: $code, ingredients: $ingredients, suggestion: $suggestion)';
   }
+
+  GemmaResponse copyWith({
+    String? status,
+    int? code,
+    List? ingredients,
+    String? suggestion,
+  }) {
+    return GemmaResponse(
+      status: status ?? this.status,
+      code: code ?? this.code,
+      ingredients: ingredients ?? this.ingredients,
+      suggestion: suggestion ?? this.suggestion,
+    );
+  }
 }
