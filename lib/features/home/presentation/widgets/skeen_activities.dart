@@ -38,7 +38,7 @@ class SkeenActivities extends StatelessWidget {
                 _Tile(
                   title: "Track your products",
                   iconPath: Assets.flower,
-                  onTap: () {},
+                  onTap: () => goTo(TrackProductView.route),
                   subtitle:
                       "You can keep track of your products and let us notify you when they are about to expire.",
                 ),

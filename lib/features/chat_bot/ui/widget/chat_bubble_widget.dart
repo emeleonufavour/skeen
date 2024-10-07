@@ -31,9 +31,10 @@ class ChatBubbleWidget extends StatelessWidget {
               text: (bubble.text).isEmpty ? "  " : bubble.text,
               sentAt: "",
               style: TextStyle(
-                  color: bubble.isServer ? Colors.black : Colors.white,
-                  fontSize: 14.sp,
-                  fontFamily: Assets.poppins),
+                color: bubble.isServer ? Colors.black : Colors.white,
+                fontSize: 14.sp,
+                fontFamily: Assets.poppins,
+              ),
             ),
           ),
         ),

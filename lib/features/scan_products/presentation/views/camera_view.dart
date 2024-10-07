@@ -100,16 +100,30 @@ class _CameraViewState extends ConsumerState<CameraView>
 
       final scanResult = ref.read(productScannerNotifierProvider).scanResult;
 
+      AppLogger.log("SCAN RESULT: $scanResult");
+
       if (scanResult != null && mounted) {
+        if (scanResult.code == 400 || scanResult.status == 'error') {
+          Toast.showErrorToast(
+            message: 'The image you took cannot be processed',
+          );
+          goBack();
+          return;
+        }
+        
         goTo(ChatBotView.route, arguments: scanResult);
       } else {
+        goBack();
+
         if (mounted) {
           Toast.showErrorToast(message: 'I am unable to process your picture');
         }
       }
     } catch (e) {
-      AppLogger.logError('Error taking picture with Camera: $e',
-          tag: "CameraScreen");
+      AppLogger.logError(
+        'Error taking picture with Camera: $e',
+        tag: "CameraScreen",
+      );
       if (mounted) {
         Toast.showErrorToast(message: 'I am unable to process your picture');
       }
