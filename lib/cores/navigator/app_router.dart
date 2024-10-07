@@ -36,7 +36,7 @@ Future<dynamic> clearPath(String routeName, {Object? arguments}) {
   );
 }
 
-void goBack([Object? result]) {
+Future<void> goBack([Object? result]) async {
   final NavigatorState? navigator = navigatorKey.currentState;
   if (navigator != null && navigator.canPop()) {
     return navigator.pop(result);

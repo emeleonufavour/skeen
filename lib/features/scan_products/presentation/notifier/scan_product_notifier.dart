@@ -9,7 +9,7 @@ final productScannerRepositoryProvider =
     Provider<ProductScannerRepository>((ref) {
   final model = GenerativeModel(
     model: 'gemini-1.5-flash-latest',
-    apiKey: "",
+    apiKey: geminiApiKey,
   );
   return ProductScannerRepositoryImpl(model);
 });
@@ -29,7 +29,7 @@ class ProductScannerNotifier extends StateNotifier<ProductScannerState> {
   ProductScannerNotifier(this._repository, this._skinGoals)
       : super(ProductScannerState());
 
-  Future<void> scanProduct(String imagePath) async {
+  Future<GemmaResponse?> scanProduct(String imagePath) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
       final List<String> goals =
@@ -42,11 +42,13 @@ class ProductScannerNotifier extends StateNotifier<ProductScannerState> {
         isLoading: false,
         scanResult: result,
       );
+      return result;
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
       );
+      return null;
     }
   }
 }

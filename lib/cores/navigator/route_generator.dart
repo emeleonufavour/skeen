@@ -47,6 +47,18 @@ class RouteGenerator {
       case SkincareGoalsView.route:
         return pageRoute(const SkincareGoalsView());
 
+      case ChatBotView.route:
+        final param = args as GemmaResponse?;
+        return pageRoute(ChatBotView(response: param));
+
+      case SettingsView.route:
+        return pageRoute(const SettingsView());
+      case EditProfileView.route:
+        return pageRoute(const EditProfileView());
+
+      case HelpSettingsView.route:
+        return pageRoute(const HelpSettingsView());
+
       default:
         return errorRoute();
     }

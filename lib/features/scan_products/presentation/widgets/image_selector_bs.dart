@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:skeen/cores/cores.dart';
 import 'package:skeen/features/features.dart';
 
-class SelectImageOptionsBS extends StatelessWidget {
+class SelectImageOptionsBS extends ConsumerStatefulWidget {
   const SelectImageOptionsBS({super.key});
 
   static Future<void> show(BuildContext context) {
@@ -12,6 +15,12 @@ class SelectImageOptionsBS extends StatelessWidget {
     );
   }
 
+  @override
+  ConsumerState<SelectImageOptionsBS> createState() =>
+      _SelectImageOptionsBSState();
+}
+
+class _SelectImageOptionsBSState extends ConsumerState<SelectImageOptionsBS> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -48,8 +57,6 @@ class SelectImageOptionsBS extends StatelessWidget {
           kfsVeryTiny.verticalSpace,
           Button.withBorderLine(
             onTap: () {
-              goBack();
-
               _pickFromImage();
             },
             child: Row(
@@ -74,15 +81,40 @@ class SelectImageOptionsBS extends StatelessWidget {
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      // await ref
-      //     .read(productScannerNotifierProvider.notifier)
-      //     .scanProduct(pickedFile.path);
+      goBack();
+      LoadingWidget.show(context);
+      final scanResult = await ref
+          .read(productScannerNotifierProvider.notifier)
+          .scanProduct(pickedFile.path);
 
-      // final GemmaResponse? scanResult =
-      //     ref.read(productScannerNotifierProvider).scanResult;
-      // if (scanResult != null) {
-      //   goTo(ChatBotView.route, arguments: scanResult);
-      // }
+      if (scanResult != null) {
+        if (scanResult.status == 'error') {
+          goBack();
+          if (scanResult.code == 400) {
+            if (mounted) goBack();
+
+            Toast.showErrorToast(
+              message: 'The image you took cannot be processed',
+            );
+            return;
+          } else if (scanResult.code == 500) {
+            if (mounted) goBack();
+
+            Toast.showErrorToast(
+              message: 'Something went wrong while scanning the image selected',
+            );
+            return;
+          }
+          return;
+        }
+
+        if (mounted) goTo(ChatBotView.route, arguments: scanResult);
+      } else {
+        if (mounted) {
+          goBack();
+          Toast.showErrorToast(message: 'I am unable to process your picture');
+        }
+      }
     }
   }
 }

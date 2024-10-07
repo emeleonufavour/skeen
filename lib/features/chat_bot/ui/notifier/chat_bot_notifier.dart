@@ -3,32 +3,31 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:skeen/cores/cores.dart';
 import '../../../features.dart';
 
-const String geminiApiKey = String.fromEnvironment('API_KEY');
+const String geminiApiKey = 'AIzaSyC9DFSUt3umhF79YEs1UeY4gNqXuIBVHbE';
 String introText =
     "Welcome! 👋 I'm here to help with all your skincare needs. How can I assist you today?";
 
 final chatBotProvider =
     StateNotifierProvider<ChatBotNotifier, ChatBotState>((ref) {
-  final disappearNotifier = ref.read(disappearProvider.notifier);
   final sessionManager = ref.read(sessionManagerProvider);
+
   GenerativeModel model = GenerativeModel(
     model: 'gemini-1.5-flash-latest',
     apiKey: geminiApiKey,
   );
   ChatSession chat = model.startChat();
 
-  return ChatBotNotifier(disappearNotifier, model, chat, sessionManager);
+  return ChatBotNotifier(ref, model, chat, sessionManager);
 });
 
 class ChatBotNotifier extends StateNotifier<ChatBotState> {
-  final DisappearNotifier disappearNotifier;
   final GenerativeModel model;
   final ChatSession chat;
+  final Ref _ref;
 
   final SessionManager _sessionManager;
 
-  ChatBotNotifier(
-      this.disappearNotifier, this.model, this.chat, this._sessionManager)
+  ChatBotNotifier(this._ref, this.model, this.chat, this._sessionManager)
       : super(ChatBotState(messages: [], isLoading: false)) {
     _loadChatHistory();
   }
@@ -42,7 +41,9 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
     );
     if (cachedMessages != null && cachedMessages.isNotEmpty) {
       state = state.copyWith(messages: cachedMessages);
-      disappearNotifier.toggle();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _ref.read(disappearProvider.notifier).toggle();
+      });
     }
   }
 
@@ -57,14 +58,14 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
   Future<void> clearChat() async {
     await _sessionManager.deleteStoredBuiltInType(CHAT_HISTORY_KEY);
     state = ChatBotState(messages: [], isLoading: false);
-    disappearNotifier.reset();
+    _ref.read(disappearProvider.notifier).reset();
   }
 
   Future<void> sendMessage(String message, BuildContext context) async {
     state = state.copyWith(isLoading: true);
 
     if (state.messages.isEmpty) {
-      disappearNotifier.toggle();
+      _ref.read(disappearProvider.notifier).toggle();
     }
 
     bool hasInternet = await InternetConnectivity.hasConnection();

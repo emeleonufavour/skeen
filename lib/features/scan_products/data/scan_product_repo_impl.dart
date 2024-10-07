@@ -11,7 +11,10 @@ class ProductScannerRepositoryImpl implements ProductScannerRepository {
 
   @override
   Future<GemmaResponse?> scanProductImage(
-      String imagePath, List<String> skinGoals) async {
+    String imagePath,
+    List<String> skinGoals,
+  ) async {
+    AppLogger.log("SKIN GOALS: $skinGoals");
     try {
       final file = File(imagePath);
       final bytes = await file.readAsBytes();
@@ -54,10 +57,17 @@ class ProductScannerRepositoryImpl implements ProductScannerRepository {
         String jsonString =
             text.replaceAll('```json', '').replaceAll('```', '').trim();
         Map<String, dynamic> jsonObject = jsonDecode(jsonString);
+        AppLogger.logWarning("JSON: $jsonString");
         return GemmaResponse.fromJson(jsonObject);
       }
-    } catch (e) {
-      AppLogger.logError('Error scanning product image: $e');
+    } catch (e, s) {
+      AppLogger.logError('Error scanning product image: $e $s');
+      return GemmaResponse(
+        status: 'error',
+        code: 500,
+        ingredients: [],
+        suggestion: '',
+      );
     }
     return null;
   }

@@ -49,14 +49,14 @@ class NavBarView extends ConsumerWidget {
             Tile(
               isSelected: currentIndex == 1,
               image: Assets.log,
-              title: 'Reports',
+              title: 'Daily Log',
               onTap: () => ref.read(navNotifier.notifier).setNavBarIndex(1),
             ),
             Tile(
               isSelected: currentIndex == 3,
               image: Assets.chatBot,
               title: 'Chat bot',
-              onTap: () {},
+              onTap: () => goTo(ChatBotView.route),
             ),
             Tile(
               isSelected: currentIndex == 4,
