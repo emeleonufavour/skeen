@@ -1,13 +1,12 @@
 name: skeen
 description: "A new Flutter project."
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.1 <4.0.0'
-
+  sdk: ">=3.4.1 <4.0.0"
 
 dependencies:
   flutter:
@@ -26,10 +25,10 @@ dependencies:
   fpdart: ^1.1.0
 
   # Firebase Services
-  firebase_core: ^2.30.0
-  firebase_auth: ^4.19.2
-  google_sign_in: ^6.2.1
-  cloud_firestore: ^4.15.5
+  # firebase_core: ^2.30.0
+  # firebase_auth: ^4.19.2
+  # google_sign_in: ^6.2.1
+  # cloud_firestore: ^4.15.5
 
   # Slider
   carousel_slider: ^5.0.0
@@ -47,7 +46,6 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   google_generative_ai: ^0.4.6
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,7 +53,6 @@ dev_dependencies:
   flutter_lints: ^3.0.0
 
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -83,8 +80,7 @@ flutter:
           weight: 800
         - asset: assets/fonts/Poppins/Poppins-Black.ttf
           weight: 900
-          
-    - family: Orelega
-      fonts: 
-        - asset: assets/fonts/orelega_one/orelega_one_regular.ttf         
 
+    - family: Orelega
+      fonts:
+        - asset: assets/fonts/orelega_one/orelega_one_regular.ttf
