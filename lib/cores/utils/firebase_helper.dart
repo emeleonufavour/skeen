@@ -1,32 +1,32 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
-String userCollection = "users";
-String tipsAndTricksCollection = "tips_and_trick";
+// String userCollection = "users";
+// String tipsAndTricksCollection = "tips_and_trick";
 
-class FirebaseHelper {
-  Timestamp get timestamp => Timestamp.now();
+// class FirebaseHelper {
+//   Timestamp get timestamp => Timestamp.now();
 
-  /// -------- AUTHENTICATION --------- ///
-  FirebaseAuth get auth => FirebaseAuth.instance;
+//   /// -------- AUTHENTICATION --------- ///
+//   FirebaseAuth get auth => FirebaseAuth.instance;
 
-  String? get currentUserId {
-    final String? userId = auth.currentUser?.uid;
-    return userId;
-  }
+//   String? get currentUserId {
+//     final String? userId = auth.currentUser?.uid;
+//     return userId;
+//   }
 
-  /// ------ FIRE STORE ------ ///
-  CollectionReference<Map<String, dynamic>> userCollectionRef() {
-    return FirebaseFirestore.instance.collection(userCollection);
-  }
+//   /// ------ FIRE STORE ------ ///
+//   CollectionReference<Map<String, dynamic>> userCollectionRef() {
+//     return FirebaseFirestore.instance.collection(userCollection);
+//   }
 
-  CollectionReference<Map<String, dynamic>> medicalHistoryRef({
-    required String userId,
-  }) {
-    return userCollectionRef().doc(userId).collection('medical_history');
-  }
+//   CollectionReference<Map<String, dynamic>> medicalHistoryRef({
+//     required String userId,
+//   }) {
+//     return userCollectionRef().doc(userId).collection('medical_history');
+//   }
 
-  CollectionReference<Map<String, dynamic>> tipsAndTricksRef() {
-    return FirebaseFirestore.instance.collection(tipsAndTricksCollection);
-  }
-}
+//   CollectionReference<Map<String, dynamic>> tipsAndTricksRef() {
+//     return FirebaseFirestore.instance.collection(tipsAndTricksCollection);
+//   }
+// }

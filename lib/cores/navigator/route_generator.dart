@@ -11,32 +11,32 @@ class RouteGenerator {
     final Object? args = settings.arguments;
 
     switch (settings.name) {
-      case SplashView.route:
-        return pageRoute(const SplashView());
+      // case SplashView.route:
+      //   return pageRoute(const SplashView());
 
-      case OnboardingView.route:
-        return pageRoute(const OnboardingView());
+      // case OnboardingView.route:
+      //   return pageRoute(const OnboardingView());
 
-      case SignInView.route:
-        return pageRoute(const SignInView());
+      // case SignInView.route:
+      //   return pageRoute(const SignInView());
 
-      case SignUpView.route:
-        return pageRoute(const SignUpView());
+      // case SignUpView.route:
+      //   return pageRoute(const SignUpView());
 
-      case ForgotPasswordView.route:
-        return pageRoute(const ForgotPasswordView());
+      // case ForgotPasswordView.route:
+      //   return pageRoute(const ForgotPasswordView());
 
-      case VerificationView.route:
-        final String mail = args as String;
-        return pageRoute(
-          VerificationView(mail: mail),
-        );
+      // case VerificationView.route:
+      //   final String mail = args as String;
+      //   return pageRoute(
+      //     VerificationView(mail: mail),
+      //   );
 
-      case MedicalHistoryView.route:
-        return pageRoute(const MedicalHistoryView());
+      // case MedicalHistoryView.route:
+      //   return pageRoute(const MedicalHistoryView());
 
-      case MedicalInfoView.route:
-        return pageRoute(const MedicalInfoView());
+      // case MedicalInfoView.route:
+      //   return pageRoute(const MedicalInfoView());
 
       case NavBarView.route:
         return pageRoute(const NavBarView());

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeen/cores/cores.dart';
+import 'package:skeen/features/features.dart';
 import 'package:skeen/features/splash/splash.dart';
 
 class SkeenApp extends StatelessWidget {
@@ -14,7 +15,7 @@ class SkeenApp extends StatelessWidget {
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: navigatorKey,
         theme: SkeenTheme.theme,
-        initialRoute: SplashView.route,
+        initialRoute: NavBarView.route,
         builder: (context, child) {
           final mediaQueryData = MediaQuery.of(context);
           final scale = mediaQueryData.textScaler.clamp(
