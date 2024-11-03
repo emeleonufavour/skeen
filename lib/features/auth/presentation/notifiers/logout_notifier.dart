@@ -1,35 +1,35 @@
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:skeen/cores/cores.dart';
-// import 'package:skeen/features/features.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeen/cores/cores.dart';
+import 'package:skeen/features/features.dart';
 
-// final logoutNotifier =
-//     NotifierProvider<LogOutNotifier, AppState<AuthResultEntity>>(
-//   LogOutNotifier.new,
-// );
+final logoutNotifier =
+    NotifierProvider<LogOutNotifier, AppState<AuthResultEntity>>(
+  LogOutNotifier.new,
+);
 
-// class LogOutNotifier extends Notifier<AppState<AuthResultEntity>>
-//     with NotifierHelper<AuthResultEntity> {
-//   late final AuthRepository _authRepository;
+class LogOutNotifier extends Notifier<AppState<AuthResultEntity>>
+    with NotifierHelper<AuthResultEntity> {
+  late final AuthRepository _authRepository;
 
-//   @override
-//   AppState<AuthResultEntity> build() {
-//     _authRepository = ref.read(authRepositoryProvider);
+  @override
+  AppState<AuthResultEntity> build() {
+    _authRepository = ref.read(authRepositoryProvider);
 
-//     return AppState.initial();
-//   }
+    return AppState.initial();
+  }
 
-//   void execute() async {
-//     notifyOnLoading();
+  void execute() async {
+    notifyOnLoading();
 
-//     final res = await _authRepository.signInWithGoogle();
+    final res = await _authRepository.signInWithGoogle();
 
-//     res.fold(
-//       (l) {
-//         notifyOnError(error: l, state_: state);
-//       },
-//       (r) {
-//         notifyOnSuccess(data: r, state_: state);
-//       },
-//     );
-//   }
-// }
+    res.fold(
+      (l) {
+        notifyOnError(error: l, state_: state);
+      },
+      (r) {
+        notifyOnSuccess(data: r, state_: state);
+      },
+    );
+  }
+}

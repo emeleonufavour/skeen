@@ -1,7 +1,7 @@
 export 'base_repo_impl.dart';
 export 'exception/exception.dart';
 export 'extensions.dart';
-export 'firebase_helper.dart';
+export 'supabase_helper.dart';
 export 'internet_connectivity.dart';
 export 'logger.dart';
 export 'notification_service.dart';

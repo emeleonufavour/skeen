@@ -1,35 +1,47 @@
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:skeen/cores/cores.dart';
+import 'package:skeen/features/features.dart';
 
-// import 'package:skeen/cores/cores.dart';
-// import 'package:skeen/features/features.dart';
+// final supabaseClient = Supabase.instance.client;
 
-// final medicalHistoryRemoteDataSourceProvider =
-//     Provider<MedicalHistoryDatasource>(
-//   (ref) => MedicalHistoryDataSourceImpl(
-//     firebaseHelper: FirebaseHelper(),
-//   ),
-// );
+// Providers
 
-// abstract class MedicalHistoryDatasource {
-//   Future<BaseModel> uploadMedicalHistory(Map<String, dynamic> answers);
-// }
+final medicalHistoryRemoteDataSourceProvider =
+    Provider<MedicalHistoryDatasource>(
+  (ref) => MedicalHistoryDataSourceImpl(
+    supabaseHelper: SupabaseHelper(),
+  ),
+);
 
-// class MedicalHistoryDataSourceImpl extends MedicalHistoryDatasource {
-//   final FirebaseHelper firebaseHelper;
+// Medical history data source implementation
+abstract class MedicalHistoryDatasource {
+  Future<BaseModel> uploadMedicalHistory(Map<String, dynamic> answers);
+}
 
-//   MedicalHistoryDataSourceImpl({
-//     required this.firebaseHelper,
-//   });
+class MedicalHistoryDataSourceImpl extends MedicalHistoryDatasource {
+  final SupabaseHelper supabaseHelper;
 
-//   @override
-//   Future<BaseModel> uploadMedicalHistory(Map<String, dynamic> answers) async {
-//     final String? userId = firebaseHelper.currentUserId;
+  MedicalHistoryDataSourceImpl({
+    required this.supabaseHelper,
+  });
 
-//     await firebaseHelper.medicalHistoryRef(userId: userId!).doc().set(answers);
+  @override
+  Future<BaseModel> uploadMedicalHistory(Map<String, dynamic> answers) async {
+    final String? userId = supabaseHelper.currentUserId;
 
-//     return BaseModel(
-//       message: 'Medical History uploaded successfully!',
-//       isSuccess: true,
-//     );
-//   }
-// }
+    if (userId == null) {
+      throw const BaseFailures(message: "User not authenticated");
+    }
+
+    await supabaseHelper.insertMedicalHistory(
+      userId: userId,
+      data: answers,
+    );
+
+    return BaseModel(
+      message: 'Medical History uploaded successfully!',
+      isSuccess: true,
+    );
+  }
+}

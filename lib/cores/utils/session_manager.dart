@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:skeen/cores/cores.dart';
 
 const localCacheBox = "local_cache";
+const medicalHistoryKey = "medical_history";
 
 final sessionManagerProvider = Provider<SessionManager>(
   (ref) => SessionManager(),
@@ -97,5 +98,27 @@ class SessionManager {
 
   bool? getBool(String key) {
     return _localCache.get(key) as bool?;
+  }
+
+  Future<void> storeMedicalHistory(Map<String, dynamic> history) async {
+    try {
+      final jsonString = jsonEncode(history);
+      await _localCache.put(medicalHistoryKey, jsonString);
+      AppLogger.logSuccess("Medical history stored successfully");
+    } catch (e) {
+      AppLogger.logError("Error storing medical history: $e");
+    }
+  }
+
+  Map<String, dynamic>? getMedicalHistory() {
+    try {
+      final jsonString = _localCache.get(medicalHistoryKey);
+      if (jsonString != null && jsonString.isNotEmpty) {
+        return jsonDecode(jsonString) as Map<String, dynamic>;
+      }
+    } catch (e) {
+      AppLogger.logError("Error retrieving medical history: $e");
+    }
+    return null;
   }
 }

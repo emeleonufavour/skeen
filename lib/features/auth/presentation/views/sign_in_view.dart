@@ -1,91 +1,91 @@
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:skeen/cores/cores.dart';
-// import 'package:skeen/features/features.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeen/cores/cores.dart';
+import 'package:skeen/features/features.dart';
 
-// class SignInView extends ConsumerStatefulWidget {
-//   const SignInView({super.key});
-//   static const String route = 'sign_in';
+class SignInView extends ConsumerStatefulWidget {
+  const SignInView({super.key});
+  static const String route = 'sign_in';
 
-//   @override
-//   ConsumerState<SignInView> createState() => _SignInViewState();
-// }
+  @override
+  ConsumerState<SignInView> createState() => _SignInViewState();
+}
 
-// class _SignInViewState extends ConsumerState<SignInView> {
-//   final key = GlobalKey<FormState>();
+class _SignInViewState extends ConsumerState<SignInView> {
+  final key = GlobalKey<FormState>();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final signInNotifier = ref.read(signInProvider.notifier);
+  @override
+  Widget build(BuildContext context) {
+    final signInNotifier = ref.read(signInProvider.notifier);
 
-//     StateListener.listen<AuthResultEntity>(
-//       context: context,
-//       provider: signInProvider,
-//       ref: ref,
-//       onSuccess: () => goTo(NavBarView.route),
-//     );
+    StateListener.listen<AuthResultEntity>(
+      context: context,
+      provider: signInProvider,
+      ref: ref,
+      onSuccess: () => goTo(NavBarView.route),
+    );
 
-//     return Form(
-//       key: key,
-//       child: AuthView(
-//         heading: "Welcome back",
-//         description: "Log in to continue your personalized skin care journey.",
-//         contents: [
-//           TextFieldWidget(
-//             textController: _email,
-//             hintText: "Email",
-//             validator: (v) => v!.validateEmail,
-//             textInputAction: TextInputAction.next,
-//             keyboardType: TextInputType.emailAddress,
-//           ),
-//           TextFieldWidget(
-//             textController: _password,
-//             hintText: 'Password',
-//             isPassword: true,
-//             keyboardType: TextInputType.visiblePassword,
-//             textInputAction: TextInputAction.done,
-//             onSubmit: (_) {
-//               if (key.currentState?.validate() ?? false) {
-//                 signInNotifier.signIn(
-//                   email: _email.text,
-//                   password: _password.text,
-//                 );
-//               }
-//             },
-//           ),
-//           Align(
-//             alignment: Alignment.topRight,
-//             child: GestureDetector(
-//               onTap: () => goTo(ForgotPasswordView.route),
-//               child: const TextWidget(
-//                 'Forgot Password?',
-//                 fontWeight: w500,
-//                 fontSize: kfsVeryTiny,
-//                 textColor: Palette.primaryColor,
-//               ),
-//             ),
-//           ),
-//         ],
-//         mainButtonAction: () {
-//           if (key.currentState?.validate() ?? false) {
-//             signInNotifier.signIn(
-//               email: _email.text,
-//               password: _password.text,
-//             );
-//           }
-//         },
-//         mainButtonText: 'Sign in',
-//         isSignIn: true,
-//       ),
-//     );
-//   }
+    return Form(
+      key: key,
+      child: AuthView(
+        heading: "Welcome back",
+        description: "Log in to continue your personalized skin care journey.",
+        contents: [
+          TextFieldWidget(
+            textController: _email,
+            hintText: "Email",
+            validator: (v) => v!.validateEmail,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+          ),
+          TextFieldWidget(
+            textController: _password,
+            hintText: 'Password',
+            isPassword: true,
+            keyboardType: TextInputType.visiblePassword,
+            textInputAction: TextInputAction.done,
+            onSubmit: (_) {
+              if (key.currentState?.validate() ?? false) {
+                signInNotifier.signIn(
+                  email: _email.text,
+                  password: _password.text,
+                );
+              }
+            },
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: GestureDetector(
+              onTap: () => goTo(ForgotPasswordView.route),
+              child: const TextWidget(
+                'Forgot Password?',
+                fontWeight: w500,
+                fontSize: kfsVeryTiny,
+                textColor: Palette.primaryColor,
+              ),
+            ),
+          ),
+        ],
+        mainButtonAction: () {
+          if (key.currentState?.validate() ?? false) {
+            signInNotifier.signIn(
+              email: _email.text,
+              password: _password.text,
+            );
+          }
+        },
+        mainButtonText: 'Sign in',
+        isSignIn: true,
+      ),
+    );
+  }
 
-//   late TextEditingController _email;
-//   late TextEditingController _password;
+  late TextEditingController _email;
+  late TextEditingController _password;
 
-//   @override
-//   void initState() {
-//     _email = TextEditingController();
-//     _password = TextEditingController();
-//     super.initState();
-//   }
-// }
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
+  }
+}

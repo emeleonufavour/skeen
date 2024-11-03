@@ -55,7 +55,7 @@ class NavBarView extends ConsumerWidget {
             Tile(
               isSelected: currentIndex == 3,
               image: Assets.chatBot,
-              title: 'Chat bot',
+              title: 'Chat',
               onTap: () => goTo(ChatBotView.route),
             ),
             Tile(

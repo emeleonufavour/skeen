@@ -15,7 +15,7 @@ class SkeenApp extends StatelessWidget {
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: navigatorKey,
         theme: SkeenTheme.theme,
-        initialRoute: NavBarView.route,
+        initialRoute: SplashView.route,
         builder: (context, child) {
           final mediaQueryData = MediaQuery.of(context);
           final scale = mediaQueryData.textScaler.clamp(

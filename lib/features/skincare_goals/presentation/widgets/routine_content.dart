@@ -23,6 +23,7 @@ class RoutineContent extends ConsumerWidget {
         TextFieldWidget(
           textController: textController,
           hintText: "Name of your routine",
+          maxLines: 1,
           onChanged: (value) =>
               ref.read(routineTextProvider.notifier).state = value,
         ).padding(vertical: 14.h),

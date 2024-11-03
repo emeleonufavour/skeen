@@ -170,6 +170,7 @@ class _AddProductBottomSheetState extends ConsumerState<AddProductBottomSheet> {
                       TextFieldWidget(
                         textController: _controller,
                         hintText: "Product name",
+                        maxLines: 1,
                         onChanged: (value) {
                           ref.read(textProvider.notifier).state = value;
                           validateProductName(value);

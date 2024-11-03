@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:skeen/cores/cores.dart';
 
 class AppBarWidget extends StatelessWidget {
@@ -11,17 +12,7 @@ class AppBarWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: goBack,
-              child: Container(
-                padding: EdgeInsets.all(kMinute.w),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Palette.text1),
-                ),
-                child: ImageWidget(url: Assets.arrowLeft),
-              ),
-            ),
+            GestureDetector(onTap: goBack, child: Icon(CupertinoIcons.back)),
             TextWidget(
               title,
               fontWeight: w500,

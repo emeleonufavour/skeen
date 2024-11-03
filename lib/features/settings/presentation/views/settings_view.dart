@@ -22,51 +22,51 @@ class SettingsView extends ConsumerWidget {
         ),
         centerTitle: true,
         actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: kfsMedium, top: kfsMedium),
-            child: TextWidget(
-              "Logout",
-              fontWeight: w500,
-              textColor: Palette.borderColor,
-            ),
-          )
+          // Padding(
+          //   padding: EdgeInsets.only(right: kfsMedium, top: kfsMedium),
+          //   child: TextWidget(
+          //     "Logout",
+          //     fontWeight: w500,
+          //     textColor: Palette.borderColor,
+          //   ),
+          // )
         ],
       ),
       body: Column(
         children: [
-          Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(kfsTiny.w),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Palette.bg1,
-                ),
-                child: TextWidget(
-                  name.initials,
-                  fontWeight: w500,
-                ),
-              ),
-              TextWidget(
-                name,
-                fontWeight: w600,
-                fontSize: 16.sp,
-              ),
-              TextWidget(
-                "Alexanurul1489@gmail.com".toLowerCase(),
-                fontWeight: w400,
-                fontSize: 12.sp,
-                textColor: Palette.text1,
-              ),
-              SizedBox(
-                width: screenWidth / 3.5,
-                child: Button.smallSized(
-                  onTap: () => goTo(EditProfileView.route),
-                  text: "Edit profile",
-                ),
-              ),
-            ].separate(12.h.verticalSpace),
-          ),
+          // Column(
+          //   children: [
+          //     Container(
+          //       padding: EdgeInsets.all(kfsTiny.w),
+          //       decoration: const BoxDecoration(
+          //         shape: BoxShape.circle,
+          //         color: Palette.bg1,
+          //       ),
+          //       child: TextWidget(
+          //         name.initials,
+          //         fontWeight: w500,
+          //       ),
+          //     ),
+          //     TextWidget(
+          //       name,
+          //       fontWeight: w600,
+          //       fontSize: 16.sp,
+          //     ),
+          //     TextWidget(
+          //       "Alexanurul1489@gmail.com".toLowerCase(),
+          //       fontWeight: w400,
+          //       fontSize: 12.sp,
+          //       textColor: Palette.text1,
+          //     ),
+          //     SizedBox(
+          //       width: screenWidth / 3.5,
+          //       child: Button.smallSized(
+          //         onTap: () => goTo(EditProfileView.route),
+          //         text: "Edit profile",
+          //       ),
+          //     ),
+          //   ].separate(12.h.verticalSpace),
+          // ),
           30.h.verticalSpace,
           _SettingsOption(
             option: "App icon",
