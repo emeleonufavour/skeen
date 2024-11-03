@@ -1,140 +1,120 @@
-// // import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// // import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:skeen/cores/cores.dart';
-// import 'package:skeen/features/features.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeen/cores/errors/base_failures.dart';
+import 'package:skeen/cores/utils/exception/firebase_exception.dart';
+import 'package:skeen/cores/utils/supabase_helper.dart';
+import 'package:skeen/features/auth/data/model/auth_result_model.dart';
+import 'package:skeen/features/auth/data/model/sign_up_params_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-// // final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>(
-// //   (ref) => AuthRemoteDataSourceImpl(
-// //     firebaseHelper: FirebaseHelper(),
-// //     googleSignIn: GoogleSignIn(),
-// //   ),
-// // );
+// final supabaseClient = Supabase.instance.client;
 
-// abstract interface class AuthRemoteDataSource {
-//   Future<AuthResultModel> login(String email, String password);
+final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>(
+  (ref) => AuthRemoteDataSourceImpl(
+    supabaseHelper: SupabaseHelper(),
+  ),
+);
 
-//   Future<AuthResultModel> signUp(SignUpParamsModel signUpForm);
+abstract interface class AuthRemoteDataSource {
+  Future<AuthResultModel> login(String email, String password);
+  Future<AuthResultModel> signUp(SignUpParamsModel signUpForm);
+  Future<AuthResultModel> signInWithGoogle();
+  Future<void> forgotPassword(String email);
+  Future<void> logOut();
+  Future<bool> isLoggedIn();
+}
 
-//   Future<AuthResultModel> signInWithGoogle();
+class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
+  final SupabaseHelper _supabaseHelper;
 
-//   Future<void> forgotPassword(String email);
+  AuthRemoteDataSourceImpl({
+    required SupabaseHelper supabaseHelper,
+  }) : _supabaseHelper = supabaseHelper;
 
-//   Future<void> logOut();
+  @override
+  Future<void> forgotPassword(String email) async {
+    await _supabaseHelper.client.auth.resetPasswordForEmail(
+      email,
+      redirectTo: 'your-app-scheme://reset-callback',
+    );
+  }
 
-//   Future<bool> isLoggedIn();
-// }
+  @override
+  Future<void> logOut() async {
+    await _supabaseHelper.client.auth.signOut();
+  }
 
-// class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
-//   final FirebaseHelper _firebaseHelper;
-//   final GoogleSignIn _googleSignIn;
+  @override
+  Future<AuthResultModel> login(String email, String password) async {
+    final response = await _supabaseHelper.client.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
 
-//   AuthRemoteDataSourceImpl({
-//     required FirebaseHelper firebaseHelper,
-//     required GoogleSignIn googleSignIn,
-//   })  : _firebaseHelper = firebaseHelper,
-//         _googleSignIn = googleSignIn;
+    if (response.user == null) {
+      throw const BaseFailures(
+        message: "Unable to login user with this credential",
+      );
+    }
 
-//   @override
-//   Future<void> forgotPassword(String email) async {
-//     return await _firebaseHelper.auth.sendPasswordResetEmail(email: email);
-//   }
+    return const AuthResultModel(
+      success: true,
+      message: 'Login successful!',
+    );
+  }
 
-//   @override
-//   Future<void> logOut() async {
-//     return await _firebaseHelper.auth.signOut();
-//   }
+  @override
+  Future<AuthResultModel> signUp(SignUpParamsModel signUpForm) async {
+    final response = await _supabaseHelper.client.auth.signUp(
+      email: signUpForm.email,
+      password: signUpForm.password,
+      data: {'full_name': signUpForm.fullName},
+    );
 
-//   @override
-//   Future<AuthResultModel> login(String email, String password) async {
-//     final UserCredential userCredential = await _firebaseHelper.auth
-//         .signInWithEmailAndPassword(email: email, password: password);
+    if (response.user == null) {
+      throw const BaseFailures(
+        message: "Unable to create account with this credential",
+      );
+    }
 
-//     if (userCredential.user == null) {
-//       throw const BaseFailures(
-//         message: "Unable to login user with this credential",
-//       );
-//     }
+    await _supabaseHelper.saveUser(
+      user: response.user!,
+      fullName: signUpForm.fullName,
+    );
 
-//     return const AuthResultModel(
-//       success: true,
-//       message: 'Login successful!',
-//     );
-//   }
+    return const AuthResultModel(
+      success: true,
+      message: 'Account created successfully!',
+    );
+  }
 
-//   @override
-//   Future<AuthResultModel> signUp(SignUpParamsModel signUpForm) async {
-//     final UserCredential userCredential =
-//         await _firebaseHelper.auth.createUserWithEmailAndPassword(
-//       email: signUpForm.email,
-//       password: signUpForm.password,
-//     );
+  @override
+  Future<AuthResultModel> signInWithGoogle() async {
+    final response = await _supabaseHelper.client.auth.signInWithOAuth(
+      OAuthProvider.google,
+      redirectTo: 'your-app-scheme://google-callback',
+    );
 
-//     if (userCredential.user == null) {
-//       throw const BaseFailures(
-//         message: "Unable to create account with this credential",
-//       );
-//     }
+    if (!response) {
+      throw const NoGoogleAccountChosenException();
+    }
 
-//     final User user = userCredential.user!;
+    // The user info will be available after the OAuth callback
+    final user = _supabaseHelper.client.auth.currentUser;
+    if (user != null) {
+      await _supabaseHelper.saveUser(
+        user: user,
+        authType: 'google',
+      );
+    }
 
-//     await user.updateDisplayName(signUpForm.fullName);
-//     await user.updatePassword(signUpForm.password);
+    return const AuthResultModel(
+      message: 'Google sign in successful!',
+      success: true,
+    );
+  }
 
-//     await _saveUser(user: user, params: signUpForm);
-
-//     return const AuthResultModel(
-//       success: true,
-//       message: 'Account created successfully!',
-//     );
-//   }
-
-//   Future<void> _saveUser({
-//     required User user,
-//     SignUpParamsModel? params,
-//     bool isEmailAuth = true,
-//   }) async {
-//     _firebaseHelper.userCollectionRef().doc(user.uid).set({
-//       'user_id': user.uid,
-//       'email': user.email,
-//       'full_name': params?.fullName ?? user.displayName,
-//       'createdAt': _firebaseHelper.timestamp,
-//       'auth_type': isEmailAuth ? 'emailPassword' : 'google',
-//     });
-//   }
-
-//   @override
-//   Future<AuthResultModel> signInWithGoogle() async {
-//     final GoogleSignInAccount? user = await _googleSignIn.signIn();
-
-//     if (user == null) {
-//       throw const NoGoogleAccountChosenException();
-//     }
-//     final GoogleSignInAuthentication googleAuth = await user.authentication;
-
-//     final OAuthCredential credential = GoogleAuthProvider.credential(
-//       accessToken: googleAuth.accessToken,
-//       idToken: googleAuth.idToken,
-//     );
-
-//     final UserCredential userDetailsResponse =
-//         await FirebaseAuth.instance.signInWithCredential(credential);
-
-//     await _saveUser(
-//       user: userDetailsResponse.user!,
-//       isEmailAuth: false,
-//     );
-
-//     return const AuthResultModel(
-//       message: 'Google sign in successful!',
-//       success: true,
-//     );
-//   }
-
-//   @override
-//   Future<bool> isLoggedIn() async {
-//     final res = _firebaseHelper.currentUserId != null ||
-//         _firebaseHelper.currentUserId == '';
-//     return res;
-//   }
-// }
+  @override
+  Future<bool> isLoggedIn() async {
+    return _supabaseHelper.currentUserId != null;
+  }
+}

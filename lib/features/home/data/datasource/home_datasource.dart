@@ -6,8 +6,8 @@ import 'package:skeen/features/features.dart';
 
 final homeDatasourceProvider = Provider<HomeDatasource>(
   (ref) => HomeDatasourceImpl(
-      // firebaseHelper: FirebaseHelper(),
-      ),
+    supabaseHelper: SupabaseHelper(),
+  ),
 );
 
 abstract class HomeDatasource {
@@ -16,34 +16,29 @@ abstract class HomeDatasource {
 }
 
 class HomeDatasourceImpl extends HomeDatasource {
-  // final FirebaseHelper firebaseHelper;
+  final SupabaseHelper supabaseHelper;
 
-  HomeDatasourceImpl(
-      // required this.firebaseHelper,
-      );
+  HomeDatasourceImpl({
+    required this.supabaseHelper,
+  });
 
   @override
   Future<UserModel?> getUser() async {
-    // final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUser = supabaseHelper.client.auth.currentUser;
 
-    // return UserModel(
-    //   email: currentUser?.email,
-    //   fullName: currentUser?.displayName,
-    //   userId: currentUser?.uid,
-    // );
+    if (currentUser == null) return null;
+
+    return UserModel(
+      email: currentUser.email,
+      fullName: currentUser.userMetadata?['full_name'],
+      userId: currentUser.id,
+    );
   }
 
   @override
   Future<List<TipsAndTricksModel>?> getTipsAndTricks() async {
-    // final QuerySnapshot<Map<String, dynamic>> querySnapshot =
-    //     await firebaseHelper.tipsAndTricksRef().get();
+    final data = await supabaseHelper.getTipsAndTricks();
 
-    // final List<TipsAndTricksModel> tipsAndTricks = querySnapshot.docs.map(
-    //   (doc) {
-    //     return TipsAndTricksModel.fromJson(doc.data());
-    //   },
-    // ).toList();
-
-    // return tipsAndTricks;
+    return data.map((doc) => TipsAndTricksModel.fromJson(doc)).toList();
   }
 }

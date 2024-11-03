@@ -24,14 +24,14 @@ class SkeenActivities extends StatelessWidget {
                 _Tile(
                   title: 'Scan skin products',
                   subtitle:
-                      'Users can scan products, check ingredients, verify claims, and assess routine fit.',
+                      'You can scan product ingredients to know if it is right for you',
                   iconPath: Assets.lotus,
                   onTap: () => SelectImageOptionsBS.show(context),
                 ),
                 _Tile(
                   title: 'Skincare goal',
                   subtitle:
-                      'Users can set personalized skincare goals, track progress, and adjust routines.',
+                      'You can set personalized skincare goals and adjust routines.',
                   iconPath: Assets.flower,
                   onTap: () => goTo(SkincareGoalsView.route),
                 ),

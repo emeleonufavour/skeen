@@ -19,17 +19,17 @@ class ChatTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        GestureDetector(
-          onTap: () => goTo(CameraView.route),
-          child: Container(
-            padding: const EdgeInsets.all(kfsTiny),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(width: 1, color: Palette.borderColor),
-            ),
-            child: SvgPicture.asset(Assets.scanBarcode),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: () => goTo(CameraView.route),
+        //   child: Container(
+        //     padding: const EdgeInsets.all(kfsTiny),
+        //     decoration: BoxDecoration(
+        //       shape: BoxShape.circle,
+        //       border: Border.all(width: 1, color: Palette.borderColor),
+        //     ),
+        //     child: SvgPicture.asset(Assets.scanBarcode),
+        //   ),
+        // ),
         Expanded(
           child: TextFormField(
             controller: controller,

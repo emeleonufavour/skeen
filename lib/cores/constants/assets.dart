@@ -1,5 +1,15 @@
 class Assets {
-  // static String _pngAsset(String value) => 'assets/pngs/$value.png';
+  static String _pngAsset(String value) => 'assets/pngs/$value.png';
+
+  static String beautySleep = _pngAsset("beauty_sleep");
+  static String exfoliation = _pngAsset("exfoliation");
+  static String handsOff = _pngAsset("hands_off");
+  static String healthyFood = _pngAsset("healthy_food");
+  static String manDrinking = _pngAsset("man_drinking");
+  static String nightSkinCare = _pngAsset("night_skincare");
+  static String skinCareOil = _pngAsset("skincare_oil");
+  static String womanSun = _pngAsset("woman_sun");
+
   static String _svgAsset(String value) => 'assets/svgs/$value.svg';
 
   static String cancel = _svgAsset("cancel");

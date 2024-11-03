@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:skeen/cores/cores.dart';
 import 'package:skeen/features/settings/presentation/components/faq_component.dart';
+
+import '../../notifiers/email_notifier.dart';
 
 List<Map<String, String>> faqs = [
   {
@@ -30,10 +33,16 @@ class HelpSettingsView extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextWidget(
-            "FAQ",
-            fontWeight: w600,
-            fontSize: 16.sp,
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () => goBack(), icon: Icon(CupertinoIcons.back)),
+              TextWidget(
+                "FAQ",
+                fontWeight: w600,
+                fontSize: 16.sp,
+              ),
+            ],
           ),
           Expanded(
             child: ListView.separated(
@@ -63,7 +72,7 @@ class HelpSettingsView extends StatelessWidget {
             fontWeight: w500,
           ),
           5.h.verticalSpace,
-          Button(onTap: () {}, text: "Send a message")
+          EmailButton(),
         ],
       ).padding(horizontal: kGlobalPadding.w, vertical: 10.h),
       useSingleScroll: false,
