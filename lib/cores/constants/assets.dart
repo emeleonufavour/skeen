@@ -10,6 +10,22 @@ class Assets {
   static String skinCareOil = _pngAsset("skincare_oil");
   static String womanSun = _pngAsset("woman_sun");
 
+  static String bentoniteClay = _pngAsset("bentonite_clay");
+  static String ceraVeFacialMoisturising =
+      _pngAsset("CeraVe_Facial_ Moisturising_ Cream_with_ SPF");
+  static String ceraVeHydratingCleanser =
+      _pngAsset("Cerave_Hydrating_ Cleanser");
+  static String ceraVeSASmoothingCream =
+      _pngAsset("Cerave_SA_ Smoothing_ Cream");
+  static String ceraVeSASmoothingCleanser =
+      _pngAsset("Crave_SA_ Smoothing_ cleanser");
+  static String drRashel = _pngAsset("Dr. Rashel_3_in_1_ facial_serum _set");
+  static String niveaBodyLotion =
+      _pngAsset("Nivea_Perfect _and_ Radiant_Body_ Lotion");
+  static String niveaRadiantLuminous =
+      _pngAsset("NIVEA_Perfect_ and_Radiant_ Luminous_360 Anti_Dark Mark");
+  static String tiamSnails = _pngAsset("Tiam_Snail& Azulene_Water_ Essence");
+
   static String _svgAsset(String value) => 'assets/svgs/$value.svg';
 
   static String cancel = _svgAsset("cancel");
