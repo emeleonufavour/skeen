@@ -62,6 +62,9 @@ class RouteGenerator {
       case TrackProductView.route:
         return pageRoute(const TrackProductView());
 
+      case AppIconScreen.route:
+        return pageRoute(const AppIconScreen());
+
       default:
         return errorRoute();
     }
