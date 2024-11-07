@@ -68,15 +68,15 @@ class SettingsView extends ConsumerWidget {
           //   ].separate(12.h.verticalSpace),
           // ),
           30.h.verticalSpace,
-          _SettingsOption(
-            option: "App icon",
-            iconBackgroundColor: const Color(0xff2BB5F2),
-            onTap: () => goTo(AppIconScreen.route),
-            icon: const Icon(
-              Icons.apps,
-              color: Palette.white,
-            ),
-          ),
+          // _SettingsOption(
+          //   option: "App icon",
+          //   iconBackgroundColor: const Color(0xff2BB5F2),
+          //   onTap: () => goTo(AppIconScreen.route),
+          //   icon: const Icon(
+          //     Icons.apps,
+          //     color: Palette.white,
+          //   ),
+          // ),
           _SettingsOption(
             option: "Help and support",
             iconBackgroundColor: const Color(0xffDD5380),
