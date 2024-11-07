@@ -1,18 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:skeen/cores/constants/assets.dart';
 
 class Product {
   final String name;
   final Map<String, int> scores;
   final String imagePath;
-  final String url;
 
-  Product(this.name, this.scores, this.imagePath, this.url);
-
-  @override
-  String toString() {
-    return 'Product(name: $name, scores: $scores, imagePath: $imagePath, url: $url)';
-  }
+  Product(this.name, this.scores, this.imagePath);
 }
 
 final List<Product> allProducts = [
@@ -27,8 +20,7 @@ final List<Product> allProducts = [
         'Redness reduction': 7,
         'Detoxification': 6,
       },
-      Assets.ceraVeSASmoothingCream,
-      "https://africa.cerave.com/en/our-products/moisturizers/sa-smoothing-cream"),
+      Assets.ceraVeSASmoothingCream),
   Product(
       'Cerave Hydrating Cleanser',
       {
@@ -40,8 +32,7 @@ final List<Product> allProducts = [
         'Redness reduction': 4,
         'Detoxification': 4,
       },
-      Assets.ceraVeHydratingCleanser,
-      "https://www.cerave.com/skincare/cleansers/hydrating-facial-cleanser"),
+      Assets.ceraVeHydratingCleanser),
   Product(
       'Crave SA Smoothing cleanser',
       {
@@ -53,8 +44,7 @@ final List<Product> allProducts = [
         'Redness reduction': 7,
         'Detoxification': 5,
       },
-      Assets.ceraVeSASmoothingCleanser,
-      "https://africa.cerave.com/en/our-products/cleansers/sa-smoothing-cleanser"),
+      Assets.ceraVeSASmoothingCleanser),
   Product(
       'CeraVe Facial Moisturising Cream with SPF',
       {
@@ -66,8 +56,7 @@ final List<Product> allProducts = [
         'Redness reduction': 4,
         'Detoxification': 4,
       },
-      Assets.ceraVeFacialMoisturising,
-      "https://www.cerave.com/skincare/moisturizers/am-facial-moisturizing-lotion-with-sunscreen"),
+      Assets.ceraVeFacialMoisturising),
   Product(
       'NIVEA Perfect and Radiant Luminous 360 Anti Dark Mark',
       {
@@ -79,8 +68,7 @@ final List<Product> allProducts = [
         'Redness reduction': 4,
         'Detoxification': 5,
       },
-      Assets.niveaRadiantLuminous,
-      "https://www.nivea.com.ng/products/perfect-and-radiant-luminous630-anti-dark-marks-serum-60010510044540272.html"),
+      Assets.niveaRadiantLuminous),
   Product(
       'Dr. Rashel 3 in 1 facial serum set',
       {
@@ -92,8 +80,7 @@ final List<Product> allProducts = [
         'Redness reduction': 6,
         'Detoxification': 7,
       },
-      Assets.drRashel,
-      "https://www.drrashelsa.co.za/products/dr-rashel-complete-facial-serum-set-3-pack?srsltid=AfmBOoq4iI41ndoWjOMVMXKvSNgOfGuEiljzpR1QZzbmQ8wdeDRQ7Jcw"),
+      Assets.drRashel),
   Product(
       'Royal glow bentonite clay powder',
       {
@@ -105,8 +92,7 @@ final List<Product> allProducts = [
         'Redness reduction': 4,
         'Detoxification': 9,
       },
-      Assets.bentoniteClay,
-      "https://www.jumia.com.ng/royal-glow-bentonite-clay-powder-cosmetics-grade-82142641.html?srsltid=AfmBOopRecziwxvR7v_sBuYZK_yw4T3z--u_uOSHMLArf7TfeKXK4fuL"),
+      Assets.bentoniteClay),
   Product(
       'Tiam slim Azunlene Water Essense',
       {
@@ -118,8 +104,7 @@ final List<Product> allProducts = [
         'Redness reduction': 8,
         'Detoxification': 6,
       },
-      Assets.tiamSnails,
-      "https://nectarbeautyhub.com/products/tiam-snail-azulene-water-essence"),
+      Assets.tiamSnails),
   Product(
       'Nivea Perfect and Radiant Body Lotion.',
       {
@@ -131,6 +116,5 @@ final List<Product> allProducts = [
         'Redness reduction': 4,
         'Detoxification': 5,
       },
-      Assets.niveaBodyLotion,
-      "https://www.nivea.com.ng/products/nivea-perfect-and-radiant-body-lotion-40059003786060272.html"),
+      Assets.niveaBodyLotion),
 ];

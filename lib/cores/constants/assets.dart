@@ -10,10 +10,6 @@ class Assets {
   static String skinCareOil = _pngAsset("skincare_oil");
   static String womanSun = _pngAsset("woman_sun");
 
-  static String defaultLogo = _pngAsset("default");
-  static String blackLogo = _pngAsset("black");
-  static String whiteLogo = _pngAsset("white");
-
   static String bentoniteClay = _pngAsset("bentonite_clay");
   static String ceraVeFacialMoisturising =
       _pngAsset("CeraVe_Facial_ Moisturising_ Cream_with_ SPF");
