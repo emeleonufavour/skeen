@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeen/cores/cores.dart';
+import 'package:skeen/features/daily_log/presentation/daily_log_view.dart';
 import 'package:skeen/features/features.dart';
 
 class NavBarView extends ConsumerWidget {
@@ -8,7 +9,7 @@ class NavBarView extends ConsumerWidget {
   static const String route = '/nav_bar';
   static final pages = [
     const HomeView(),
-    Container(color: Colors.yellow),
+    DailyLogView(),
     Container(color: Colors.yellow),
     Container(color: Colors.blue),
     const SettingsView(),

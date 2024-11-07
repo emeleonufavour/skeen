@@ -1,4 +1,7 @@
+import 'package:skeen/cores/constants/font_size.dart';
+import 'package:skeen/cores/constants/palette.dart';
 import 'package:skeen/cores/cores.dart';
+import 'package:skeen/features/track_product/track_product.dart';
 
 class RecommendationBox extends StatelessWidget {
   final Color tagColor;
@@ -18,59 +21,85 @@ class RecommendationBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: screenWidth * .4,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(kfsExtraLarge.w),
-        color: Palette.white,
-        border: Border.all(
-          color: Palette.borderColor,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final imageHeight = constraints.maxHeight * 0.5; // 50% for image
+        final contentHeight = constraints.maxHeight * 0.45; // 50% for content
+
+        return Container(
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(kfsExtraLarge.w),
-            child: ImageWidget(url: imagePath),
+            color: Palette.white,
+            border: Border.all(
+              color: Palette.borderColor,
+            ),
           ),
-          Column(
+          clipBehavior: Clip.hardEdge,
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: kfsVeryTiny.w,
-                  vertical: 2.h,
-                ),
-                decoration: BoxDecoration(
-                  color: tagColor,
-                  borderRadius: BorderRadius.circular(kfs100.w),
-                ),
-                child: TextWidget(
-                  tagName,
-                  fontSize: kMinute,
-                  textColor: Palette.white,
-                  fontWeight: w500,
+              // Image Section
+              SizedBox(
+                height: imageHeight,
+                width: double.infinity,
+                child: ImageWidget(
+                  url: imagePath,
+                  fit: BoxFit.contain,
                 ),
               ),
-              kfs8.verticalSpace,
-              TextWidget(
-                title,
-                fontWeight: w500,
-                textColor: Palette.text2,
-              ),
-              kSize5.verticalSpace,
-              TextWidget(
-                description,
-                fontSize: kfsVeryTiny,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                textColor: Palette.text1,
+              // Content Section
+              SizedBox(
+                height: contentHeight,
+                child: Padding(
+                  padding: EdgeInsets.all(kfs8.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Tag
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: kfsVeryTiny.w,
+                          vertical: 2.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: tagColor,
+                          borderRadius: BorderRadius.circular(kfs100.w),
+                        ),
+                        child: TextWidget(
+                          tagName,
+                          fontSize: kMinute,
+                          textColor: Palette.white,
+                          fontWeight: w500,
+                        ),
+                      ),
+                      SizedBox(height: kfs8.h),
+                      // Title
+                      TextWidget(
+                        title,
+                        fontWeight: w500,
+                        textColor: Palette.text2,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: kSize5.h),
+                      // Description
+                      // Expanded(
+                      //   child: TextWidget(
+                      //     description,
+                      //     fontSize: kfsVeryTiny,
+                      //     maxLines: 2,
+                      //     overflow: TextOverflow.ellipsis,
+                      //     textColor: Palette.text1,
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
               ),
             ],
-          ).padding(horizontal: kfs8.w, vertical: kfs8.h),
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }

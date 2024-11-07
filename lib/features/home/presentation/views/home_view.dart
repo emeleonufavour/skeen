@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeen/cores/cores.dart';
 import 'package:skeen/features/features.dart';
 
+import '../widgets/recommendation_section.dart';
+
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
@@ -29,10 +31,22 @@ class _HomeViewState extends ConsumerState<HomeView> {
     return BaseScaffold(
       body: Column(
         children: [
-          HomeAppBar(name: userDetails?.fullName ?? ''),
-          const TipsAndTrickWidget(),
-          const SkeenActivities(),
-        ].separate(kGlobalPadding.verticalSpace),
+          const HomeAppBar(
+            name: '',
+          ),
+          kfsMedium.verticalSpace,
+          SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Column(
+              children: [
+                const TipsAndTrickWidget(),
+                const SkeenActivities(),
+                const RecommendationSection(),
+                // (screenHeight * .1).verticalSpace,
+              ].separate(kGlobalPadding.verticalSpace),
+            ).padding(horizontal: kfsExtraLarge.w, vertical: 0),
+          ).expand(),
+        ],
       ),
       padding: EdgeInsets.zero,
       useSingleScroll: false,

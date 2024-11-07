@@ -10,12 +10,12 @@ List<Map<String, String>> carouselData = [
   //   "tip":
   //       "Get 7-9 hours of sleep daily. Your skin repairs and renews itself while you rest.",
   // },
-  {
-    "img": Assets.exfoliation,
-    "title": "Smart Exfoliation",
-    "tip":
-        "Exfoliate 1-2 times weekly to remove dead skin cells. Less is more!",
-  },
+  // {
+  //   "img": Assets.exfoliation,
+  //   "title": "Smart Exfoliation",
+  //   "tip":
+  //       "Exfoliate 1-2 times weekly to remove dead skin cells. Less is more!",
+  // },
   {
     "img": Assets.handsOff,
     "title": "Hands Off!",
@@ -89,7 +89,7 @@ class TipsAndTrickWidget extends ConsumerWidget {
         //     child: __widget(tip, index),
         //   );
       },
-    ).padding(horizontal: kfsExtraLarge);
+    ).padding(horizontal: kfsExtraLarge - 7);
   }
 
   Widget __widget(TipsAndTricksEntity? tip, int index) {
@@ -118,7 +118,7 @@ class TipsAndTrickWidget extends ConsumerWidget {
                     TextWidget(tip?.description ?? '')
                   ],
                 )
-                    .padding(left: kGlobalPadding, top: kXtremeLarge)
+                    .padding(left: kGlobalPadding - 7, top: kXtremeLarge)
                     .expand(flex: 3),
                 const Spacer(),
               ],
