@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeen/cores/cores.dart';
 import 'package:skeen/features/home/domain/entity/products_entity.dart';
@@ -12,7 +12,7 @@ class RecommendationSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recommendations = ref.watch(recommendationProvider);
+    final List<Product> recommendations = ref.watch(recommendationProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,6 +56,7 @@ class RecommendationSection extends ConsumerWidget {
                         imagePath: product.imagePath,
                         title: product.name,
                         description: _getProductDescription(product),
+                        onTap: () => _launchURL(product.productLink),
                       );
                     },
                   ),
@@ -63,6 +64,10 @@ class RecommendationSection extends ConsumerWidget {
               ),
       ],
     );
+  }
+
+  void _launchURL(String url) async {
+    if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
   }
 
   String _getProductDescription(Product product) {

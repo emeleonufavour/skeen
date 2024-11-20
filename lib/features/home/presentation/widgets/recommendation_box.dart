@@ -9,6 +9,7 @@ class RecommendationBox extends StatelessWidget {
   final String imagePath;
   final String title;
   final String description;
+  final void Function()? onTap;
 
   const RecommendationBox({
     required this.tagColor,
@@ -16,6 +17,7 @@ class RecommendationBox extends StatelessWidget {
     required this.imagePath,
     required this.title,
     required this.description,
+    this.onTap,
     super.key,
   });
 
@@ -26,77 +28,80 @@ class RecommendationBox extends StatelessWidget {
         final imageHeight = constraints.maxHeight * 0.5; // 50% for image
         final contentHeight = constraints.maxHeight * 0.45; // 50% for content
 
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(kfsExtraLarge.w),
-            color: Palette.white,
-            border: Border.all(
-              color: Palette.borderColor,
-            ),
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Image Section
-              SizedBox(
-                height: imageHeight,
-                width: double.infinity,
-                child: ImageWidget(
-                  url: imagePath,
-                  fit: BoxFit.contain,
-                ),
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(kfsExtraLarge.w),
+              color: Palette.white,
+              border: Border.all(
+                color: Palette.borderColor,
               ),
-              // Content Section
-              SizedBox(
-                height: contentHeight,
-                child: Padding(
-                  padding: EdgeInsets.all(kfs8.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Tag
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: kfsVeryTiny.w,
-                          vertical: 2.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: tagColor,
-                          borderRadius: BorderRadius.circular(kfs100.w),
-                        ),
-                        child: TextWidget(
-                          tagName,
-                          fontSize: kMinute,
-                          textColor: Palette.white,
-                          fontWeight: w500,
-                        ),
-                      ),
-                      SizedBox(height: kfs8.h),
-                      // Title
-                      TextWidget(
-                        title,
-                        fontWeight: w500,
-                        textColor: Palette.text2,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: kSize5.h),
-                      // Description
-                      // Expanded(
-                      //   child: TextWidget(
-                      //     description,
-                      //     fontSize: kfsVeryTiny,
-                      //     maxLines: 2,
-                      //     overflow: TextOverflow.ellipsis,
-                      //     textColor: Palette.text1,
-                      //   ),
-                      // ),
-                    ],
+            ),
+            clipBehavior: Clip.hardEdge,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Image Section
+                SizedBox(
+                  height: imageHeight,
+                  width: double.infinity,
+                  child: ImageWidget(
+                    url: imagePath,
+                    fit: BoxFit.contain,
                   ),
                 ),
-              ),
-            ],
+                // Content Section
+                SizedBox(
+                  height: contentHeight,
+                  child: Padding(
+                    padding: EdgeInsets.all(kfs8.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Tag
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: kfsVeryTiny.w,
+                            vertical: 2.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: tagColor,
+                            borderRadius: BorderRadius.circular(kfs100.w),
+                          ),
+                          child: TextWidget(
+                            tagName,
+                            fontSize: kMinute,
+                            textColor: Palette.white,
+                            fontWeight: w500,
+                          ),
+                        ),
+                        SizedBox(height: kfs8.h),
+                        // Title
+                        TextWidget(
+                          title,
+                          fontWeight: w500,
+                          textColor: Palette.text2,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: kSize5.h),
+                        // Description
+                        // Expanded(
+                        //   child: TextWidget(
+                        //     description,
+                        //     fontSize: kfsVeryTiny,
+                        //     maxLines: 2,
+                        //     overflow: TextOverflow.ellipsis,
+                        //     textColor: Palette.text1,
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

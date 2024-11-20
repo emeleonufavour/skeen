@@ -73,8 +73,8 @@ class ChatBotNotifier extends StateNotifier<ChatBotState> {
     if (state.messages.isEmpty) {
       if (response != null) {
         prompt =
-            'This is the context of the whole conversation, engage the person based obn questions asked that relates to'
-            ' skincare products with these ingredients ${response.ingredients}. No yapping.';
+            'This is the context of the whole conversation, engage the person based on questions asked that relates to'
+            ' skincare products with these ingredients ${response.ingredients}. If the person asks for something not related, tell them they are asking a question out of topic and redirect them back to the topic. No yapping.';
       }
 
       _ref.read(disappearProvider.notifier).toggle();

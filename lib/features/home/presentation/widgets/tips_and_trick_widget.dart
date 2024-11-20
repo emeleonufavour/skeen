@@ -16,12 +16,12 @@ List<Map<String, String>> carouselData = [
   //   "tip":
   //       "Exfoliate 1-2 times weekly to remove dead skin cells. Less is more!",
   // },
-  {
-    "img": Assets.handsOff,
-    "title": "Hands Off!",
-    "tip":
-        "Keep your hands away from your face to prevent breakouts and bacteria transfer.",
-  },
+  // {
+  //   "img": Assets.handsOff,
+  //   "title": "Hands Off!",
+  //   "tip":
+  //       "Keep your hands away from your face to prevent breakouts and bacteria transfer.",
+  // },
   {
     "img": Assets.healthyFood,
     "title": "Eat Well",
