@@ -12,7 +12,20 @@
           "package_name": "com.skeen.hack"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "770305179619-8khegmpdpdvd63jcs0vefmnrh5p73fma.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skeen.hack",
+            "certificate_hash": "014920c860b6b261d97c20f473d701bf521afcca"
+          }
+        },
+        {
+          "client_id": "770305179619-gn2kot12m2ld7u5k8og59fjlpdh2cn9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB1eWJxfABm1-hBpBA3RaS3zd-7BqhfGvc"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770305179619-0hbgmeapjs8q31gi1sgge6dq1jve15sg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "770305179619-sh377smka8of5sldg29mgsf38vg7qhhe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skeen.hack"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,16 +1,40 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeen/cores/cores.dart';
 
+const String themeStorageKey = 'app_theme_mode';
+
 final themeModeProvider =
     StateNotifierProvider<ThemeModeNotifier, ThemeMode>((ref) {
-  return ThemeModeNotifier();
+  final sessionManager = ref.watch(sessionManagerProvider);
+  return ThemeModeNotifier(sessionManager);
 });
 
 class ThemeModeNotifier extends StateNotifier<ThemeMode> {
-  ThemeModeNotifier() : super(ThemeMode.system);
+  final SessionManager _sessionManager;
+
+  ThemeModeNotifier(this._sessionManager) : super(_initialThemeMode()) {
+    _loadSavedThemeMode();
+  }
+
+  static ThemeMode _initialThemeMode() {
+    return ThemeMode.system;
+  }
+
+  void _loadSavedThemeMode() async {
+    try {
+      final savedThemeIndex = _sessionManager.getBool(themeStorageKey);
+      if (savedThemeIndex != null) {
+        state = savedThemeIndex ? ThemeMode.dark : ThemeMode.light;
+      }
+    } catch (e) {
+      state = ThemeMode.system;
+    }
+  }
 
   void toggleTheme(ThemeMode mode) {
     state = mode;
+
+    _sessionManager.storeBool(themeStorageKey, mode == ThemeMode.dark);
   }
 }
 

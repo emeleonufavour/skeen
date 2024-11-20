@@ -53,7 +53,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeen/cores/cores.dart';
 import 'package:skeen/features/features.dart';
 
-// State notifier for logout process
 final logoutProvider =
     StateNotifierProvider<LogoutNotifier, AsyncValue<void>>((ref) {
   return LogoutNotifier(ref.read(authRemoteDataSourceProvider));
