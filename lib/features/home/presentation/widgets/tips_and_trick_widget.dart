@@ -4,24 +4,6 @@ import 'package:skeen/cores/cores.dart';
 import 'package:skeen/features/features.dart';
 
 List<Map<String, String>> carouselData = [
-  // {
-  //   "img": Assets.beautySleep,
-  //   "title": "Beauty Sleep",
-  //   "tip":
-  //       "Get 7-9 hours of sleep daily. Your skin repairs and renews itself while you rest.",
-  // },
-  // {
-  //   "img": Assets.exfoliation,
-  //   "title": "Smart Exfoliation",
-  //   "tip":
-  //       "Exfoliate 1-2 times weekly to remove dead skin cells. Less is more!",
-  // },
-  // {
-  //   "img": Assets.handsOff,
-  //   "title": "Hands Off!",
-  //   "tip":
-  //       "Keep your hands away from your face to prevent breakouts and bacteria transfer.",
-  // },
   {
     "img": Assets.healthyFood,
     "title": "Eat Well",

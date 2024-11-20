@@ -9,27 +9,30 @@ class HomeAppBar extends StatelessWidget {
       children: [
         kfsMedium.verticalSpace,
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Container(
-            //   padding: EdgeInsets.all(kMinute.w),
-            //   decoration: BoxDecoration(
-            //     shape: BoxShape.circle,
-            //     border: Border.all(color: Palette.text1),
-            //   ),
-            //   child: TextWidget(
-            //     name.initials,
-            //     fontWeight: w500,
-            //   ),
-            // ),
+            Container(
+              padding: EdgeInsets.all(kMinute.w),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Palette.text1),
+              ),
+              child: TextWidget(
+                name.initials,
+                fontWeight: w500,
+              ),
+            ),
             RichTextWidget(
-              text: 'Hello, You',
+              text: 'Hello, ',
               text2: name.toTitleCase,
               fontWeight: w500,
               fontWeight2: w600,
               textColor: Palette.text1,
               textColor2: Colors.black,
             ),
+            SizedBox(
+              width: 15.w,
+            )
             // Opacity(
             //   opacity: 0,
             //   child: Container(

@@ -9,25 +9,25 @@ final userDetailsNotifier =
 
 class GetUserNotifier extends Notifier<AppState<UserEntity>>
     with NotifierHelper<UserEntity> {
-  // late final HomeRepository _homeRepository;
+  late final HomeRepository _homeRepository;
 
   @override
   AppState<UserEntity> build() {
-    // _homeRepository = ref.read(homeRepositoryProvider);
+    _homeRepository = ref.read(homeRepositoryProvider);
 
     return AppState.initial();
   }
 
   void execute() async {
-    // final res = await _homeRepository.getUser();
+    final res = await _homeRepository.getUser();
 
-    // res.fold(
-    //   (l) {
-    //     notifyOnError(error: l, state_: state);
-    //   },
-    //   (r) {
-    //     notifyOnSuccess(state_: state, data: r);
-    //   },
-    // );
+    res.fold(
+      (l) {
+        notifyOnError(error: l, state_: state);
+      },
+      (r) {
+        notifyOnSuccess(state_: state, data: r);
+      },
+    );
   }
 }
