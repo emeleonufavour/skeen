@@ -1,14 +1,17 @@
 import 'package:flutter/gestures.dart';
-import 'package:skeen/cores/cores.dart';
+import 'package:flutter/material.dart';
+import 'package:skeen/cores/utils/sizer.dart';
+
+import '../constants/assets.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget(
     this.text, {
     super.key,
-    this.fontSize = kfsTiny,
-    this.textColor = Palette.text2,
-    this.fontWeight = w400,
-    this.textAlign = TextAlign.start,
+    this.fontSize,
+    this.textColor,
+    this.fontWeight,
+    this.textAlign,
     this.maxLines,
     this.overflow,
     this.decoration,
@@ -17,6 +20,7 @@ class TextWidget extends StatelessWidget {
     this.onTap,
     this.decorationColor,
     this.fontStyle,
+    this.letterSpacing,
   });
 
   final String text;
@@ -32,22 +36,26 @@ class TextWidget extends StatelessWidget {
   final String? fontFamily;
   final VoidCallback? onTap;
   final Color? decorationColor;
+  final double? letterSpacing;
 
   @override
   Widget build(BuildContext context) {
+    final defaultTextStyle = Theme.of(context).textTheme.bodyLarge;
+
     return GestureDetector(
       onTap: onTap,
       child: Text(
         text,
         style: TextStyle(
-          fontSize: fontSize!.sp,
+          fontSize: (fontSize ?? defaultTextStyle?.fontSize)?.sp,
           fontFamily: fontFamily ?? Assets.poppins,
-          color: textColor,
-          fontWeight: fontWeight,
+          color: textColor ?? defaultTextStyle?.color,
+          fontWeight: fontWeight ?? defaultTextStyle?.fontWeight,
           fontStyle: fontStyle,
           decoration: decoration,
           height: height,
           decorationColor: decorationColor,
+          letterSpacing: letterSpacing,
         ),
         textAlign: textAlign,
         overflow: overflow,
@@ -63,14 +71,14 @@ class RichTextWidget extends StatelessWidget {
     super.key,
     required this.text,
     required this.text2,
-    this.fontSize = kfsTiny,
-    this.fontSize2 = kfsTiny,
+    this.fontSize,
+    this.fontSize2,
     this.textColor,
     this.textColor2,
     this.textColor3,
-    this.fontWeight = w400,
-    this.fontWeight2 = w400,
-    this.textAlign = TextAlign.justify,
+    this.fontWeight,
+    this.fontWeight2,
+    this.textAlign,
     this.maxLines,
     this.overflow,
     this.decoration2,
@@ -104,50 +112,54 @@ class RichTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultTextStyle = Theme.of(context).textTheme.bodyLarge;
+
     return Text.rich(
-      textAlign: TextAlign.justify,
+      textAlign: textAlign ?? TextAlign.justify,
       maxLines: maxLines,
       TextSpan(
         text: text,
         style: TextStyle(
-          fontSize: fontSize!,
-          color: textColor,
-          fontWeight: fontWeight,
+          fontSize: (fontSize ?? defaultTextStyle?.fontSize)!.sp,
+          color: textColor ?? defaultTextStyle?.color,
+          fontWeight: fontWeight ?? defaultTextStyle?.fontWeight,
           fontFamily: fontFamily ?? Assets.poppins,
           overflow: overflow,
         ),
-        children: <InlineSpan>[
+        children: [
           TextSpan(
             text: text2,
             recognizer: onTap,
             style: TextStyle(
-              fontSize: fontSize2!,
-              color: textColor2,
+              fontSize: (fontSize2 ?? defaultTextStyle?.fontSize)!.sp,
+              color: textColor2 ?? defaultTextStyle?.color,
               fontFamily: fontFamily ?? Assets.poppins,
-              fontWeight: fontWeight2,
+              fontWeight: fontWeight2 ?? defaultTextStyle?.fontWeight,
               decoration: decoration2,
             ),
           ),
-          TextSpan(
-            text: text3,
-            style: TextStyle(
-              fontSize: fontSize2!,
-              color: textColor3,
-              fontFamily: fontFamily ?? Assets.poppins,
-              fontWeight: fontWeight2,
+          if (text3 != null)
+            TextSpan(
+              text: text3,
+              style: TextStyle(
+                fontSize: (fontSize2 ?? defaultTextStyle?.fontSize)!.sp,
+                color: textColor3 ?? defaultTextStyle?.color,
+                fontFamily: fontFamily ?? Assets.poppins,
+                fontWeight: fontWeight2 ?? defaultTextStyle?.fontWeight,
+              ),
             ),
-          ),
-          TextSpan(
-            text: text4,
-            recognizer: onTap1,
-            style: TextStyle(
-              fontSize: fontSize2!,
-              color: textColor2,
-              fontFamily: fontFamily ?? Assets.poppins,
-              fontWeight: fontWeight2,
-              decoration: decoration4,
+          if (text4 != null)
+            TextSpan(
+              text: text4,
+              recognizer: onTap1,
+              style: TextStyle(
+                fontSize: (fontSize2 ?? defaultTextStyle?.fontSize)!.sp,
+                color: textColor2 ?? defaultTextStyle?.color,
+                fontFamily: fontFamily ?? Assets.poppins,
+                fontWeight: fontWeight2 ?? defaultTextStyle?.fontWeight,
+                decoration: decoration4,
+              ),
             ),
-          ),
         ],
       ),
     );

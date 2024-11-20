@@ -3,6 +3,8 @@ import 'package:skeen/cores/cores.dart';
 class Palette {
   static const Color white = Color(0xffFFFFFF);
   static const Color black = Color(0xff000000);
+  static const Color grey = Color(0xff121212);
+  static Color darkGrey = Colors.grey.withOpacity(0.4);
   static const Color red = Colors.red;
   static const Color green = Colors.green;
   static const Color primaryColor = Color(0xffB36370);

@@ -66,6 +66,7 @@ class _Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -73,10 +74,10 @@ class _Tile extends StatelessWidget {
         margin: EdgeInsets.only(right: kfsVeryTiny.w),
         padding: const EdgeInsets.all(kfsVeryTiny),
         decoration: BoxDecoration(
-          color: Palette.white,
+          color: isDark ? Palette.grey : Palette.white,
           borderRadius: BorderRadius.circular(kfsMedium.w),
           border: Border.all(
-            color: Palette.borderColor,
+            color: isDark ? Colors.grey.withOpacity(0.4) : Palette.borderColor,
           ),
         ),
         child: Row(
@@ -86,7 +87,10 @@ class _Tile extends StatelessWidget {
               padding: EdgeInsets.all(4.h),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Palette.borderColor),
+                border: Border.all(
+                    color: isDark
+                        ? Colors.grey.withOpacity(0.4)
+                        : Palette.borderColor),
               ),
               child: ImageWidget(url: iconPath),
             ),
@@ -96,7 +100,7 @@ class _Tile extends StatelessWidget {
               children: [
                 TextWidget(
                   title,
-                  textColor: Palette.text2,
+                  textColor: isDark ? Palette.white : Palette.text2,
                   fontWeight: w500,
                 ),
                 TextWidget(

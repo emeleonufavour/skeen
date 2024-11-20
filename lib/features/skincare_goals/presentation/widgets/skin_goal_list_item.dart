@@ -17,11 +17,13 @@ class SkinGoalListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
       margin: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(
-        border: Border.all(color: Palette.borderColor),
+        border:
+            Border.all(color: isDark ? Palette.darkGrey : Palette.borderColor),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
       child: Row(
@@ -34,6 +36,7 @@ class SkinGoalListItem extends ConsumerWidget {
               TextWidget(
                 name,
                 fontWeight: w500,
+                textColor: isDark ? Colors.white : null,
               ),
               7.h.verticalSpace,
               if (frequency != null)

@@ -18,6 +18,7 @@ class TrackProductView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final products = ref.watch(skinCareProductProvider);
     final productsNotifier = ref.read(skinCareProductProvider.notifier);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: const CustomAppBar(title: "Track your product"),
       body: products.isEmpty
@@ -39,10 +40,12 @@ class TrackProductView extends ConsumerWidget {
                   padding: EdgeInsets.all(10.h),
                   margin: const EdgeInsets.symmetric(
                     horizontal: kGlobalPadding,
-                  ).copyWith(bottom: 10.h),
+                  ).copyWith(top: 15.h),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Palette.borderColor)),
+                      border: Border.all(
+                          color:
+                              isDark ? Palette.darkGrey : Palette.borderColor)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,12 +57,13 @@ class TrackProductView extends ConsumerWidget {
                           TextWidget(
                             products[index].name,
                             fontWeight: w500,
+                            textColor: isDark ? Colors.white : null,
                           ).padding(bottom: 7.h),
                           RichTextWidget(
                             text: "Expires:   ",
                             text2: formattedDate,
                             textColor: Palette.text1,
-                            textColor2: Colors.black,
+                            textColor2: isDark ? Palette.text1 : Colors.black,
                           )
                         ],
                       ),

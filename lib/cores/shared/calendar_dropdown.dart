@@ -43,6 +43,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         AnimatedContainer(
@@ -50,7 +51,8 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
           duration: const Duration(milliseconds: 500),
           height: _isDropDown ? 350.h + 58.h : 58.h,
           decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xffF1F1F1), width: 2),
+            border: Border.all(
+                color: isDark ? Palette.darkGrey : Color(0xffF1F1F1), width: 2),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -69,7 +71,7 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
                         TextWidget(
                           widget.text,
                           fontWeight: FontWeight.w500,
-                          textColor: Colors.black,
+                          // textColor: Colors.black,
                           fontSize: 12.sp,
                         ),
                         //trailing
@@ -118,14 +120,20 @@ class _CalendarDropdownState extends State<CalendarDropdown> {
                       }
                     },
                     iconColor: Theme.of(context).primaryColor,
+                    daysTextStyle: TextStyle(
+                      color: isDark ? Palette.text1 : Colors.black,
+                    ),
                     headerTextStyle: TextStyle(
-                        color: Colors.black, fontFamily: Assets.poppins),
+                        color: isDark ? Colors.white : Colors.black,
+                        fontFamily: Assets.poppins),
                     selectedDayTextStyle: TextStyle(
                         color: Colors.white, fontFamily: Assets.poppins),
                     weekendTextStyle: TextStyle(
-                        color: Colors.black, fontFamily: Assets.poppins),
+                        color: isDark ? Colors.white : Colors.black,
+                        fontFamily: Assets.poppins),
                     todayTextStyle: TextStyle(
-                        color: Colors.white, fontFamily: Assets.poppins),
+                        color: isDark ? Palette.text1 : Colors.white,
+                        fontFamily: Assets.poppins),
                     weekdayTextStyle: TextStyle(
                         color: Colors.grey, fontFamily: Assets.poppins),
                     thisMonthDayBorderColor: Colors.transparent,

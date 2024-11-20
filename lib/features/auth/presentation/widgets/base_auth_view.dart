@@ -72,7 +72,9 @@ class AuthView extends ConsumerWidget {
             kfs32.verticalSpace,
             Button.withBorderLine(
               onTap: googleAuthNotifier.execute,
-              borderColor: Palette.borderColor,
+              borderColor: Theme.of(context).brightness == Brightness.dark
+                  ? Palette.darkGrey
+                  : Palette.borderColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

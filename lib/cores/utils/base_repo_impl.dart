@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:skeen/cores/cores.dart';
 
@@ -18,23 +18,23 @@ mixin RepositoryErrorHandler {
           message: 'User cancelled operation',
         ),
       );
-      // } on FirebaseAuthException catch (e, s) {
-      //   AppLogger.log('$e $s', tag: 'FirebaseAuthException:');
-      //   return Either.left(CustomFirebaseException(e.code));
-      // } on FirebaseException catch (e, s) {
-      //   AppLogger.log('Error From Firebase: $e : Stack Trace $s');
-      //   return Either.left(CustomFirebaseException(e.code));
-      // } on SocketException {
-      //   return const Left(SocketFailures(message: ErrorText.noInternet));
-      // } on TimeoutException {
-      //   return const Left(BaseFailures(message: ErrorText.timeOutError));
-      // } catch (e, s) {
-      //   AppLogger.log('$e $s', tag: 'CATCH CALL ACTION');
-      //   if (e is BaseFailures) {
-      //     return Left(BaseFailures(message: e.message));
-      //   }
+    } on FirebaseAuthException catch (e, s) {
+      AppLogger.log('$e $s', tag: 'FirebaseAuthException:');
+      return Either.left(CustomFirebaseException(e.code));
+    } on FirebaseException catch (e, s) {
+      AppLogger.log('Error From Firebase: $e : Stack Trace $s');
+      return Either.left(CustomFirebaseException(e.code));
+    } on SocketException {
+      return const Left(SocketFailures(message: ErrorText.noInternet));
+    } on TimeoutException {
+      return const Left(BaseFailures(message: ErrorText.timeOutError));
+    } catch (e, s) {
+      AppLogger.log('$e $s', tag: 'CATCH CALL ACTION');
+      if (e is BaseFailures) {
+        return Left(BaseFailures(message: e.message));
+      }
 
-      // return Left(BaseFailures(message: e.toString()));
+      return Left(BaseFailures(message: e.toString()));
     }
   }
 }

@@ -1,21 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeen/cores/cores.dart';
+import 'package:skeen/features/home/presentation/notifier/get_user_notifier.dart';
 import 'package:skeen/features/settings/presentation/views/app_icon.dart';
 import 'package:skeen/features/settings/presentation/views/edit_profile_view.dart';
 import 'package:skeen/features/settings/presentation/views/help_view.dart';
 
 import '../../../auth/presentation/notifiers/logout_notifier.dart';
 import '../../../auth/presentation/views/sign_in_view.dart';
+import '../components/theme_bm.dart';
 
-class SettingsView extends ConsumerWidget {
+class SettingsView extends ConsumerStatefulWidget {
   const SettingsView({super.key});
 
   static const route = 'settings_view';
-  final name = 'Alexa Nurul';
+  // final name = 'Alexa Nurul';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SettingsView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends ConsumerState<SettingsView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(userDetailsNotifier.notifier).execute();
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final userDetails = ref.watch(userDetailsNotifier).data;
+    final name = userDetails?.fullName?.initials ?? "";
     return BaseScaffold(
       appBar: AppBar(
         title: TextWidget(
@@ -24,52 +41,54 @@ class SettingsView extends ConsumerWidget {
           fontSize: 16.sp,
         ),
         centerTitle: true,
-        actions: const [
-          // Padding(
-          //   padding: EdgeInsets.only(right: kfsMedium, top: kfsMedium),
-          //   child: TextWidget(
-          //     "Logout",
-          //     fontWeight: w500,
-          //     textColor: Palette.borderColor,
-          //   ),
-          // )
-        ],
+        // actions: const [
+        //   Padding(
+        //     padding: EdgeInsets.only(right: kfsMedium, top: kfsMedium),
+        //     child: TextWidget(
+        //       "Logout",
+        //       fontWeight: w500,
+        //       textColor: Palette.borderColor,
+        //     ),
+        //   )
+        // ],
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Column(
-          //   children: [
-          //     Container(
-          //       padding: EdgeInsets.all(kfsTiny.w),
-          //       decoration: const BoxDecoration(
-          //         shape: BoxShape.circle,
-          //         color: Palette.bg1,
-          //       ),
-          //       child: TextWidget(
-          //         name.initials,
-          //         fontWeight: w500,
-          //       ),
-          //     ),
-          //     TextWidget(
-          //       name,
-          //       fontWeight: w600,
-          //       fontSize: 16.sp,
-          //     ),
-          //     TextWidget(
-          //       "Alexanurul1489@gmail.com".toLowerCase(),
-          //       fontWeight: w400,
-          //       fontSize: 12.sp,
-          //       textColor: Palette.text1,
-          //     ),
-          //     SizedBox(
-          //       width: screenWidth / 3.5,
-          //       child: Button.smallSized(
-          //         onTap: () => goTo(EditProfileView.route),
-          //         text: "Edit profile",
-          //       ),
-          //     ),
-          //   ].separate(12.h.verticalSpace),
-          // ),
+          Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(kfsTiny.w),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Palette.bg1,
+                ),
+                child: TextWidget(
+                  name,
+                  fontWeight: w500,
+                ),
+              ),
+              TextWidget(
+                name,
+                fontWeight: w600,
+                fontSize: 16.sp,
+              ),
+              TextWidget(
+                userDetails?.email?.toLowerCase() ?? "",
+                fontWeight: w400,
+                fontSize: 12.sp,
+                textColor: Palette.text1,
+              ),
+              SizedBox(
+                width: screenWidth / 3.5,
+                child: Button.smallSized(
+                  onTap: () => goTo(EditProfileView.route),
+                  text: "Edit profile",
+                ),
+              ),
+            ].separate(12.h.verticalSpace),
+          ),
           30.h.verticalSpace,
           // _SettingsOption(
           //   option: "App icon",
@@ -81,6 +100,27 @@ class SettingsView extends ConsumerWidget {
           //   ),
           // ),
           _SettingsOption(
+              option: "Change theme",
+              iconBackgroundColor: const Color(0xffDD5380),
+              icon: const Icon(Icons.brightness_3_rounded),
+              onTap: () => showModalBottomSheet(
+                  context: context,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(kfsMedium)),
+                  ),
+                  builder: (context) {
+                    return LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        return Container(
+                            constraints:
+                                BoxConstraints(maxHeight: screenHeight * 0.25),
+                            child: const ThemeSelectionBottomSheet());
+                      },
+                    );
+                  })),
+          _SettingsOption(
             option: "Help and support",
             iconBackgroundColor: const Color(0xffDD5380),
             onTap: () => goTo(HelpSettingsView.route),
@@ -89,7 +129,8 @@ class SettingsView extends ConsumerWidget {
               color: Palette.white,
             ),
           ),
-          LogoutButton(),
+          (screenHeight * .22).h.verticalSpace,
+          const LogoutButton(),
         ],
       ),
       useSingleScroll: true,
@@ -143,10 +184,7 @@ class _SettingsOption extends ConsumerWidget {
 class LogoutButton extends ConsumerWidget {
   const LogoutButton({
     super.key,
-    this.style = LogoutButtonStyle.icon,
   });
-
-  final LogoutButtonStyle style;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -155,22 +193,10 @@ class LogoutButton extends ConsumerWidget {
       (_, state) {
         state.whenOrNull(
           error: (error, _) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  error.toString(),
-                  style: const TextStyle(color: Colors.white),
-                ),
-                backgroundColor: Colors.red,
-              ),
-            );
+            Toast.showErrorToast(message: error.toString());
           },
           data: (_) {
             clearPath(SignInView.route);
-            // Navigator.of(context).pushNamedAndRemoveUntil(
-            //   LoginView.route,
-            //   (route) => false,
-            // );
           },
         );
       },
@@ -178,58 +204,12 @@ class LogoutButton extends ConsumerWidget {
 
     final isLoading = ref.watch(logoutProvider).isLoading;
 
-    switch (style) {
-      case LogoutButtonStyle.icon:
-        return IconButton(
-          onPressed: isLoading ? null : _showLogoutDialog(context, ref),
-          icon: isLoading
-              ? const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : const Icon(Icons.logout),
-          tooltip: 'Logout',
-        );
-
-      case LogoutButtonStyle.text:
-        return TextButton(
-          onPressed: isLoading ? null : _showLogoutDialog(context, ref),
-          child: isLoading
-              ? const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : const Text('Logout'),
-        );
-
-      case LogoutButtonStyle.filled:
-        return FilledButton(
-          onPressed: isLoading ? null : _showLogoutDialog(context, ref),
-          style: FilledButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.error,
-            foregroundColor: Colors.white,
-          ),
-          child: isLoading
-              ? const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Colors.white,
-                  ),
-                )
-              : const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.logout, size: 20),
-                    SizedBox(width: 8),
-                    Text('Logout'),
-                  ],
-                ),
-        );
-    }
+    return Button(
+        text: "Sign out",
+        height: 50.h,
+        width: 150.w,
+        color: Colors.red,
+        onTap: isLoading ? null : _showLogoutDialog(context, ref));
   }
 
   VoidCallback _showLogoutDialog(BuildContext context, WidgetRef ref) {
@@ -237,33 +217,33 @@ class LogoutButton extends ConsumerWidget {
       showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Are you sure you want to logout?'),
+          title: const TextWidget('Sign out'),
+          content: const TextWidget('Are you sure you want to logout?'),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              onPressed: () => goBack(),
+              child: const TextWidget('Cancel'),
             ),
             FilledButton(
               onPressed: () {
-                Navigator.pop(context);
+                goBack();
                 ref.read(logoutProvider.notifier).logout();
+                Toast.showSuccessToast(
+                  message: 'Signed out successfully',
+                );
               },
               style: FilledButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.error,
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Logout'),
+              child: const TextWidget(
+                'Sign out',
+                textColor: Colors.white,
+              ),
             ),
           ],
         ),
       );
     };
   }
-}
-
-enum LogoutButtonStyle {
-  icon,
-  text,
-  filled,
 }

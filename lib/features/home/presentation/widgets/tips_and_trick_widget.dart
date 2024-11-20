@@ -64,7 +64,7 @@ class TipsAndTrickWidget extends ConsumerWidget {
         return
             // tipsAndTricksState.status == StateStatus.success
             //     ?
-            __widget(tip, index);
+            __widget(tip, index, context);
         // : Shimmer.fromColors(
         //     highlightColor: Colors.grey[300]!,
         //     baseColor: Colors.grey[200]!,
@@ -74,7 +74,7 @@ class TipsAndTrickWidget extends ConsumerWidget {
     ).padding(horizontal: kfsExtraLarge - 7);
   }
 
-  Widget __widget(TipsAndTricksEntity? tip, int index) {
+  Widget __widget(TipsAndTricksEntity? tip, int index, BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         bottomRight: Radius.circular(kfsMedium),
@@ -84,7 +84,9 @@ class TipsAndTrickWidget extends ConsumerWidget {
           Container(
             width: screenWidth,
             decoration: BoxDecoration(
-              color: Palette.bg2,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xffC8A9AC)
+                  : Palette.bg2,
               borderRadius: BorderRadius.circular(kfsMedium.w),
             ),
             child: Row(
@@ -95,9 +97,18 @@ class TipsAndTrickWidget extends ConsumerWidget {
                     TextWidget(
                       tip?.title ?? '',
                       fontWeight: w700,
-                      fontSize: kfsExtraLarge,
+                      fontSize: kfsExtraLarge.sp,
+                      textColor:
+                          Theme.of(context).textTheme.displayLarge?.color ??
+                              Palette.black,
                     ),
-                    TextWidget(tip?.description ?? '')
+                    TextWidget(
+                      tip?.description ?? '',
+                      fontSize: 14.sp,
+                      textColor:
+                          Theme.of(context).textTheme.displayLarge?.color ??
+                              Palette.black,
+                    )
                   ],
                 )
                     .padding(left: kGlobalPadding - 7, top: kXtremeLarge)

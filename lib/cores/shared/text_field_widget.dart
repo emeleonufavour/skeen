@@ -46,6 +46,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ValueListenableBuilder(
       valueListenable: obscureText,
       builder: (_, value, __) {
@@ -59,7 +60,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               style: TextStyle(
                 fontFamily: Assets.poppins,
                 fontSize: kfsTiny.sp,
-                color: Palette.text2,
+                color: isDark ? Palette.text1 : Palette.text2,
               ),
               maxLines: widget.isPassword ? 1 : widget.maxLines,
               obscureText: value && widget.isPassword,
@@ -124,9 +125,11 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   OutlineInputBorder get _border {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(kfsVeryTiny),
-      borderSide: const BorderSide(
+      borderSide: BorderSide(
         style: BorderStyle.solid,
-        color: Palette.borderColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Palette.darkGrey
+            : Palette.borderColor,
       ),
     );
   }

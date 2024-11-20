@@ -31,7 +31,7 @@ class DropDownWidget extends StatelessWidget {
         children: [
           label != null
               ? TextWidget(
-                  textColor: const Color(0xff101828),
+                  // textColor: const Color(0xff101828),
                   label!,
                   fontWeight: w500,
                   fontSize: kfsTiny.sp,
@@ -84,6 +84,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return AnimatedContainer(
       width: double.maxFinite,
       duration: duration300,
@@ -91,7 +92,9 @@ class _CustomDropdownState extends State<_CustomDropdown> {
           ? (_unitHeight * widget.dropDownList.length) + 58.h
           : 58.h,
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xffF1F1F1), width: 2),
+        border: Border.all(
+            color: isDark ? Palette.darkGrey : const Color(0xffF1F1F1),
+            width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -114,7 +117,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
                     TextWidget(
                       widget.hintText,
                       fontWeight: FontWeight.w500,
-                      textColor: Colors.black,
+                      // textColor: Colors.black,
                       fontSize: 12.sp,
                     ),
                     //trailing
@@ -184,7 +187,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
                               horizontal: kfsMedium, vertical: kfsVeryTiny),
                           child: TextWidget(
                             item,
-                            textColor: const Color(0xff0D0D0D),
+                            // textColor: const Color(0xff0D0D0D),
                             fontWeight: w500,
                             fontSize: kfsVeryTiny.sp,
                           ),

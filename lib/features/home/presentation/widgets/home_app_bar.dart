@@ -28,7 +28,8 @@ class HomeAppBar extends StatelessWidget {
               fontWeight: w500,
               fontWeight2: w600,
               textColor: Palette.text1,
-              textColor2: Colors.black,
+              textColor2:
+                  Theme.of(context).textTheme.bodyLarge?.color ?? Palette.black,
             ),
             SizedBox(
               width: 15.w,

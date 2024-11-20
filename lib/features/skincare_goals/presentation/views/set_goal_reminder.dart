@@ -74,6 +74,7 @@ class SetRoutineReminder extends ConsumerWidget {
                 ),
                 child: TextWidget(
                   days[i],
+                  fontSize: 13.sp,
                   textColor: isSelected ? Colors.white : Palette.text1,
                 ),
               ),

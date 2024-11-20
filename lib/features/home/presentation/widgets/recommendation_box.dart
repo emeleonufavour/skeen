@@ -27,15 +27,17 @@ class RecommendationBox extends StatelessWidget {
       builder: (context, constraints) {
         final imageHeight = constraints.maxHeight * 0.5; // 50% for image
         final contentHeight = constraints.maxHeight * 0.45; // 50% for content
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        final darkCardColor = Palette.grey.withOpacity(0.2);
 
         return GestureDetector(
           onTap: onTap,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(kfsExtraLarge.w),
-              color: Palette.white,
+              color: isDark ? darkCardColor : Palette.white,
               border: Border.all(
-                color: Palette.borderColor,
+                color: isDark ? Palette.darkGrey : Palette.borderColor,
               ),
             ),
             clipBehavior: Clip.hardEdge,
@@ -48,7 +50,7 @@ class RecommendationBox extends StatelessWidget {
                   width: double.infinity,
                   child: ImageWidget(
                     url: imagePath,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 // Content Section
@@ -81,7 +83,8 @@ class RecommendationBox extends StatelessWidget {
                         TextWidget(
                           title,
                           fontWeight: w500,
-                          textColor: Palette.text2,
+                          fontSize: 12.sp,
+                          // textColor: Palette.text2,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),

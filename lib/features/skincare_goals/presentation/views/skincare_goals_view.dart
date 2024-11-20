@@ -68,9 +68,8 @@ class SkincareGoalsView extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => SetYourGoalsBs.show(context),
-        child: ImageWidget(url: Assets.add),
-      ),
+          onPressed: () => SetYourGoalsBs.show(context),
+          child: Icon(Icons.add)),
       useSingleScroll: false,
     );
   }

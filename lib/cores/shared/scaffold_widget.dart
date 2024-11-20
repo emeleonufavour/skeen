@@ -49,7 +49,7 @@ class BaseScaffold extends StatelessWidget {
       key: scaffoldKey,
       appBar: appBar,
       resizeToAvoidBottomInset: resizeToAvoidInsets,
-      backgroundColor: bg ?? Palette.backgroundColor,
+      backgroundColor: bg ?? Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         top: safeAreaTop ?? true,
         bottom: false,

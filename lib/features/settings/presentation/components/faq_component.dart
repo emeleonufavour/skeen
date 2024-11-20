@@ -61,7 +61,7 @@ class _CustomDropdownState extends State<_CustomDropdown> {
                       TextWidget(
                         widget.text,
                         fontWeight: FontWeight.w500,
-                        textColor: Colors.black,
+                        // textColor: Colors.black,
                         fontSize: 12.sp,
                       ),
                       //trailing
@@ -84,7 +84,10 @@ class _CustomDropdownState extends State<_CustomDropdown> {
           ),
           AnimatedCrossFade(
             firstChild: const SizedBox(),
-            secondChild: TextWidget(widget.content),
+            secondChild: TextWidget(
+              widget.content,
+              fontSize: 14.sp,
+            ),
             crossFadeState: _isDropDown
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,

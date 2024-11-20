@@ -29,7 +29,9 @@ class NavBarView extends ConsumerWidget {
       bottomNavigationBar: Container(
         height: screenHeight * .1,
         decoration: BoxDecoration(
-          color: Palette.white,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Palette.grey
+              : Palette.white,
           boxShadow: [
             BoxShadow(
               color: Palette.primaryColor.withOpacity(.02),

@@ -20,6 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return AppBar(
       elevation: 0.0,
       toolbarHeight: toolBarHeight,
@@ -28,13 +29,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.all(8),
             margin: const EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
-                border: Border.all(color: Palette.borderColor),
+                border: Border.all(
+                    color: isDark ? Palette.text1 : Palette.borderColor),
                 shape: BoxShape.circle),
-            child: const IconButton(
+            child: IconButton(
               onPressed: goBack,
               icon: Icon(
                 CupertinoIcons.back,
-                color: Colors.black,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Palette.text1
+                    : Colors.black,
               ),
             ),
           ),

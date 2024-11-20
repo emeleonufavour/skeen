@@ -58,24 +58,41 @@ class ChatBotView extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text("Clear Chat History"),
-                    content: const Text(
+                    title: const TextWidget("Clear Chat History"),
+                    content: const TextWidget(
                         "Are you sure you want to clear all chat history?"),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: const Text("Cancel"),
+                        child: const TextWidget("Cancel"),
                       ),
-                      TextButton(
+                      FilledButton(
                         onPressed: () {
                           ref.read(chatBotProvider.notifier).clearChat();
-                          Navigator.pop(context);
+                          goBack();
                           Toast.showSuccessToast(
                             message: 'Chat history cleared',
                           );
                         },
-                        child: const Text("Clear"),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.error,
+                          foregroundColor: Colors.white,
+                        ),
+                        child: const TextWidget(
+                          'Clear',
+                          textColor: Colors.white,
+                        ),
                       ),
+                      // TextButton(
+                      //   onPressed: () {
+                      //     ref.read(chatBotProvider.notifier).clearChat();
+                      //     Navigator.pop(context);
+                      //     Toast.showSuccessToast(
+                      //       message: 'Chat history cleared',
+                      //     );
+                      //   },
+                      //   child: const Text("Clear"),
+                      // ),
                     ],
                   ),
                 );
