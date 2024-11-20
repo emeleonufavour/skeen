@@ -17,20 +17,20 @@ class RouteGenerator {
       case OnboardingView.route:
         return pageRoute(const OnboardingView());
 
-      // case SignInView.route:
-      //   return pageRoute(const SignInView());
+      case SignInView.route:
+        return pageRoute(const SignInView());
 
-      // case SignUpView.route:
-      //   return pageRoute(const SignUpView());
+      case SignUpView.route:
+        return pageRoute(const SignUpView());
 
-      // case ForgotPasswordView.route:
-      //   return pageRoute(const ForgotPasswordView());
+      case ForgotPasswordView.route:
+        return pageRoute(const ForgotPasswordView());
 
-      // case VerificationView.route:
-      //   final String mail = args as String;
-      //   return pageRoute(
-      //     VerificationView(mail: mail),
-      //   );
+      case VerificationView.route:
+        final String mail = args as String;
+        return pageRoute(
+          VerificationView(mail: mail),
+        );
 
       case MedicalHistoryView.route:
         return pageRoute(const MedicalHistoryView());

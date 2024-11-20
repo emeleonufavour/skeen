@@ -1,16 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:skeen/cores/errors/base_failures.dart';
-import 'package:skeen/cores/utils/exception/firebase_exception.dart';
-import 'package:skeen/cores/utils/supabase_helper.dart';
+import 'package:skeen/cores/utils/firebase_helper.dart';
 import 'package:skeen/features/auth/data/model/auth_result_model.dart';
 import 'package:skeen/features/auth/data/model/sign_up_params_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-// final supabaseClient = Supabase.instance.client;
+// W/Firestore( 5009): (25.1.1) [WriteStream]: (943d0db) Stream closed with
+// status: Status{code=PERMISSION_DENIED, description=Cloud Firestore API has not
+//  been used in project skeen-440308 before or it is disabled. Enable it by
+//  visiting
+//  https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=skeen-440308 then retry.
+// If you enabled this API recently, wait a few minutes for the action to propagate
+// to our systems and retry., cause=null}.
 
 final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>(
   (ref) => AuthRemoteDataSourceImpl(
-    supabaseHelper: SupabaseHelper(),
+    firebaseHelper: FirebaseHelper(),
   ),
 );
 
@@ -24,97 +30,131 @@ abstract interface class AuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
-  final SupabaseHelper _supabaseHelper;
+  final FirebaseHelper _firebaseHelper;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   AuthRemoteDataSourceImpl({
-    required SupabaseHelper supabaseHelper,
-  }) : _supabaseHelper = supabaseHelper;
+    required FirebaseHelper firebaseHelper,
+  }) : _firebaseHelper = firebaseHelper;
 
   @override
   Future<void> forgotPassword(String email) async {
-    await _supabaseHelper.client.auth.resetPasswordForEmail(
-      email,
-      redirectTo: 'your-app-scheme://reset-callback',
+    await _auth.sendPasswordResetEmail(
+      email: email,
     );
   }
 
   @override
   Future<void> logOut() async {
-    await _supabaseHelper.client.auth.signOut();
+    await _auth.signOut();
+    await _googleSignIn.signOut();
   }
 
   @override
   Future<AuthResultModel> login(String email, String password) async {
-    final response = await _supabaseHelper.client.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    if (response.user == null) {
-      throw const BaseFailures(
-        message: "Unable to login user with this credential",
+      if (credential.user == null) {
+        throw const BaseFailures(
+          message: "Unable to login user with this credential",
+        );
+      }
+
+      return const AuthResultModel(
+        success: true,
+        message: 'Login successful!',
+      );
+    } on FirebaseAuthException catch (e) {
+      throw BaseFailures(
+        message: e.message ?? "An error occurred during login",
       );
     }
-
-    return const AuthResultModel(
-      success: true,
-      message: 'Login successful!',
-    );
   }
 
   @override
   Future<AuthResultModel> signUp(SignUpParamsModel signUpForm) async {
-    final response = await _supabaseHelper.client.auth.signUp(
-      email: signUpForm.email,
-      password: signUpForm.password,
-      data: {'full_name': signUpForm.fullName},
-    );
+    try {
+      final credential = await _auth.createUserWithEmailAndPassword(
+        email: signUpForm.email,
+        password: signUpForm.password,
+      );
 
-    if (response.user == null) {
-      throw const BaseFailures(
-        message: "Unable to create account with this credential",
+      if (credential.user == null) {
+        throw const BaseFailures(
+          message: "Unable to create account with this credential",
+        );
+      }
+
+      // Update display name
+      await credential.user!.updateDisplayName(signUpForm.fullName);
+
+      // Save additional user data
+      await _firebaseHelper.saveUser(
+        user: credential.user!,
+        fullName: signUpForm.fullName,
+      );
+
+      return const AuthResultModel(
+        success: true,
+        message: 'Account created successfully!',
+      );
+    } on FirebaseAuthException catch (e) {
+      throw BaseFailures(
+        message: e.message ?? "An error occurred during sign up",
       );
     }
-
-    await _supabaseHelper.saveUser(
-      user: response.user!,
-      fullName: signUpForm.fullName,
-    );
-
-    return const AuthResultModel(
-      success: true,
-      message: 'Account created successfully!',
-    );
   }
 
   @override
   Future<AuthResultModel> signInWithGoogle() async {
-    final response = await _supabaseHelper.client.auth.signInWithOAuth(
-      OAuthProvider.google,
-      redirectTo: 'your-app-scheme://google-callback',
-    );
+    try {
+      // Trigger the Google Sign In process
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
-    if (!response) {
-      throw const NoGoogleAccountChosenException();
-    }
+      if (googleUser == null) {
+        throw const BaseFailures(
+          message: "No Google account chosen",
+        );
+      }
 
-    // The user info will be available after the OAuth callback
-    final user = _supabaseHelper.client.auth.currentUser;
-    if (user != null) {
-      await _supabaseHelper.saveUser(
-        user: user,
-        authType: 'google',
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Sign in to Firebase with the Google credential
+      final userCredential = await _auth.signInWithCredential(credential);
+
+      if (userCredential.user != null) {
+        await _firebaseHelper.saveUser(
+          user: userCredential.user!,
+          authType: 'google',
+        );
+      }
+
+      return const AuthResultModel(
+        message: 'Google sign in successful!',
+        success: true,
+      );
+    } catch (e) {
+      throw BaseFailures(
+        message: e.toString(),
       );
     }
-
-    return const AuthResultModel(
-      message: 'Google sign in successful!',
-      success: true,
-    );
   }
 
   @override
   Future<bool> isLoggedIn() async {
-    return _supabaseHelper.currentUserId != null;
+    return _firebaseHelper.currentUserId != null;
   }
 }

@@ -13,6 +13,19 @@ class SignUpView extends ConsumerStatefulWidget {
 
 class _SignUpViewState extends ConsumerState<SignUpView> {
   final key = GlobalKey<FormState>();
+  bool _autoValidate = false;
+
+  void _handleSignUp() {
+    setState(() => _autoValidate = true);
+
+    if (key.currentState?.validate() ?? false) {
+      ref.read(signUpProvider.notifier).signUp(
+            email: _email.text.trim(),
+            fullName: _fullName.text.trim(),
+            password: _password.text,
+          );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +40,9 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
 
     return Form(
       key: key,
+      autovalidateMode: _autoValidate
+          ? AutovalidateMode.onUserInteraction
+          : AutovalidateMode.disabled,
       child: AuthView(
         heading: "Create Account",
         description:
@@ -37,7 +53,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
             hintText: "Full name",
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
-            // validator: (v) => v!.validateFullName,
+            validator: (v) => v!.validateFullName,
           ),
           TextFieldWidget(
             textController: _email,
@@ -52,15 +68,16 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
             isPassword: true,
             keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
-            onSubmit: (_) {
-              if (key.currentState?.validate() ?? false) {
-                signUpNotifier.signUp(
-                  email: _email.text,
-                  fullName: _fullName.text,
-                  password: _password.text,
-                );
-              }
-            },
+            onSubmit: (_) => _handleSignUp(),
+            // onSubmit: (_) {
+            //   if (key.currentState?.validate() ?? false) {
+            //     signUpNotifier.signUp(
+            //       email: _email.text,
+            //       fullName: _fullName.text,
+            //       password: _password.text,
+            //     );
+            //   }
+            // },
             shouldShowPasswordValidator: true,
           ),
         ],

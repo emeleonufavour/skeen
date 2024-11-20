@@ -104,56 +104,82 @@ extension NameInitials on String {
 
 extension ValidatingExtensions on String {
   String? validateAnyField({String? field}) {
-    if (toString().isEmpty) {
-      return '$field field is required ';
-    } else {
-      return null;
+    if (trim().isEmpty) {
+      return '${field ?? "This"} field is required';
     }
+    return null;
   }
 
   String? get validatePhoneNumber {
-    if (isEmpty) {
+    if (trim().isEmpty) {
       return 'Phone number is required';
     }
 
-    final pattern = RegExp(r'^\+?[0-9]{8,}$');
+    // Supports international format with or without '+' prefix
+    // Minimum 8 digits, maximum 15 digits (international standard)
+    final pattern = RegExp(r'^\+?[0-9]{8,15}$');
 
-    if (pattern.hasMatch(this)) {
-      return null;
-    } else {
-      return 'Invalid phone number';
+    if (!pattern.hasMatch(this)) {
+      return 'Please enter a valid phone number';
     }
+    return null;
   }
 
   String? get validateFullName {
-    if (toString().isEmpty) {
+    if (trim().isEmpty) {
       return 'Full Name is required';
     }
 
-    final RegExp pattern =
-        RegExp(r'^[a-zA-Z]+(?:\.[a-zA-Z]+)* [a-zA-Z]+(?:\.[a-zA-Z]+)*$');
+    final RegExp pattern = RegExp(r"^[A-Za-z\'\-]{2,}(?: [A-Za-z\'\-]{2,})+$");
 
-    if (pattern.hasMatch(this)) {
-      return null;
-    } else {
-      return 'Full Name should contain at least 2 words';
+    if (!pattern.hasMatch(this)) {
+      return 'Please enter your full name (first & last name)';
     }
+    return null;
   }
 
   String? get validateEmail {
-    if (toString().isEmpty) {
+    if (trim().isEmpty) {
       return 'Email is required';
     }
 
+    // RFC 5322 compliant email regex
     final pattern = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
     );
 
-    if (pattern.hasMatch(this)) {
-      return null;
-    } else {
-      return 'Invalid email';
+    if (!pattern.hasMatch(this)) {
+      return 'Please enter a valid email address';
     }
+    return null;
+  }
+
+  String? validatePassword() {
+    if (trim().isEmpty) {
+      return 'Password is required';
+    }
+
+    if (length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+
+    if (!contains(RegExp(r'[A-Z]'))) {
+      return 'Password must contain at least one uppercase letter';
+    }
+
+    if (!contains(RegExp(r'[a-z]'))) {
+      return 'Password must contain at least one lowercase letter';
+    }
+
+    if (!contains(RegExp(r'[0-9]'))) {
+      return 'Password must contain at least one number';
+    }
+
+    if (!contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return 'Password must contain at least one special character';
+    }
+
+    return null;
   }
 }
 

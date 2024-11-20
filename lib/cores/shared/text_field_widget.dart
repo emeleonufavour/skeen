@@ -183,12 +183,13 @@ class _PasswordValidatorWidget extends StatelessWidget {
 
   static bool updateValidation(String password) {
     final newValidations = [
+      password.length >= 8,
       password.contains(RegExp(r'[A-Z]')),
       password.contains(RegExp(r'[a-z]')),
       password.contains(RegExp(r'[0-9]')),
-      password.length >= 8,
     ];
     _validations.value = newValidations;
+    AppLogger.log("validation => $newValidations");
     return newValidations.every((isValid) => isValid);
   }
 

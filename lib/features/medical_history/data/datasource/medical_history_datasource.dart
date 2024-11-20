@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:skeen/cores/cores.dart';
@@ -7,10 +8,11 @@ import 'package:skeen/features/features.dart';
 
 // Providers
 
+// Medical History Data Source Provider
 final medicalHistoryRemoteDataSourceProvider =
     Provider<MedicalHistoryDatasource>(
   (ref) => MedicalHistoryDataSourceImpl(
-    supabaseHelper: SupabaseHelper(),
+    firebaseHelper: FirebaseHelper(),
   ),
 );
 
@@ -20,21 +22,22 @@ abstract class MedicalHistoryDatasource {
 }
 
 class MedicalHistoryDataSourceImpl extends MedicalHistoryDatasource {
-  final SupabaseHelper supabaseHelper;
+  final FirebaseHelper firebaseHelper;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   MedicalHistoryDataSourceImpl({
-    required this.supabaseHelper,
+    required this.firebaseHelper,
   });
 
   @override
   Future<BaseModel> uploadMedicalHistory(Map<String, dynamic> answers) async {
-    final String? userId = supabaseHelper.currentUserId;
+    final String? userId = _auth.currentUser?.uid;
 
     if (userId == null) {
       throw const BaseFailures(message: "User not authenticated");
     }
 
-    await supabaseHelper.insertMedicalHistory(
+    await firebaseHelper.insertMedicalHistory(
       userId: userId,
       data: answers,
     );
