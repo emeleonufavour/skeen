@@ -7,6 +7,7 @@ class ChatBubbleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Align(
       alignment: bubble.isServer ? Alignment.centerLeft : Alignment.centerRight,
       child: AnimatedContainer(
@@ -31,7 +32,9 @@ class ChatBubbleWidget extends StatelessWidget {
               text: (bubble.text).isEmpty ? "  " : bubble.text,
               sentAt: "",
               style: TextStyle(
-                color: bubble.isServer ? Colors.black : Colors.white,
+                color: bubble.isServer
+                    ? (isDark ? Colors.white : Colors.black)
+                    : Colors.white,
                 fontSize: 14.sp,
                 fontFamily: Assets.poppins,
               ),

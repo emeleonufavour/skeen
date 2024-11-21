@@ -17,6 +17,7 @@ class ChatTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       children: [
         // GestureDetector(
@@ -37,7 +38,7 @@ class ChatTextField extends StatelessWidget {
             onFieldSubmitted: onFieldSubmitted,
             style: TextStyle(
                 fontFamily: Assets.poppins,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.black,
                 fontSize: kfsTiny.sp),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -50,17 +51,17 @@ class ChatTextField extends StatelessWidget {
                   fontWeight: w400),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
+                borderSide: BorderSide(
                     width: 2,
                     style: BorderStyle.solid,
-                    color: Palette.borderColor),
+                    color: isDark ? Palette.darkGrey : Palette.borderColor),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
+                borderSide: BorderSide(
                     width: 2,
                     style: BorderStyle.solid,
-                    color: Palette.borderColor),
+                    color: isDark ? Palette.darkGrey : Palette.borderColor),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
