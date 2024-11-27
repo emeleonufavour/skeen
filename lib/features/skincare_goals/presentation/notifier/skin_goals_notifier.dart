@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeen/cores/cores.dart';
 import 'package:skeen/features/features.dart';
 
-part 'skin_goals_state.dart';
+part '../../data/model/skin_goals_state.dart';
 
 class SkinGoalsNotifier extends StateNotifier<SkinGoalsState> {
   final SessionManager _sessionManager;

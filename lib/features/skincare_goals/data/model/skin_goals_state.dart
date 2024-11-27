@@ -1,4 +1,4 @@
-part of 'skin_goals_notifier.dart';
+part of '../../presentation/notifier/skin_goals_notifier.dart';
 
 class SkinGoalsState {
   List<SkinGoalState> routines;
