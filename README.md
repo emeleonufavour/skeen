@@ -68,6 +68,8 @@ A Mobile Application that helps with your skincare routine.
 [![Twitter Follow](https://img.shields.io/twitter/follow/tosinSpace.svg?style=social)]
 (https://x.com/tosinSpace)
 
+[**Download the Android APK here 💪**](https://drive.google.com/file/d/19DV_TfYHUqP7wHIGOHjaN2sOodQZA1oD/view?usp=sharing)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
