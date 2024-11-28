@@ -23,13 +23,14 @@ class SelectImageOptionsBS extends ConsumerStatefulWidget {
 class _SelectImageOptionsBSState extends ConsumerState<SelectImageOptionsBS> {
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(
         horizontal: kfsExtraLarge,
         vertical: kXtremeLarge,
       ),
       alignment: Alignment.bottomCenter,
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Palette.text2 : Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(kXtremeLarge),
       ),
